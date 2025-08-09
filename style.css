@@ -1,0 +1,219 @@
+:root {
+    --color: #292a2c;
+    --color-bg: #fffefb;
+    --color-blobs: #4b85f9;
+
+    --nav-radius: 0;
+
+    --color-accent: #2d4f94;
+
+    /* #082234 */
+}
+
+@font-face {
+    font-family: serif-font;
+    src: url("./dm_serif.ttf");
+}
+
+html, body {
+    height: 100%;
+    font-size: 18px;
+    color: var(--color);
+    background: var(--color-bg);
+    overflow: hidden;
+}
+
+::selection {
+    background: var(--color-accent);
+    color: var(--color-bg);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+    box-sizing: border-box;
+    font-family: serif-font, serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+header {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    gap: 5px;
+}
+
+nav, #inverted-nav {
+    padding: 2px 0;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+a {
+    cursor: pointer;
+    color: inherit;
+    outline: none;
+}
+
+nav a, #inverted-nav a {
+    position: relative;
+    width: max-content;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 0 7.5px;
+    text-align: center;
+}
+
+nav a:first-child, #inverted-nav a:first-child {
+    margin-left: 6px;
+}
+
+nav a:last-of-type, #inverted-nav a:last-child {
+    margin-right: 6px;
+}
+
+#inverted-nav {
+    background: var(--color);
+    position: absolute;
+    pointer-events: none;
+    transition: clip-path 0.3s ease;
+    inset: 0;
+}
+
+#inverted-nav a {
+    color: var(--color-bg);
+}
+
+section {
+    position: fixed;
+    inset: 0;
+    top: 100px;
+    padding: 50px;
+    overflow: auto;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    margin: 0 auto;
+    max-width: min(275px, 100%);
+}
+
+input[type="text"], input[type="email"], textarea {
+    outline: 1px solid var(--color);
+    transition: outline-offset 0.15s ease, padding 0.15s ease, margin 0.15s ease;
+    padding: 5px;
+    font-size: inherit;
+    width: 100%;
+    min-height: 35.5px;
+    color: inherit;
+    resize: vertical;
+    display: block;
+}
+
+textarea {
+    height: 100px;
+    max-height: calc(100svh - 100px - (35.5px * 2) - 34.5px - 60px - 100px);
+    background-image: none;
+}
+
+::-webkit-resizer {
+    background-color: transparent;
+}
+
+.textarea-resizer {
+    pointer-events: none;
+    position: absolute;
+    right: 1px;
+    bottom: 1px;
+    height: 12px;
+    width: 12px;
+    background: var(--color-bg);
+    outline: 1px solid var(--color-bg);
+    border-top-left-radius: 10px;
+}
+
+.textarea-resizer svg {
+    color: var(--color);
+    position: absolute;
+    inset: 0;
+}
+
+.input-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.input-wrapper > label {
+    position: absolute;
+    left: 3px;
+    top: 5px;
+    pointer-events: none;
+    padding: 0 2px;
+    transition: transform 0.15s ease, font-size 0.15s ease;
+}
+
+.input-wrapper > label::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: var(--color-bg);
+    transform: translateY(-50%);
+    z-index: -1;
+}
+
+.input-wrapper:has(:where(input, textarea):not(:placeholder-shown), :where(input, textarea):focus) > label {
+    transform: translateY(-20px);
+    font-size: 0.875em;
+}
+
+:where(input[type="text"], input[type="email"], textarea):is(:focus-visible, :not(:placeholder-shown)) {
+    outline-offset: 2px;
+}
+
+input[type="button"] {
+    font-size: inherit;
+    cursor: pointer;
+    background: var(--color);
+    color: var(--color-bg);
+    padding: 5px;
+    width: 100%;
+    transition: outline-offset 0.15s ease;
+    outline: 2px solid var(--color);
+    outline-offset: -2px;
+}
+
+input[type="button"]:hover {
+    outline-offset: 0;
+}
+
+input[type="button"]:active {
+    outline-offset: -1px;
+}
+
+input[type="button"]:focus-visible:not(:hover) {
+    transition: none;
+    outline: 1px solid var(--color);
+    outline-offset: 2px;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px var(--color-bg) inset !important;
+}
