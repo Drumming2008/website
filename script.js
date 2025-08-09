@@ -68,7 +68,6 @@ for (let i of navCopy.children) {
 document.querySelector("nav").append(navCopy)
 
 function pushState(url) {
-    url = "/f/website" + url
     history.pushState({}, "", url)
 }
 
