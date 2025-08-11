@@ -108,16 +108,19 @@ onload = () => {
   }
 }
 
-id("submit").onclick = async e => {
+let form = id("form")
+
+form.onsubmit = async e => {
+  if (!form.checkValidity()) return
+
   e.preventDefault()
   let name = id("name").value, email = id("email").value, message = id("message").value
 
-  const res = await fetch("/api/email", {
+  let res = await fetch("/api/email", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ name, email, message })
   })
 
-  const data = await res.json()
-  console.log(data)
+  let data = await res.json()
 }
