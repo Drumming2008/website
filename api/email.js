@@ -23,7 +23,10 @@ module.exports = async function handler(req, res) {
       from: process.env.EMAIL_USER,
       to: "finn.reese@gmail.com",
       subject: `New message from ${name}`,
-      text: `From: ${name} <${email}>\n\n${message}`
+      text: `From: ${name} <${email}>\n\n${message}`,
+      headers: {
+        "X-Gmail-Labels": "Music Inquiries"
+      }
     })
 
     return res.status(200).json({ message: "Email sent successfully" })
