@@ -122,6 +122,6 @@ form.onsubmit = async e => {
     body: JSON.stringify({ name, email, message })
   })
 
-  id("form").remove()
+  id("form").style.display = "none"
   id("form-complete").style.display = ""
 }
