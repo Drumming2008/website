@@ -112,7 +112,7 @@ form, #form-complete {
 }
 
 #form-complete {
-    
+    text-align: center;
 }
 
 input[type="text"], input[type="email"], textarea {
