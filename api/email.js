@@ -22,8 +22,8 @@ module.exports = async function handler(req, res) {
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
       to: "finn.reese@gmail.com",
-      subject: `New message from ${name}`,
-      text: `From: ${name} <${email}>\n\n${message}`,
+      subject: `Music Inquiry from ${name}`,
+      text: `From: ${name} <${email}>\n\nMessage:\n\n${message}`,
       headers: {
         "X-Gmail-Labels": "Music Inquiries"
       }
