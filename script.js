@@ -112,7 +112,7 @@ id("submit").onclick = async e => {
   e.preventDefault()
   let name = id("name").value, email = id("email").value, message = id("message").value
 
-  const res = await fetch("/api/send-email", {
+  const res = await fetch("/api/email", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ name, email, message })
