@@ -23,7 +23,11 @@ module.exports = async function handler(req, res) {
       from: process.env.EMAIL_USER,
       to: "finn.reese@gmail.com",
       subject: `Music Inquiry from ${name}`,
-      text: `From: ${name} <${email}>\n\nMessage:\n\n${message}`,
+      html: `
+        <p><strong>From:</strong> ${name} &lt;${email}&gt;</p>
+        <p><strong>Message:</strong></p>
+        <p>${message.replace(/\n/g, "<br>")}</p>
+      `,
       headers: {
         "X-Gmail-Labels": "Music Inquiries"
       }
