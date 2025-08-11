@@ -1,57 +1,62 @@
+function id(el) {
+  return document.getElementById(el)
+}
+
+
 let pageInfo = {
-    home: {
-        text: "Home",
-        url: "",
-        id: "home"
-    },
-    music: {
-        text: "Music",
-        url: "music"
-    },
-    contact: {
-        text: "Contact",
-        url: "contact"
-    }
+  home: {
+    text: "Home",
+    url: "",
+    id: "home"
+  },
+  music: {
+    text: "Music",
+    url: "music"
+  },
+  contact: {
+    text: "Contact",
+    url: "contact"
+  }
 }
 
 let pageElemList = []
 
 for (let [k, v] of Object.entries(pageInfo)) {
-    let a = document.createElement("a")
-    a.innerHTML = `
+  let a = document.createElement("a")
+  a.innerHTML = `
         <span>${v.text}</span>
     `
-    v.link = a
+  v.link = a
 
-    a.onclick = e => {
-        e.preventDefault()
-        moveToTab(k)
-    }
+  a.onclick = e => {
+    e.preventDefault()
+    moveToTab(k)
+  }
 
-    a.href = "/" + v.url
+  a.href = "/" + v.url
 
-    a.onmouseenter = a.onfocus = () => {
-        let rect = a.getBoundingClientRect()
-        let currentRect = pageInfo[currentTab].link.getBoundingClientRect()
-        let navRect = document.querySelector("nav").getBoundingClientRect()
-        navCopy.style.clipPath = `
+  a.onmouseenter = a.onfocus = () => {
+    let rect = a.getBoundingClientRect()
+    let currentRect = pageInfo[currentTab].link.getBoundingClientRect()
+    let navRect = document.querySelector("nav").getBoundingClientRect()
+    navCopy.style.clipPath = `
             inset(0 ${navRect.right - Math.max(rect.right, currentRect.right)}px 0 ${Math.min(rect.left, currentRect.left) - navRect.left}px round var(--nav-radius))
         `
-    }
+  }
 
-    a.onmouseleave = a.onblur = () => {
-        let currentRect = pageInfo[currentTab].link.getBoundingClientRect()
-        let navRect = document.querySelector("nav").getBoundingClientRect()
-        navCopy.style.clipPath = `
+  a.onmouseleave = a.onblur = () => {
+    let currentRect = pageInfo[currentTab].link.getBoundingClientRect()
+    let navRect = document.querySelector("nav").getBoundingClientRect()
+    navCopy.style.clipPath = `
             inset(0 ${navRect.right - currentRect.right}px 0 ${currentRect.left - navRect.left}px round var(--nav-radius))
         `
-    }
+  }
 
-    document.querySelector("nav").append(a)
+  document.querySelector("nav").append(a)
 
-    v.elem = document.getElementById(v.id || v.url)
+  v.elem = id(v.id || v.url)
 
-    pageElemList.push(v.elem)
+  pageElemList.push(v.elem)
 }
 
 console.log(pageElemList)
@@ -61,44 +66,58 @@ navCopy.id = "inverted-nav"
 navCopy.innerHTML = document.querySelector("nav").innerHTML
 
 for (let i of navCopy.children) {
-    i.tabIndex = -1
-    i.ariaHidden = true
+  i.tabIndex = -1
+  i.ariaHidden = true
 }
 
 document.querySelector("nav").append(navCopy)
 
 function pushState(url) {
-    history.pushState({}, "", url)
+  history.pushState({}, "", url)
 }
 
 let currentTab = ""
 
 function moveToTab(tab) {
-    for (let i of document.querySelectorAll("nav > a")) {
-        i.tabIndex = ""
-    }
-    currentTab = tab
-    let a = pageInfo[tab].link
-    a.tabIndex = -1
-    let rect = a.getBoundingClientRect()
-    let navRect = document.querySelector("nav").getBoundingClientRect()
-    navCopy.style.clipPath = `
-        inset(0 ${navRect.right - rect.right}px 0 ${rect.left - navRect.left}px round var(--nav-radius))
-    `
+  for (let i of document.querySelectorAll("nav > a")) {
+    i.tabIndex = ""
+  }
+  currentTab = tab
+  let a = pageInfo[tab].link
+  a.tabIndex = -1
+  let rect = a.getBoundingClientRect()
+  let navRect = document.querySelector("nav").getBoundingClientRect()
+  navCopy.style.clipPath = `
+    inset(0 ${navRect.right - rect.right}px 0 ${rect.left - navRect.left}px round var(--nav-radius))
+  `
 
-    for (let i of pageElemList) {
-        i.style.display = "none"
-    }
-    pageInfo[tab].elem.style.display = ""
+  for (let i of pageElemList) {
+    i.style.display = "none"
+  }
+  pageInfo[tab].elem.style.display = ""
 
-    parent.pushState("/" + pageInfo[tab].url)
+  parent.pushState("/" + pageInfo[tab].url)
 }
 
 onload = () => {
-    let params = new URLSearchParams(location.search)
-    if (params.has("p")) {
-        moveToTab(params.get("p"))
-    } else {
-        moveToTab("home")
-    }
+  let params = new URLSearchParams(location.search)
+  if (params.has("p")) {
+    moveToTab(params.get("p"))
+  } else {
+    moveToTab("home")
+  }
+}
+
+id("submit").onclick = async e => {
+  e.preventDefault()
+  let name = id("name").value, email = id("email").value, message = id("message").value
+
+  const res = await fetch("/api/send-email", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ name, email, message })
+  })
+
+  const data = await res.json()
+  console.log(data)
 }
