@@ -218,3 +218,8 @@ input:-webkit-autofill:focus,
 input:-webkit-autofill:active{
     -webkit-box-shadow: 0 0 0 30px var(--color-bg) inset !important;
 }
+
+#email-span {
+    font-size: 0.75em;
+    margin-top: -15px;
+}
