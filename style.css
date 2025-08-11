@@ -102,13 +102,17 @@ section {
     overflow: auto;
 }
 
-form {
+form, #form-complete {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 20px;
     margin: 0 auto;
     max-width: min(275px, 100%);
+}
+
+#form-complete {
+    
 }
 
 input[type="text"], input[type="email"], textarea {

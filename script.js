@@ -121,4 +121,7 @@ form.onsubmit = async e => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ name, email, message })
   })
+
+  id("form").remove()
+  id("form-complete").style.display = ""
 }
