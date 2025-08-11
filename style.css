@@ -220,6 +220,8 @@ input:-webkit-autofill:active{
 }
 
 #email-span {
+    display: inline-block;
     font-size: 0.75em;
     margin-top: -15px;
+    width: 100%;
 }
