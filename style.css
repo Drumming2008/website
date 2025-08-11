@@ -229,3 +229,12 @@ input:-webkit-autofill:active{
     margin-top: -15px;
     width: 100%;
 }
+
+#email-address {
+    user-select: all;
+}
+
+#email-address:hover {
+    outline: 1px solid var(--color);
+    outline-offset: 1px;
+}
