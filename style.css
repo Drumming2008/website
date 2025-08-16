@@ -238,3 +238,16 @@ input:-webkit-autofill:active{
     outline: 1px solid var(--color);
     outline-offset: 1px;
 }
+
+#recordings {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 50px;
+    justify-content: center;
+}
+
+#recordings iframe {
+    display: block;
+    flex-shrink: 0;
+    max-width: 100%;
+}

@@ -13,6 +13,10 @@ let pageInfo = {
     text: "Music",
     url: "music"
   },
+  recordings: {
+    text: "Recordings",
+    url: "recordings"
+  },
   contact: {
     text: "Contact",
     url: "contact"
