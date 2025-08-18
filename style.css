@@ -10,6 +10,13 @@
     /* #082234 */
 }
 
+@media (prefers-color-scheme: dark) {
+    :root {
+        --color: #ebeae7;
+        --color-bg: #191a1b;
+    }
+}
+
 @font-face {
     font-family: serif-font;
     src: url("./dm_serif.ttf");
@@ -221,6 +228,7 @@ input:-webkit-autofill:hover,
 input:-webkit-autofill:focus, 
 input:-webkit-autofill:active{
     -webkit-box-shadow: 0 0 0 30px var(--color-bg) inset !important;
+    color: var(--color) !important;
 }
 
 #email-span {
