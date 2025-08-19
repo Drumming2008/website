@@ -83,8 +83,6 @@ function pushState(url) {
 let currentTab = ""
 
 function moveToTab(tab) {
-  if (params.has("piece")) return
-
   for (let i of document.querySelectorAll("nav > a")) {
     i.tabIndex = ""
   }
@@ -102,6 +100,8 @@ function moveToTab(tab) {
   }
   pageInfo[tab].elem.style.display = ""
 
+  if (params.has("piece")) return
+  
   parent.pushState("/" + pageInfo[tab].url)
 }
 
