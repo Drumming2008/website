@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/music/piece/:slug*",
+      "destination": "/?piece=:slug*"
+    }
+  ]
+}
