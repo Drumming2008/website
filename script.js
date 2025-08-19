@@ -83,6 +83,8 @@ function pushState(url) {
 let currentTab = ""
 
 function moveToTab(tab) {
+  if (params.has("piece")) return
+
   for (let i of document.querySelectorAll("nav > a")) {
     i.tabIndex = ""
   }
@@ -103,8 +105,10 @@ function moveToTab(tab) {
   parent.pushState("/" + pageInfo[tab].url)
 }
 
+let params
+
 onload = () => {
-  let params = new URLSearchParams(location.search)
+  params = new URLSearchParams(location.search)
   if (params.has("p")) {
     moveToTab(params.get("p"))
   } else {
