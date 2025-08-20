@@ -101,8 +101,8 @@ function moveToTab(tab) {
   pageInfo[tab].elem.style.display = ""
 
   if (params.has("piece")) return
-  
-  parent.pushState("/" + pageInfo[tab].url)
+
+  // parent.pushState("/" + pageInfo[tab].url)
 }
 
 let params
