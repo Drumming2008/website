@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/piece/:slug*",
-      "destination": "/?piece=:slug*"
+      "destination": "/music/"
     }
   ]
 }
