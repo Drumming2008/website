@@ -83,6 +83,8 @@ function pushState(url) {
 let currentTab = ""
 
 function getPieceId() {
+  if (location.host != "finnreese.com") return "landscapes"
+
   let path = window.location.pathname
   let match = path.match(/^\/piece\/(.+)/)
   return match ? match[1] : null
