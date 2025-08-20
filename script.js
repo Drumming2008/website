@@ -99,10 +99,13 @@ function moveToTab(tab) {
     i.style.display = "none"
   }
   pageInfo[tab].elem.style.display = ""
-
-  if (params.has("piece")) return
-
-  // parent.pushState("/" + pageInfo[tab].url)
+  
+  if (params.has("piece")) {
+    id("home").innerText = "Piece: " + params.get("piece")
+    return
+  }
+  
+  parent.pushState("/" + pageInfo[tab].url)
 }
 
 let params
