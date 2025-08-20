@@ -100,10 +100,10 @@ function moveToTab(tab) {
   }
   pageInfo[tab].elem.style.display = ""
   
-  if (params.has("piece")) {
+  if (params.get("piece")) {
     id("home").innerText = "Piece: " + params.get("piece")
   } else {
-    parent.pushState("/" + pageInfo[tab].url)
+    // parent.pushState("/" + pageInfo[tab].url)
   }
 }
 
