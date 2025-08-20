@@ -82,6 +82,12 @@ function pushState(url) {
 
 let currentTab = ""
 
+function getPieceId() {
+  let path = window.location.pathname
+  let match = path.match(/^\/piece\/(.+)/)
+  return match ? match[1] : null
+}
+
 function moveToTab(tab) {
   for (let i of document.querySelectorAll("nav > a")) {
     i.tabIndex = ""
@@ -100,10 +106,10 @@ function moveToTab(tab) {
   }
   pageInfo[tab].elem.style.display = ""
   
-  if (params.get("piece")) {
-    id("home").innerText = "Piece: " + params.get("piece")
+  if (getPieceId()) {
+    id("home").innerText = "Piece: " + getPieceId()
   } else {
-    // parent.pushState("/" + pageInfo[tab].url)
+    parent.pushState("/" + pageInfo[tab].url)
   }
 }
 
