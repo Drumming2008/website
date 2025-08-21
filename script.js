@@ -83,7 +83,7 @@ function pushState(url) {
 let currentTab = ""
 
 function getPieceId() {
-  if (location.host != "finnreese.com") return "landscapes"
+  if (location.host != "finnreese.com" && currentTab == "music") return "landscapes"
 
   let path = parent.location.pathname || location.pathname
   if (path.startsWith("/piece/")) return path.slice(7)
@@ -91,6 +91,8 @@ function getPieceId() {
 }
 
 function moveToTab(tab) {
+  id("piece").style.display = "none"
+
   for (let i of document.querySelectorAll("nav > a")) {
     i.tabIndex = ""
   }
@@ -116,15 +118,17 @@ function moveToTab(tab) {
       return
     }
 
-    id("music").innerHTML = `
+    id("piece").style.display = ""
+
+    id("piece").innerHTML = `
       <h2>${data.title}</h2>
     `
 
     if (data.video) {
-      id("music").innerHTML += `<div class="video-wrapper">${data.video}</div>`
+      id("piece").innerHTML += `<div class="video-wrapper">${data.video}</div>`
     }
   } else {
-    // parent.pushState("/" + pageInfo[tab].url)
+    parent.pushState("/" + pageInfo[tab].url)
   }
 }
 

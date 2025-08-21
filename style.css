@@ -109,6 +109,11 @@ section {
     top: 100px;
     padding: 50px;
     overflow: auto;
+    background: var(--color-bg);
+}
+
+#piece {
+    z-index: 2;
 }
 
 form, #form-complete {
