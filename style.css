@@ -355,12 +355,22 @@ summary::marker {
     content: "";
 }
 
-details > div {
+.details-content {
     position: relative;
     padding: 5px 10px;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 
-details > div::before {
+.details-content > li span {
+    font-size: 0.75em;
+    margin-left: 10px;
+    color: var(--color);
+}
+
+details > .details-content::before {
     content: "";
     border-top: 1px solid var(--color);
     position: absolute;

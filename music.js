@@ -11,7 +11,7 @@ for (let i of musicCategories) {
     `
     details.append(summary)
 
-    let content = document.createElement("div")
+    let content = document.createElement("ul")
     content.classList.add("details-content")
     details.append(content)
 
@@ -21,10 +21,10 @@ for (let i of musicCategories) {
 }
 
 for (let i of Object.values(musicData)) {
-    let piece = document.createElement("div")
+    let piece = document.createElement("li")
 
     let title = document.createElement("h3")
-    title.innerHTML = `<a href="/piece/${i.title.toLowerCase().replaceAll(" ", "-")}">${i.title}</a>`
+    title.innerHTML = `<a href="/piece/${i.title.toLowerCase().replaceAll(" ", "-")}">${i.title}<span>for ${i.instr}</span></a>`
 
     piece.append(title)
 

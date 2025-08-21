@@ -83,7 +83,7 @@ function pushState(url) {
 let currentTab = ""
 
 function getPieceId() {
-  if (location.host != "finnreese.com" && currentTab == "music") return "landscapes"
+  // if (location.host != "finnreese.com" && currentTab == "music") return "landscapes"
 
   let path = parent.location.pathname || location.pathname
   if (path.startsWith("/piece/")) return path.slice(7)
