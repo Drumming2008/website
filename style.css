@@ -366,13 +366,13 @@ summary::marker {
 
 .details-content > li span {
     font-size: 0.75em;
-    margin-left: 10px;
     color: var(--color);
 }
 
 .details-content > li a {
     display: flex;
     align-items: center;
+    gap: 10px;
 }
 
 .details-content > li span:first-of-type {
