@@ -370,6 +370,15 @@ summary::marker {
     color: var(--color);
 }
 
+.details-content > li a {
+    display: flex;
+    align-items: center;
+}
+
+.details-content > li span:first-of-type {
+    margin-left: auto;
+}
+
 details > .details-content::before {
     content: "";
     border-top: 1px solid var(--color);
