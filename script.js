@@ -111,6 +111,11 @@ function moveToTab(tab) {
   console.log("getPieceId()", getPieceId())
   if (getPieceId()) {
     let data = musicData[getPieceId()]
+    if (!data) {
+      location.href = "/404.html"
+      return
+    }
+
     id("music").innerHTML = `
       <h2>${data.title}</h2>
     `
