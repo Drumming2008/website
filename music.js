@@ -1,7 +1,7 @@
 let musicPage = document.getElementById("music"),
     musicCategoryElements = {}
 
-for (let i of Object.values(musicCategories)) {
+for (let i of musicCategories) {
     let details = document.createElement("details")
     
     let summary = document.createElement("summary")
@@ -20,7 +20,7 @@ for (let i of Object.values(musicCategories)) {
     musicCategoryElements[i.id] = content
 }
 
-for (let i of musicData) {
+for (let i of Object.values(musicData)) {
     let piece = document.createElement("div")
 
     let title = document.createElement("h3")
