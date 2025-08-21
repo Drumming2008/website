@@ -109,6 +109,11 @@ function moveToTab(tab, onClick = false) {
     i.style.display = "none"
   }
   pageInfo[tab].elem.style.display = ""
+
+  if (!getPieceId() || onClick) {
+    id("piece").style.display = "none"
+    parent.pushState("/" + pageInfo[tab].url)
+  }
   
   if (getPieceId()) {
     let data = musicData[getPieceId()]
@@ -126,10 +131,6 @@ function moveToTab(tab, onClick = false) {
     if (data.video) {
       id("piece").innerHTML += `<div class="video-wrapper">${data.video}</div>`
     }
-  }
-  if (!getPieceId() || onClick) {
-    id("piece").style.display = "none"
-    parent.pushState("/" + pageInfo[tab].url)
   }
 }
 
