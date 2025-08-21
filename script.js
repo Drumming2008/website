@@ -34,7 +34,7 @@ for (let [k, v] of Object.entries(pageInfo)) {
 
   a.onclick = e => {
     e.preventDefault()
-    moveToTab(k)
+    moveToTab(k, true)
   }
 
   a.href = "/" + v.url
@@ -90,7 +90,7 @@ function getPieceId() {
   return null
 }
 
-function moveToTab(tab) {
+function moveToTab(tab, onClick = false) {
   id("piece").style.display = "none"
 
   for (let i of document.querySelectorAll("nav > a")) {
@@ -126,7 +126,8 @@ function moveToTab(tab) {
     if (data.video) {
       id("piece").innerHTML += `<div class="video-wrapper">${data.video}</div>`
     }
-  } else {
+  }
+  if (!getPieceId() || onClick) {
     parent.pushState("/" + pageInfo[tab].url)
   }
 }
