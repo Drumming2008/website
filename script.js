@@ -85,8 +85,7 @@ let currentTab = ""
 function getPieceId() {
   if (location.host != "finnreese.com") return "landscapes"
 
-  let path = location.pathname
-  console.log("path", path)
+  let path = parent.location.pathname || location.pathname
   if (path.startsWith("/piece/")) return path.slice(7)
   return null
 }
