@@ -109,7 +109,14 @@ function moveToTab(tab) {
   pageInfo[tab].elem.style.display = ""
   
   if (getPieceId()) {
-    id("home").innerText = "Piece: " + getPieceId()
+    let data = musicData[getPieceId()]
+    id("music").innerHTML = `
+      <h2>${data.title}</h2>
+    `
+
+    if (data.video) {
+      id("music").innerHTML += `<div class="video-wrapper">${data.video}</div>`
+    }
   } else {
     parent.pushState("/" + pageInfo[tab].url)
   }

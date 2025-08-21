@@ -24,7 +24,7 @@ for (let i of musicData) {
     let piece = document.createElement("div")
 
     let title = document.createElement("h3")
-    title.innerText = i.title
+    title.innerHTML = `<a href="/piece/${i.title.toLowerCase().replaceAll(" ", "-")}">${i.title}</a>`
 
     piece.append(title)
 

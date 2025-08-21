@@ -328,10 +328,15 @@ summary {
     outline: none;
 }
 
+summary::-webkit-details-marker {
+    display: none;
+}
+
 summary > svg {
     height: 1.25rem;
     width: 1.25rem;
     transition: transform 0.2s ease;
+    margin-left: auto;
 }
 
 details[open] > summary > svg {
@@ -374,4 +379,24 @@ details:has(summary:focus-visible:not(:hover))::details-content {
     margin: 0 -2px;
     padding: 0 2px;
     --inset: -2px;
+}
+
+details a {
+    color: var(--color-accent);
+    text-decoration-color: transparent;
+    transition: text-decoration-color 0.1s linear;
+}
+
+details a:is(:hover, :focus-visible) {
+    text-decoration-color: currentColor;
+}
+
+.video-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.video-wrapper > iframe {
+    max-width: 100%;
 }
