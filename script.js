@@ -118,7 +118,7 @@ function moveToTab(tab) {
       id("music").innerHTML += `<div class="video-wrapper">${data.video}</div>`
     }
   } else {
-    parent.pushState("/" + pageInfo[tab].url)
+    // parent.pushState("/" + pageInfo[tab].url)
   }
 }
 
