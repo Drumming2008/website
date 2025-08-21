@@ -86,6 +86,7 @@ function getPieceId() {
   if (location.host != "finnreese.com") return "landscapes"
 
   let path = location.pathname
+  console.log("path", path)
   if (path.startsWith("/piece/")) return path.slice(7)
   return null
 }
