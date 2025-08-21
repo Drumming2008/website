@@ -409,12 +409,43 @@ details:has(summary:focus-visible:not(:hover))::details-content {
 
 details a {
     color: var(--color-accent);
-    text-decoration-color: transparent;
-    transition: text-decoration-color 0.1s linear;
+    text-decoration: none;
+    position: relative;
+    text-shadow: 0 2px 0 var(--color-bg);
 }
 
-details a:is(:hover, :focus-visible) {
-    text-decoration-color: currentColor;
+details a::after {
+    content: "";
+    z-index: -1;
+    position: absolute;
+    bottom: 2px;
+    left: 0;
+    right: 0;
+    transition: opacity 0.1s linear;
+    height: 1px;
+    opacity: 0;
+}
+
+details a:is(:hover, :focus-visible)::after {
+    background: linear-gradient(to right, var(--color-accent), var(--color));
+    opacity: 1;
+}
+
+@media (max-width: 500px) {
+    details a {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .details-content > li span {
+        margin-left: 0 !important;
+    }
+
+    .details-content > li .year {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+    }
 }
 
 .video-wrapper {
