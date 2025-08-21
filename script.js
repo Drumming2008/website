@@ -85,10 +85,9 @@ let currentTab = ""
 function getPieceId() {
   if (location.host != "finnreese.com") return "landscapes"
 
-  let path = window.location.pathname
-  let match = path.match(/^\/piece\/(.+)/)
-  console.log("match", match)
-  return match ? match[1] : null
+  let path = location.pathname
+  if (path.startsWith("/piece/")) return path.slice(7)
+  return null
 }
 
 function moveToTab(tab) {
