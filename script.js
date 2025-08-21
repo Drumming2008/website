@@ -128,6 +128,7 @@ function moveToTab(tab, onClick = false) {
     }
   }
   if (!getPieceId() || onClick) {
+    id("piece").style.display = "none"
     parent.pushState("/" + pageInfo[tab].url)
   }
 }
