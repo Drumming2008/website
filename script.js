@@ -87,7 +87,7 @@ function getPieceId() {
 
   let path = window.location.pathname
   let match = path.match(/^\/piece\/(.+)/)
-  console.log("match", match, match[1])
+  console.log("match", match)
   return match ? match[1] : null
 }
 
