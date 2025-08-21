@@ -1,7 +1,7 @@
 let musicPage = document.getElementById("music"),
     musicCategoryElements = {}
 
-for (let i of musicCategories) {
+for (let i of Object.values(musicCategories)) {
     let details = document.createElement("details")
     
     let summary = document.createElement("summary")
