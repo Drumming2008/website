@@ -108,6 +108,7 @@ function moveToTab(tab) {
   }
   pageInfo[tab].elem.style.display = ""
   
+  console.log("getPieceId()", getPieceId())
   if (getPieceId()) {
     let data = musicData[getPieceId()]
     id("music").innerHTML = `
