@@ -115,8 +115,7 @@ section {
 
 #piece {
     z-index: 2;
-    outline: 1px solid var(--color);
-    transition: transform 0.2s ease, opacity 0.2s linear;
+    transition: transform 0.2s ease, opacity 0.1s linear;
 }
 
 #piece.hidden {
