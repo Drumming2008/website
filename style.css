@@ -115,6 +115,11 @@ section {
 
 #piece {
     z-index: 2;
+    transition: transform 0.2s ease;
+}
+
+#piece.hidden {
+    transform: scale(0);
 }
 
 form, #form-complete {

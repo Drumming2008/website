@@ -91,8 +91,6 @@ function getPieceId() {
 }
 
 function moveToTab(tab, onClick = false) {
-  id("piece").style.display = "none"
-
   for (let i of document.querySelectorAll("nav > a")) {
     i.tabIndex = ""
   }
@@ -111,7 +109,10 @@ function moveToTab(tab, onClick = false) {
   pageInfo[tab].elem.style.display = ""
 
   if (!getPieceId() || onClick) {
-    id("piece").style.display = "none"
+    id("piece").classList.add("hidden")
+    setTimeout(() => {
+      id("piece").style.display = "none"
+    }, 200)
     parent.pushState("/" + pageInfo[tab].url)
   }
   
@@ -123,6 +124,7 @@ function moveToTab(tab, onClick = false) {
     }
 
     id("piece").style.display = ""
+    setTimeout(() => { id("piece").classList.remove("hidden") }, 0)
 
     id("piece").innerHTML = `
       <h2>${data.title}</h2>
