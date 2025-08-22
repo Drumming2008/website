@@ -2,6 +2,9 @@ function id(el) {
   return document.getElementById(el)
 }
 
+window.addEventListener("popstate", () => {
+  location.reload()
+})
 
 let pageInfo = {
   home: {
@@ -125,6 +128,9 @@ function moveToTab(tab, onClick = false) {
 
     id("piece").style.display = ""
     setTimeout(() => { id("piece").classList.remove("hidden") }, 0)
+    setTimeout(() => {
+      id("music").style.display = "none"
+    }, 200)
 
     id("piece").innerHTML = `
       <h2>${data.title}</h2>
