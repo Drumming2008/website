@@ -24,7 +24,16 @@ for (let i of Object.values(musicData)) {
     let piece = document.createElement("li")
 
     let title = document.createElement("h3")
-    title.innerHTML = `<a href="/piece/${i.title.toLowerCase().replaceAll(" ", "-")}">${i.title}<span>for ${i.instr}</span><span class="year">${i.year}</span></a>`
+    let titleLink = document.createElement("a")
+    titleLink.href = "/piece/" + i.title.toLowerCase().replaceAll(" ", "-")
+    titleLink.innerHTML = `${i.title}<span>for ${i.instr}</span><span class="year">${i.year}</span>`
+    title.append(titleLink)
+
+    titleLink.onclick = e => {
+        e.preventDefault()
+        parent.pushState(titleLink.href)
+        moveToTab("music")
+    }
 
     piece.append(title)
 
