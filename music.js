@@ -23,11 +23,15 @@ for (let i of musicCategories) {
 for (let i of Object.values(musicData)) {
     let piece = document.createElement("li")
 
-    let title = document.createElement("h3")
+    let title = document.createElement("div")
     let titleLink = document.createElement("a")
     titleLink.href = "/piece/" + i.title.toLowerCase().replaceAll(" ", "-")
-    titleLink.innerHTML = `${i.title}<span>for ${i.instr}</span><span class="year">${i.year}</span>`
+    titleLink.innerHTML = `${i.title}`
     title.append(titleLink)
+
+    let titleInfo = document.createElement("div")
+    titleInfo.innerHTML = `<span>for ${i.instr}</span><span class="year">${i.year}</span>`
+    title.append(titleInfo)
 
     titleLink.onclick = e => {
         e.preventDefault()

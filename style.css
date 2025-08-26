@@ -45,6 +45,9 @@ html, body {
     background: transparent;
     box-sizing: border-box;
     font-family: serif-font, serif;
+}
+
+h1, h2, h3, header {
     -webkit-font-smoothing: antialiased;
 }
 
@@ -279,38 +282,33 @@ input:-webkit-autofill:active{
 
 details {
     interpolate-size: allow-keywords;
-    transition: margin 0.2s ease, outline-offset 0.15s ease;
-    outline: 1px solid var(--color);
+    transition: outline-offset 0.15s ease;
+    /* outline: 1px solid var(--color); */
     margin-bottom: 10px;
+    position: relative;
+}
+
+details::before {
+    content: "";
+    position: absolute;
+    inset: var(--outline-offset, 0);
+    /* bottom: calc(100% - 47px - var(--outline-offset, 0px)); */
+    border: 1px solid var(--color);
+    pointer-events: none;
+    transition: inset 0.15s ease;
 }
 
 details:has(summary:hover) {
-    outline-offset: 2px;
+    --outline-offset: -2px;
 }
 
 details:has(summary:active) {
-    outline-offset: 1px;
+    --outline-offset: -1px;
 }
 
 details:has(summary:focus-visible:not(:hover)) {
-    outline-offset: 2px;
+    --outline-offset: -2px;
 }
-
-/* summary:hover {
-    background: var(--color-bg-hover);
-}
-
-summary:active {
-    background: var(--color-bg-active);
-}
-
-details:has(summary:hover) {
-    border-color: var(--color-bg-hover);
-}
-
-details:has(summary:active) {
-    border-color: var(--color-bg-active);
-} */
 
 details::details-content {
     overflow: hidden;
@@ -323,14 +321,6 @@ details[open]::details-content {
     height: auto;
 }
 
-/* details[open] > summary:not(:active) {
-    background: var(--color-bg-hover);
-}
-
-details[open]:not(:has(summary:active)) {
-    border-color: var(--color-bg-hover);
-} */
-
 summary {
     padding: 5px 10px;
     display: flex;
@@ -339,6 +329,7 @@ summary {
     transition: background 0.1s linear;
     cursor: pointer;
     outline: none;
+    position: relative;
 }
 
 summary::-webkit-details-marker {
@@ -363,36 +354,46 @@ summary::marker {
 
 .details-content {
     position: relative;
-    padding: 5px 10px;
+    padding: 10px;
+    padding-top: 5px;
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 5px;
-}
-
-.details-content > li span {
-    font-size: 0.75em;
-    color: var(--color);
-}
-
-.details-content > li a {
-    display: flex;
-    align-items: center;
     gap: 10px;
 }
 
-.details-content > li span:first-of-type {
-    margin-left: auto;
+.details-content > li {
+    position: relative;
+    padding-left: 15px;
 }
 
-details > .details-content::before {
-    content: "";
-    border-top: 1px solid var(--color);
+.details-content > li::before {
+    content: "•";
     position: absolute;
-    left: var(--inset, 0);
-    right: var(--inset, 0);
-    top: 0;
-    transition: inset 0.2s ease;
+    left: 0;
+    height: 1em;
+}
+
+.details-content > li > div {
+    display: flex;
+    gap: 1ch;
+    white-space: nowrap;
+    flex-wrap: wrap;
+}
+
+.details-content > li > div > a {
+    color: var(--color-accent);
+}
+
+.details-content > li > div > div {
+    display: flex;
+    gap: 1ch;
+    white-space: nowrap;
+    flex-wrap: wrap;
+}
+
+.details-content > li > div > div > :first-child::after {
+    content: ",";
 }
 
 details:has(summary:hover)::details-content {
@@ -411,47 +412,6 @@ details:has(summary:focus-visible:not(:hover))::details-content {
     margin: 0 -2px;
     padding: 0 2px;
     --inset: -2px;
-}
-
-details a {
-    color: var(--color-accent);
-    text-decoration: none;
-    position: relative;
-    text-shadow: 0 2px 0 var(--color-bg);
-}
-
-details a::after {
-    content: "";
-    z-index: -1;
-    position: absolute;
-    bottom: 2px;
-    left: 0;
-    right: 0;
-    transition: opacity 0.1s linear;
-    height: 1px;
-    opacity: 0;
-}
-
-details a:is(:hover, :focus-visible)::after {
-    background: linear-gradient(to right, var(--color-accent), var(--color));
-    opacity: 1;
-}
-
-@media (max-width: 500px) {
-    details a {
-        flex-direction: column;
-        gap: 5px;
-    }
-
-    .details-content > li span {
-        margin-left: 0 !important;
-    }
-
-    .details-content > li .year {
-        position: absolute;
-        top: 5px;
-        right: 5px;
-    }
 }
 
 .video-wrapper {

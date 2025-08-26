@@ -6,6 +6,12 @@ window.addEventListener("popstate", () => {
   location.reload()
 })
 
+window.addEventListener("pageshow", e => {
+  if (e.persisted) {
+    location.reload()
+  }
+})
+
 let pageInfo = {
   home: {
     text: "Home",
