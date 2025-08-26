@@ -19,7 +19,7 @@ for (let i of musicCategories) {
 
     for (let j of musicSubcategories) {
         if (j.parent != i.id) continue
-        let wrapper = document.createElement("div")
+        let wrapper = document.createElement("ul")
         wrapper.classList.add("sub-category")
         let title = document.createElement("h3")
         title.innerText = j.name

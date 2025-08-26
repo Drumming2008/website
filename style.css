@@ -362,37 +362,37 @@ summary::marker {
     gap: 10px;
 }
 
-.details-content > li {
+.details-content li {
     position: relative;
     padding-left: 15px;
 }
 
-.details-content > li::before {
+.details-content li::before {
     content: "•";
     position: absolute;
     left: 0;
     height: 1em;
 }
 
-.details-content > li > div {
+.details-content li > div {
     display: flex;
     gap: 1ch;
     white-space: nowrap;
     flex-wrap: wrap;
 }
 
-.details-content > li > div > a {
+.details-content li > div > a {
     color: var(--color-accent);
 }
 
-.details-content > li > div > div {
+.details-content li > div > div {
     display: flex;
     gap: 1ch;
     white-space: nowrap;
     flex-wrap: wrap;
 }
 
-.details-content > li > div > div > :first-child::after {
+.details-content li > div > div > :first-child::after {
     content: ",";
 }
 
@@ -400,6 +400,7 @@ summary::marker {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    list-style: none;
 }
 
 details:has(summary:hover)::details-content {
