@@ -396,6 +396,12 @@ summary::marker {
     content: ",";
 }
 
+.sub-category {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
 details:has(summary:hover)::details-content {
     margin: 0 -2px;
     padding: 0 2px;

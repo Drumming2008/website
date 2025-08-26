@@ -1,5 +1,5 @@
 let musicPage = document.getElementById("music"),
-    musicCategoryElements = {}
+    musicCategoryElements = {}, musicSubcategoryElements = {}
 
 for (let i of musicCategories) {
     let details = document.createElement("details")
@@ -16,6 +16,17 @@ for (let i of musicCategories) {
     details.append(content)
 
     musicPage.append(details)
+
+    for (let j of musicSubcategories) {
+        if (j.parent != i.id) continue
+        let wrapper = document.createElement("div")
+        wrapper.classList.add("sub-category")
+        let title = document.createElement("h3")
+        title.innerText = j.name
+        wrapper.append(title)
+        musicSubcategoryElements[i.id] = wrapper
+        content.append(wrapper)
+    }
 
     musicCategoryElements[i.id] = content
 }
@@ -41,5 +52,9 @@ for (let i of Object.values(musicData)) {
 
     piece.append(title)
 
-    musicCategoryElements[i.cat].append(piece)
+    if (i.subcat) {
+        musicSubcategoryElements[i.subcat].append(piece)
+    } else {
+        musicCategoryElements[i.cat].prepend(piece)
+    }
 }

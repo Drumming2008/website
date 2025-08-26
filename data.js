@@ -4,8 +4,16 @@ let musicCategories = [
         id: "chamber"
     },
     {
-        name: "E",
-        id: "e"
+        name: "Choral",
+        id: "choral"
+    }
+]
+
+let musicSubcategories = [
+    {
+        name: "SATB",
+        id: "satb",
+        parent: "choral"
     }
 ]
 
@@ -28,14 +36,15 @@ let musicData = [
         title: "Landscapes2",
         instr: "String Quartet",
         year: 2025,
-        cat: "e",
+        cat: "choral",
         video: '<iframe width="560" height="315" src="https://www.youtube.com/embed/vU4ypttR1Ek?si=v9GA64c-1utNalic" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>'
     },
     {
         title: "Clarinet Vibes2",
         instr: "Clarinet, Vibraphone",
         year: 2025,
-        cat: "e",
+        cat: "choral",
+        subcat: "satb",
         video: '<iframe width="560" height="315" src="https://www.youtube.com/embed/aw63xr-lTis?si=9PPEbQejimsEmSx7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>'
     }
 ]
