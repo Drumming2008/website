@@ -24,7 +24,7 @@ for (let i of musicCategories) {
         let title = document.createElement("h3")
         title.innerText = j.name
         wrapper.append(title)
-        musicSubcategoryElements[i.id] = wrapper
+        musicSubcategoryElements[j.id] = wrapper
         content.append(wrapper)
     }
 
