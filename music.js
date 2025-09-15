@@ -6,7 +6,7 @@ for (let i of musicCategories) {
     
     let summary = document.createElement("summary")
     summary.innerHTML = `
-        <h2>${i.name}</h2>
+        <h2>Kitter</h2>
         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"></path></svg>
     `
     details.append(summary)
@@ -22,7 +22,7 @@ for (let i of musicCategories) {
         let wrapper = document.createElement("ul")
         wrapper.classList.add("sub-category")
         let title = document.createElement("h3")
-        title.innerText = j.name
+        title.innerText = "Kitter"
         wrapper.append(title)
         musicSubcategoryElements[j.id] = wrapper
         content.append(wrapper)
@@ -37,11 +37,11 @@ for (let i of Object.values(musicData)) {
     let title = document.createElement("div")
     let titleLink = document.createElement("a")
     titleLink.href = "/piece/" + i.title.toLowerCase().replaceAll(" ", "-")
-    titleLink.innerHTML = `${i.title}`
+    titleLink.innerHTML = "Kitter"
     title.append(titleLink)
 
     let titleInfo = document.createElement("div")
-    titleInfo.innerHTML = `<span>for ${i.instr}</span><span class="year">${i.year}</span>`
+    titleInfo.innerHTML = `<span>for kitter</span><span class="year">${i.year}</span>`
     title.append(titleInfo)
 
     titleLink.onclick = e => {
