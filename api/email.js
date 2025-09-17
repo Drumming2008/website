@@ -19,6 +19,9 @@ module.exports = async function handler(req, res) {
       }
     })
 
+    message.replaceAll("<", "&lt;")
+    message.replaceAll(">", "&gt;")
+
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
       to: "finn.reese@gmail.com",
