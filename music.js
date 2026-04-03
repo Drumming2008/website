@@ -36,7 +36,7 @@ for (let i of Object.values(musicData)) {
 
     let title = document.createElement("div")
     let titleLink = document.createElement("a")
-    titleLink.href = "/piece/" + i.title.toLowerCase().replaceAll(" ", "-")
+    titleLink.href = "/piece/" + (i.id || i.title.toLowerCase().replaceAll(" ", "-"))
     titleLink.innerHTML = `${i.title}`
     title.append(titleLink)
 
