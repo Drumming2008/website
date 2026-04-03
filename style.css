@@ -1,10 +1,11 @@
 #banner {
     position: absolute;
-    background: var(--color-bg-hover);
+    background: var(--color-bg);
     inset: 0;
     top: unset;
     padding: 16px;
     z-index: 999999999;
+    border-top: 1px solid currentColor;
 }
 
 #banner a {
@@ -14,7 +15,7 @@
 :root {
     --color: #292a2c;
     --color-bg: #fffefb;
-    --color-bg-hover: #f0f2f6;
+    --color-bg-hover: #f0f1f3;
     --color-bg-active: #e3e5e8;
     --color-blobs: #4b85f9;
 
@@ -67,6 +68,7 @@ h1, h2, h3, header {
 
 h1 {
     font-size: 2em;
+    transform: translateY(-2.5px);
 }
 
 h2 {
@@ -82,12 +84,12 @@ header {
     left: 0;
     right: 0;
     top: 0;
-    height: 100px;
+    height: 75px;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    padding: 10px;
-    gap: 5px;
+    justify-content: space-between;
+    padding: 0 max(10px, 10%);
+    background: var(--color-bg-hover);
 }
 
 nav, #inverted-nav {
@@ -95,6 +97,7 @@ nav, #inverted-nav {
     display: flex;
     justify-content: center;
     position: relative;
+    gap: 5px;
 }
 
 a {
@@ -112,9 +115,9 @@ nav a, #inverted-nav a {
     text-align: center;
 }
 
-nav a:first-child, #inverted-nav a:first-child {
+/* nav a:first-child, #inverted-nav a:first-child {
     margin-left: 6px;
-}
+} */
 
 nav a:last-of-type, #inverted-nav a:last-child {
     margin-right: 6px;
@@ -136,10 +139,13 @@ nav a:last-of-type, #inverted-nav a:last-child {
 section {
     position: fixed;
     inset: 0;
-    top: 100px;
+    top: 75px;
     padding: 50px;
     overflow: auto;
     background: var(--color-bg);
+    /* border-top: 1px solid currentColor; */
+    display: flex;
+    flex-direction: column;
 }
 
 #piece {
@@ -294,16 +300,17 @@ input:-webkit-autofill:active{
 }
 
 #recordings {
-    display: flex;
     flex-wrap: wrap;
     gap: 50px;
-    justify-content: center;
+    align-items: center;
 }
 
 #recordings iframe {
     display: block;
     flex-shrink: 0;
     max-width: 100%;
+    outline: 1px solid currentColor;
+    outline-offset: 5px;
 }
 
 details {
@@ -362,7 +369,7 @@ summary::-webkit-details-marker {
     display: none;
 }
 
-summary > svg {
+summary > svg, footer svg {
     height: 1.25rem;
     width: 1.25rem;
     transition: transform 0.2s ease;
@@ -455,4 +462,51 @@ details:has(summary:focus-visible:not(:hover))::details-content {
 
 .video-wrapper > iframe {
     max-width: 100%;
+    outline: 1px solid currentColor;
+    outline-offset: 5px;
+}
+
+footer {
+    padding: 25px 50px;
+    /* border-top: 1px solid currentColor; */
+    margin: 0 -50px;
+    margin-top: auto;
+    background: var(--color-bg-hover);
+}
+
+.links {
+    display: flex;
+    gap: 15px;
+}
+
+.links > a {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    text-decoration-color: transparent;
+    position: relative;
+}
+
+.links > a::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    right: 50%;
+    transition: inset 0.2s ease;
+    bottom: 0;
+    height: 1px;
+    background: currentColor;
+}
+
+.links > a:is(:hover, :focus-visible)::after {
+    left: 0;
+    right: 0;
+}
+
+.youtube-link {
+    color: rgb(255, 0, 51);
+}
+
+.email-link {
+    color: var(--color-accent);
 }

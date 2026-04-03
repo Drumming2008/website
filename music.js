@@ -58,3 +58,5 @@ for (let i of Object.values(musicData)) {
         musicCategoryElements[i.cat].prepend(piece)
     }
 }
+
+footer(id("music"))
