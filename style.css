@@ -12,11 +12,15 @@
     color: var(--color-accent);
 }
 
+#close-banner {
+    float: right;
+}
+
 :root {
     --color: #292a2c;
     --color-bg: #fffefb;
     --color-bg-hover: #f0f1f3;
-    --color-bg-active: #e3e5e8;
+    --color-bg-active: #dee0e3;
     --color-bg-active-dark: #cdd0d5;
     --color-blobs: #4b85f9;
 
@@ -89,7 +93,8 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 max(10px, 10%);
+    padding-right: max(10px, 10%);
+    padding-left: 17.5px;
     background: var(--color-bg-hover);
     z-index: 10;
 }
@@ -100,7 +105,6 @@ nav, #inverted-nav {
     display: flex;
     justify-content: center;
     position: relative;
-    gap: 5px;
 }
 
 a {
@@ -114,14 +118,15 @@ nav a, #inverted-nav a {
     width: max-content;
     font-weight: 600;
     text-decoration: none;
-    padding: 0 7.5px;
-    padding-bottom: 2px;
+    padding: 0 15px;
+    padding-top: 2px;
+    padding-bottom: 4px;
     text-align: center;
-    transition: color 0.5s ease;
+    transition: background 0.5s linear;
 }
 
 nav a.selected {
-    color: var(--color-accent);
+    background: var(--color-bg-active);
 }
 
 #inverted-nav {
@@ -142,9 +147,9 @@ section {
     inset: 0;
     top: 75px;
     padding: 50px;
+    padding-bottom: 0;
     overflow: auto;
     background: var(--color-bg);
-    /* border-top: 1px solid currentColor; */
     display: flex;
     flex-direction: column;
 }
@@ -582,6 +587,8 @@ footer {
     nav a, #inverted-nav a {
         width: 100%;
         text-align: left;
+        padding-top: 5px;
+        padding-bottom: 7px;
     }
 
     #hamburger-button {

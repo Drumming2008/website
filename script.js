@@ -1,3 +1,7 @@
+id("close-banner").onclick = () => {
+  id("banner").remove()
+}
+
 function id(el) {
   return document.getElementById(el)
 }
@@ -65,6 +69,7 @@ for (let [k, v] of Object.entries(pageInfo)) {
   a.onclick = e => {
     e.preventDefault()
     moveToTab(k, true)
+    setTimeout(() => { document.querySelector("nav").classList.add("closed") }, 200)
   }
 
   a.href = "/" + v.url
@@ -102,6 +107,7 @@ console.log(pageElemList)
 let navCopy = document.createElement("div")
 navCopy.id = "inverted-nav"
 navCopy.innerHTML = document.querySelector("nav").innerHTML
+navCopy.ariaHidden = true
 
 for (let i of navCopy.children) {
   i.tabIndex = -1
