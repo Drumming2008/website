@@ -17,6 +17,7 @@
     --color-bg: #fffefb;
     --color-bg-hover: #f0f1f3;
     --color-bg-active: #e3e5e8;
+    --color-bg-active-dark: #cdd0d5;
     --color-blobs: #4b85f9;
 
     --nav-radius: 0;
@@ -90,10 +91,12 @@ header {
     justify-content: space-between;
     padding: 0 max(10px, 10%);
     background: var(--color-bg-hover);
+    z-index: 10;
 }
 
 nav, #inverted-nav {
-    padding: 2px 0;
+    padding-bottom: 2px;
+    padding-top: 4px;
     display: flex;
     justify-content: center;
     position: relative;
@@ -112,15 +115,13 @@ nav a, #inverted-nav a {
     font-weight: 600;
     text-decoration: none;
     padding: 0 7.5px;
+    padding-bottom: 2px;
     text-align: center;
+    transition: color 0.5s ease;
 }
 
-/* nav a:first-child, #inverted-nav a:first-child {
-    margin-left: 6px;
-} */
-
-nav a:last-of-type, #inverted-nav a:last-child {
-    margin-right: 6px;
+nav a.selected {
+    color: var(--color-accent);
 }
 
 #inverted-nav {
@@ -369,7 +370,7 @@ summary::-webkit-details-marker {
     display: none;
 }
 
-summary > svg, footer svg, .back-to-pieces > svg {
+summary > svg, footer svg, .icon-button > svg {
     height: 1.25rem;
     width: 1.25rem;
     transition: transform 0.2s ease;
@@ -520,7 +521,7 @@ footer {
     gap: 10px;
 }
 
-.back-to-pieces {
+.icon-button {
     height: 40px;
     width: 40px;
     display: flex;
@@ -529,20 +530,65 @@ footer {
     border-radius: 100px;
     transition: background 0.1s linear;
     cursor: pointer;
+    --hover: var(--color-bg-hover);
+    --active: var(--color-bg-active);
 }
 
-.back-to-pieces:focus-visible {
+.icon-button:focus-visible {
     outline: 1px solid var(--color);
 }
 
-.back-to-pieces:hover {
-    background: var(--color-bg-hover);
+.icon-button:hover {
+    background: var(--hover);
 }
 
-.back-to-pieces:active {
-    background: var(--color-bg-active);
+.icon-button:active {
+    background: var(--active);
 }
 
-.back-to-pieces > svg {
+.icon-button > svg {
     margin-left: 0;
+}
+
+#hamburger-button {
+    display: none;
+}
+
+@media (max-width: 650px) {
+    nav, #inverted-nav {
+        flex-direction: column;
+        padding: 15px;
+        justify-content: start;
+    }
+
+    nav {
+        background: var(--color-bg-hover);
+        position: absolute;
+        right: -5px;
+        top: 100%;
+        width: 50%;
+        height: calc(100vh - 70px);
+        clip-path: inset(0 0 0 0);
+        transition: clip-path 0.5s ease, right 0.5s ease;
+        outline: 5px solid var(--color-bg);
+        outline-offset: -5px;
+    }
+
+    nav.closed {
+        clip-path: inset(0 100% 0 0);
+        right: -100%;
+    }
+
+    nav a, #inverted-nav a {
+        width: 100%;
+        text-align: left;
+    }
+
+    #hamburger-button {
+        display: flex;
+        position: absolute;
+        right: 17.5px;
+        --hover: var(--color-bg-active);
+        --active: var(--color-bg-active-dark);
+    }
 }

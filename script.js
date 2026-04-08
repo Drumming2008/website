@@ -47,6 +47,12 @@ let pageInfo = {
   }
 }
 
+function isTouchDevice() {
+  return (("ontouchstart" in window) ||
+     (navigator.maxTouchPoints > 0) ||
+     (navigator.msMaxTouchPoints > 0))
+}
+
 let pageElemList = []
 
 for (let [k, v] of Object.entries(pageInfo)) {
@@ -66,11 +72,13 @@ for (let [k, v] of Object.entries(pageInfo)) {
   a.id = "tab-" + v.url
 
   a.onmouseenter = a.onfocus = () => {
+    if (isTouchDevice()) return
+
     let rect = a.getBoundingClientRect()
     let currentRect = pageInfo[currentTab].link.getBoundingClientRect()
     let navRect = document.querySelector("nav").getBoundingClientRect()
     navCopy.style.clipPath = `
-            inset(0 ${navRect.right - Math.max(rect.right, currentRect.right)}px 0 ${Math.min(rect.left, currentRect.left) - navRect.left}px round var(--nav-radius))
+            inset(${rect.top - navRect.top}px ${navRect.right - rect.right}px ${navRect.bottom - rect.bottom}px ${rect.left - navRect.left}px round var(--nav-radius))
         `
   }
 
@@ -78,7 +86,7 @@ for (let [k, v] of Object.entries(pageInfo)) {
     let currentRect = pageInfo[currentTab].link.getBoundingClientRect()
     let navRect = document.querySelector("nav").getBoundingClientRect()
     navCopy.style.clipPath = `
-            inset(0 ${navRect.right - currentRect.right}px 0 ${currentRect.left - navRect.left}px round var(--nav-radius))
+            inset(${currentRect.top - navRect.top}px ${navRect.right - currentRect.right}px ${navRect.bottom - currentRect.bottom}px ${currentRect.left - navRect.left}px round var(--nav-radius))
         `
   }
 
@@ -116,18 +124,33 @@ function getPieceId() {
   return null
 }
 
+function setNavSelector(a) {
+  let currentRect = a.getBoundingClientRect()
+  let navRect = document.querySelector("nav").getBoundingClientRect()
+  navCopy.style.clipPath = `
+            inset(${currentRect.top - navRect.top}px ${navRect.right - currentRect.right}px ${navRect.bottom - currentRect.bottom}px ${currentRect.left - navRect.left}px round var(--nav-radius))
+        `
+}
+
+onresize = () => {
+  setNavSelector(pageInfo[currentTab].link)
+}
+
+id("hamburger-button").onclick = () => {
+  document.querySelector("nav").classList.toggle("closed")
+}
+
 function moveToTab(tab, onClick = false) {
   for (let i of document.querySelectorAll("nav > a")) {
     i.tabIndex = ""
+    i.classList.remove("selected")
   }
   currentTab = tab
   let a = pageInfo[tab].link
   a.tabIndex = -1
-  let rect = a.getBoundingClientRect()
-  let navRect = document.querySelector("nav").getBoundingClientRect()
-  navCopy.style.clipPath = `
-    inset(0 ${navRect.right - rect.right}px 0 ${rect.left - navRect.left}px round var(--nav-radius))
-  `
+  a.classList.add("selected")
+  
+  setNavSelector(a)
 
   for (let i of pageElemList) {
     i.style.display = "none"
@@ -157,7 +180,7 @@ function moveToTab(tab, onClick = false) {
 
     id("piece").innerHTML = `
       <h2 class="piece-title">
-        <button class="back-to-pieces">  
+        <button class="icon-button back-to-pieces">  
           <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"><path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"></path></svg>
         </button>
         ${data.title}
