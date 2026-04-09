@@ -121,6 +121,10 @@ a {
     outline: none;
 }
 
+a:not(header a):focus-visible {
+    outline: 2px solid var(--color-accent);
+}
+
 nav a, #inverted-nav a {
     position: relative;
     width: max-content;
@@ -369,6 +373,11 @@ details:has(summary:focus-visible:not(:hover)) {
     --outline-offset: -2px;
 }
 
+details:has(summary:focus-visible:not(:hover))::before {
+    border-color: var(--color-accent);
+    border-width: 2px;
+}
+
 details::details-content {
     overflow: hidden;
     height: 0;
@@ -400,6 +409,10 @@ summary > svg, footer svg, .icon-button > svg {
     width: 1.25rem;
     transition: transform 0.2s ease;
     margin-left: auto;
+}
+
+.icon-button:focus-visible {
+    outline: 2px solid var(--color-accent);
 }
 
 details[open] > summary > svg {
@@ -600,7 +613,7 @@ footer {
         outline-offset: -5px;
     }
 
-    nav.closed {
+    nav.closed:not(:has(:focus-visible)) {
         clip-path: inset(0 100% 0 0);
         right: -100%;
     }
