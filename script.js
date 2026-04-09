@@ -83,7 +83,7 @@ for (let [k, v] of Object.entries(pageInfo)) {
     let currentRect = pageInfo[currentTab].link.getBoundingClientRect()
     let navRect = document.querySelector("nav").getBoundingClientRect()
     navCopy.style.clipPath = `
-            inset(${rect.top - navRect.top}px ${navRect.right - rect.right + 5}px ${navRect.bottom - rect.bottom + 5}px ${rect.left - navRect.left}px round var(--nav-radius))
+            inset(${rect.top - navRect.top + 2.5}px ${navRect.right - rect.right + 2.5}px ${navRect.bottom - rect.bottom + 2.5}px ${rect.left - navRect.left + 2.5}px round var(--nav-radius))
         `
   }
 
@@ -91,7 +91,7 @@ for (let [k, v] of Object.entries(pageInfo)) {
     let currentRect = pageInfo[currentTab].link.getBoundingClientRect()
     let navRect = document.querySelector("nav").getBoundingClientRect()
     navCopy.style.clipPath = `
-            inset(${currentRect.top - navRect.top}px ${navRect.right - currentRect.right + 5}px ${navRect.bottom - currentRect.bottom + 5}px ${currentRect.left - navRect.left}px round var(--nav-radius))
+            inset(${currentRect.top - navRect.top + 2.5}px ${navRect.right - currentRect.right + 2.5}px ${navRect.bottom - currentRect.bottom + 2.5}px ${currentRect.left - navRect.left + 2.5}px round var(--nav-radius))
         `
   }
 
@@ -134,7 +134,7 @@ function setNavSelector(a) {
   let currentRect = a.getBoundingClientRect()
   let navRect = document.querySelector("nav").getBoundingClientRect()
   navCopy.style.clipPath = `
-            inset(${currentRect.top - navRect.top}px ${navRect.right - currentRect.right + 5}px ${navRect.bottom - currentRect.bottom + 5}px ${currentRect.left - navRect.left}px round var(--nav-radius))
+            inset(${currentRect.top - navRect.top + 2.5}px ${navRect.right - currentRect.right + 2.5}px ${navRect.bottom - currentRect.bottom + 2.5}px ${currentRect.left - navRect.left + 2.5}px round var(--nav-radius))
         `
 }
 

@@ -98,7 +98,7 @@ header {
     align-items: center;
     justify-content: space-between;
     padding-right: max(10px, 10%);
-    padding-left: 17.5px;
+    padding-left: 50px;
     background: var(--color-bg-hover);
     z-index: 10;
 }
@@ -130,24 +130,17 @@ nav a, #inverted-nav a {
     width: max-content;
     font-weight: 600;
     text-decoration: none;
-    padding: 0 15px;
-    padding-top: 2px;
-    padding-bottom: 9px;
+    padding: 0 17.5px;
+    padding-top: 4.5px;
+    padding-bottom: 6.5px;
     text-align: center;
     transition: background 0.5s linear;
-}
-
-nav a:not(:last-child), #inverted-nav a:not(:last-child) {
-    padding-right: 20px;
 }
 
 nav a.selected::after {
     content: "";
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 5px;
-    bottom: 5px;
+    inset: 2.5px;
     background: var(--color-bg-active);
     z-index: -1;
     /* box-shadow: inset 5px 0 0 var(--color-bg-hover), inset -5px 0 0 var(--color-bg-hover); */
@@ -592,7 +585,7 @@ footer {
     display: none;
 }
 
-@media (max-width: 650px) {
+@media (max-width: 700px) {
     nav, #inverted-nav {
         flex-direction: column;
         padding: 15px;
@@ -621,8 +614,9 @@ footer {
     nav a, #inverted-nav a {
         width: 100%;
         text-align: left;
-        padding-top: 5px;
-        padding-bottom: 12px;
+        padding-top: 7.5px;
+        padding-bottom: 9.5px;
+        transform: translate(-2.5px, -2.5px);
     }
 
     /* nav a.selected {
