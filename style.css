@@ -186,10 +186,22 @@ section {
     background: var(--color-bg);
     display: flex;
     flex-direction: column;
+    transition: clip-path 0.5s ease;
+    clip-path: inset(0 0 0 0);
+    z-index: 3;
+}
+
+section.hidden {
+    clip-path: inset(50% 50% 50% 50%);
+    z-index: 2;
+}
+
+section.low-z {
+    z-index: 2;
 }
 
 #piece {
-    z-index: 2;
+    z-index: 5;
     transition: transform 0.2s ease, opacity 0.1s linear;
 }
 

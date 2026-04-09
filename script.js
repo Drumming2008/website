@@ -89,8 +89,6 @@ for (let [k, v] of Object.entries(pageInfo)) {
   pageElemList.push(v.elem)
 }
 
-console.log(pageElemList)
-
 let navCopy = document.createElement("div")
 navCopy.id = "inverted-nav"
 navCopy.innerHTML = document.querySelector("nav").innerHTML
@@ -138,23 +136,39 @@ function moveToTab(tab, onClick = false) {
     i.tabIndex = ""
     i.classList.remove("selected")
   }
+
+  for (let i of pageElemList) {
+    console.log("pageinfo", pageInfo, currentTab, pageInfo[currentTab])
+    if (currentTab && i == pageInfo[currentTab].elem) {
+      i.classList.add("low-z")
+      setTimeout(() => {
+        i.style.display = "none"
+        i.classList.add("hidden")
+        i.classList.remove("low-z")
+      }, 500)
+    } else {
+      i.style.display = "none"
+      i.classList.add("hidden")
+    }
+  }
+  
+  pageInfo[tab].elem.style.display = ""
+  setTimeout(() => {
+    pageInfo[tab].elem.classList.remove("hidden")
+  })
   currentTab = tab
+  
   let a = pageInfo[tab].link
   a.tabIndex = -1
   a.classList.add("selected")
   
   setNavSelector(a)
 
-  for (let i of pageElemList) {
-    i.style.display = "none"
-  }
-  pageInfo[tab].elem.style.display = ""
-
   if (!getPieceId() || onClick) {
     id("piece").classList.add("hidden")
     setTimeout(() => {
       id("piece").style.display = "none"
-    }, 200)
+    }, 500)
     parent.pushState("/" + pageInfo[tab].url)
   }
   
