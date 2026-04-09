@@ -206,6 +206,7 @@ section.low-z {
 }
 
 #piece.hidden {
+    z-index: 2;
     opacity: 0;
     transform: translateY(50%);
 }

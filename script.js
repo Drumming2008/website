@@ -138,8 +138,7 @@ function moveToTab(tab, onClick = false) {
   }
 
   for (let i of pageElemList) {
-    console.log("pageinfo", pageInfo, currentTab, pageInfo[currentTab])
-    if (currentTab && i == pageInfo[currentTab].elem) {
+    if (currentTab && i == pageInfo[currentTab].elem && !getPieceId() && !onClick) {
       i.classList.add("low-z")
       setTimeout(() => {
         i.style.display = "none"
