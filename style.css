@@ -463,10 +463,7 @@ summary::marker {
 } */
 
 .details-content li > div {
-    display: flex;
-    gap: 0.75ch;
     white-space: nowrap;
-    flex-wrap: wrap;
 }
 
 .details-content li > div > a {
@@ -478,10 +475,8 @@ summary::marker {
 }
 
 .details-content li > div > div {
-    display: flex;
-    gap: 0.75ch;
     white-space: nowrap;
-    flex-wrap: wrap;
+    display: inline;
 }
 
 .details-content li > div > div > :first-child::after {
