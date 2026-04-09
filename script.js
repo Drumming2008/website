@@ -184,6 +184,10 @@ function moveToTab(tab, onClick = false) {
       id("piece").innerHTML += `<div class="video-wrapper">${data.video}</div>`
     }
 
+    if (data.desc) {
+      id("piece").innerHTML += `<p class="piece-desc">${data.desc}</p>`
+    }
+
     // keep at end
     id("piece").querySelector(".back-to-pieces").onclick = () => {
       id("tab-music").click()

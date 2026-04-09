@@ -511,7 +511,8 @@ details:has(summary:focus-visible:not(:hover))::details-content {
 .video-wrapper {
     display: flex;
     justify-content: center;
-    margin-top: 10px;
+    margin: 5px;
+    margin-top: 30px;
 }
 
 .video-wrapper > iframe {
@@ -580,6 +581,13 @@ footer {
 .piece-title {
     display: flex;
     gap: 10px;
+}
+
+.piece-desc {
+    margin: 0 auto;
+    margin-top: 25px;
+    text-align: justify;
+    max-width: 65ch;
 }
 
 .icon-button {
