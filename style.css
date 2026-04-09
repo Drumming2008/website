@@ -479,8 +479,8 @@ summary::marker {
     display: inline;
 }
 
-.details-content li > div > div > :first-child::after {
-    content: ",";
+i + .comma {
+    font-style: italic;
 }
 
 .sub-category {

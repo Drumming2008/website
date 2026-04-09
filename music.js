@@ -41,7 +41,7 @@ for (let i of Object.values(musicData)) {
     title.append(titleLink)
 
     let titleInfo = document.createElement("div")
-    titleInfo.innerHTML = `<span> for ${i.instr}</span><span class="year"> ${i.year}</span>`
+    titleInfo.innerHTML = `<span> for ${i.instr}<span class="comma">,</span></span><span class="year"> ${i.year}</span>`
     title.append(titleInfo)
 
     titleLink.onclick = e => {
