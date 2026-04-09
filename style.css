@@ -137,13 +137,18 @@ nav a, #inverted-nav a {
     transition: background 0.5s linear;
 }
 
-nav a.selected::after {
+nav a::after {
     content: "";
     position: absolute;
     inset: 2.5px;
     background: var(--color-bg-active);
     z-index: -1;
-    /* box-shadow: inset 5px 0 0 var(--color-bg-hover), inset -5px 0 0 var(--color-bg-hover); */
+    opacity: 0;
+    transition: opacity 0.2s linear;
+}
+
+nav a.selected::after {
+    opacity: 1;
 }
 
 #inverted-nav {
