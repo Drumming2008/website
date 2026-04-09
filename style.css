@@ -29,6 +29,7 @@
     --color-accent: #2d4f94;
 
     /* #082234 */
+    --bounce: linear(0, 0.008 1.1%, 0.029 2.2%, 0.118 4.8%, 0.621 14.5%, 0.821 19.2%, 0.895 21.5%, 0.956 23.9%, 1.003 26.4%, 1.036 29%, 1.061 32.6%, 1.067 36.7%, 1.015 54.2%, 1 62.4%, 1);
 }
 
 /* @media (prefers-color-scheme: dark) {
@@ -43,12 +44,18 @@
     src: url("./dm_serif.ttf");
 }
 
+@font-face {
+    font-family: sans-serif-font;
+    src: url("./optima.ttf");
+}
+
 html, body {
     height: 100%;
     font-size: 18px;
     color: var(--color);
     background: var(--color-bg);
     overflow: hidden;
+    font-family: serif-font, serif;
 }
 
 ::selection {
@@ -63,7 +70,7 @@ html, body {
     border-radius: 0;
     background: transparent;
     box-sizing: border-box;
-    font-family: serif-font, serif;
+    font-family: inherit;
     text-rendering: optimizeLegibility;
 }
 
@@ -74,18 +81,25 @@ h1, h2, h3, header {
 h1 {
     font-size: 2em;
     transform: translateY(-2.5px);
+    font-weight: bold;
 }
 
 h2 {
     font-size: 1.5em;
+    font-weight: normal;
 }
 
 h3 {
     font-size: 1.15em;
+    font-weight: normal;
 }
 
-p {
+p, li {
     line-height: 1.6;
+}
+
+p, li, footer {
+    font-family: sans-serif-font, sans-serif;
 }
 
 header {
@@ -379,7 +393,7 @@ details:has(summary:focus-visible:not(:hover))::before {
 details::details-content {
     overflow: hidden;
     height: 0;
-    transition: height 0.4s linear(0, 0.008 1.1%, 0.029 2.2%, 0.118 4.8%, 0.621 14.5%, 0.821 19.2%, 0.895 21.5%, 0.956 23.9%, 1.003 26.4%, 1.036 29%, 1.061 32.6%, 1.067 36.7%, 1.015 54.2%, 1 62.4%, 1), content-visibility 0.2s linear, margin 0.2s ease, padding 0.2s ease;
+    transition: height 0.4s var(--bounce), content-visibility 0.2s linear, margin 0.2s ease, padding 0.2s ease;
     transition-behavior: allow-discrete;
 }
 
@@ -405,7 +419,7 @@ summary::-webkit-details-marker {
 summary > svg, footer svg, .icon-button > svg {
     height: 1.25rem;
     width: 1.25rem;
-    transition: transform 0.2s ease;
+    transition: transform 0.4s var(--bounce);
     margin-left: auto;
 }
 
@@ -438,15 +452,19 @@ summary::marker {
 }
 
 .details-content li::before {
-    content: "•";
+    content: "";
     position: absolute;
     left: 0;
-    height: 1em;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 1px;
+    background: currentColor;
+    width: 0.5ch;
 }
 
 .details-content li > div {
     display: flex;
-    gap: 1ch;
+    gap: 0.75ch;
     white-space: nowrap;
     flex-wrap: wrap;
 }
@@ -461,7 +479,7 @@ summary::marker {
 
 .details-content li > div > div {
     display: flex;
-    gap: 1ch;
+    gap: 0.75ch;
     white-space: nowrap;
     flex-wrap: wrap;
 }
