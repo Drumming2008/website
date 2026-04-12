@@ -1,7 +1,3 @@
-id("close-banner").onclick = () => {
-  id("banner").remove()
-}
-
 function id(el) {
   return document.getElementById(el)
 }
@@ -131,21 +127,25 @@ id("hamburger-button").onclick = () => {
   document.querySelector("nav").classList.toggle("closed")
 }
 
+let tabMoveTimeout
+
 function moveToTab(tab, onClick = false) {
+  if (tabMoveTimeout) {
+    clearTimeout(tabMoveTimeout)
+    document.querySelector(".low-z")?.classList.remove("low-z")
+  }
+
   for (let i of document.querySelectorAll("nav > a")) {
     i.tabIndex = ""
     i.classList.remove("selected")
   }
 
+  let oldCurrentElement
+
   for (let i of pageElemList) {
-    if (currentTab && i == pageInfo[currentTab].elem && !getPieceId() && !onClick) {
-      i.classList.add("low-z")
-      setTimeout(() => {
-        i.style.display = "none"
-        i.classList.add("hidden")
-        i.classList.remove("low-z")
-      }, 500)
-    } else {
+    if (currentTab && i == pageInfo[currentTab].elem && !getPieceId()) {
+      oldCurrentElement = i
+    } else if (!getPieceId()) {
       i.style.display = "none"
       i.classList.add("hidden")
     }
@@ -156,6 +156,15 @@ function moveToTab(tab, onClick = false) {
     pageInfo[tab].elem.classList.remove("hidden")
   })
   currentTab = tab
+
+  if (oldCurrentElement) {
+    oldCurrentElement.classList.add("low-z")
+    oldCurrentElement.classList.add("hidden")
+    tabMoveTimeout = setTimeout(() => {
+      oldCurrentElement.style.display = "none"
+      oldCurrentElement.classList.remove("low-z")
+    }, 600)
+  }
   
   let a = pageInfo[tab].link
   a.tabIndex = -1
@@ -164,6 +173,10 @@ function moveToTab(tab, onClick = false) {
   setNavSelector(a)
 
   if (!getPieceId() || onClick) {
+    document.querySelector("footer").style.display = ""
+    setTimeout(() => {
+      document.querySelector("footer").classList.remove("hidden")
+    })
     id("piece").classList.add("hidden")
     setTimeout(() => {
       id("piece").style.display = "none"
@@ -171,7 +184,11 @@ function moveToTab(tab, onClick = false) {
     parent.pushState("/" + pageInfo[tab].url)
   }
   
+  id("tab-music").style.pointerEvents = ""
   if (getPieceId()) {
+    id("tab-music").style.pointerEvents = "all"
+    id("tab-music").tabIndex = ""
+
     let data = musicData[getPieceId()]
     if (!data) {
       location.href = "/404.html"
@@ -179,9 +196,13 @@ function moveToTab(tab, onClick = false) {
     }
 
     id("piece").style.display = ""
-    setTimeout(() => { id("piece").classList.remove("hidden") }, 0)
+    setTimeout(() => {
+      id("piece").classList.remove("hidden")
+      document.querySelector("footer").classList.add("hidden")
+    }, 0)
     setTimeout(() => {
       id("music").style.display = "none"
+      document.querySelector("footer").style.display = "none"
     }, 200)
 
     id("piece").innerHTML = `
@@ -189,8 +210,9 @@ function moveToTab(tab, onClick = false) {
         <button class="icon-button back-to-pieces">  
           <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"><path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"></path></svg>
         </button>
-        ${data.title}
+        “${data.title}” (${data.year})
       </h2>
+      <span class="piece-instr">${data.instr.replace("divisi", "<i>divisi</i>")}</span>
     `
 
     if (data.video) {
@@ -198,7 +220,14 @@ function moveToTab(tab, onClick = false) {
     }
 
     if (data.desc) {
-      id("piece").innerHTML += `<p class="piece-desc">${data.desc}</p>`
+      id("piece").innerHTML += `
+        <div class="piece-desc">
+          <h3 class="piece-desc-title">Program Note</h3>
+          <p>
+            ${data.desc}
+          </p>
+        </div>
+      `
     }
 
     // keep at end
