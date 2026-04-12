@@ -38,6 +38,11 @@ let musicSubcategories = [
         name: "Steel Drums",
         id: "steel drums",
         parent: "jazz"
+    },
+    {
+        name: "Arrangements",
+        id: "arrangements",
+        parent: "jazz"
     }
 ]
 
@@ -129,6 +134,23 @@ let musicData = [
         year: 2025,
         cat: "choral",
         subcat: "ttbb"
+    },
+    {
+        title: "Reggae for My Baby",
+        instr: "Steel Drum Band",
+        year: 2025,
+        cat: "jazz",
+        subcat: "steel drums",
+        subcat: "arrangements",
+        composer: "Robert Greenidge"
+    },
+    {
+        title: "The Ministry of Rhythm",
+        instr: "Steel Drum Band",
+        year: 2025,
+        cat: "jazz",
+        subcat: "arrangements",
+        composer: "David Rudder"
     }
 ]
 

@@ -530,6 +530,10 @@ i + .comma {
     line-height: 1.6;
 }
 
+.sub-category > h3 {
+    font-family: serif-font, serif;
+}
+
 details:has(summary:hover)::details-content {
     margin: 0 -2px;
     padding: 0 2px;
@@ -548,11 +552,25 @@ details:has(summary:focus-visible:not(:hover))::details-content {
     --inset: -2px;
 }
 
+@keyframes video-in {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .video-wrapper {
+    opacity: 0;
     display: flex;
     justify-content: center;
     margin: 5px;
     margin-top: 30px;
+    animation: video-in 0.5s 0.2s ease-out forwards;
 }
 
 .video-wrapper > iframe {

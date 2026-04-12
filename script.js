@@ -40,6 +40,14 @@ function isTouchDevice() {
      (navigator.msMaxTouchPoints > 0))
 }
 
+for (let i of document.querySelectorAll("section")) {
+  i.style.animation = "none"
+  i.style.display = "none"
+  setTimeout(() => {
+    i.style.animation = ""
+  }, 500)
+}
+
 let pageElemList = []
 
 for (let [k, v] of Object.entries(pageInfo)) {
