@@ -43,9 +43,6 @@ function isTouchDevice() {
 for (let i of document.querySelectorAll("section")) {
   i.style.animation = "none"
   i.style.display = "none"
-  setTimeout(() => {
-    i.style.animation = ""
-  }, 500)
 }
 
 let pageElemList = []
@@ -181,6 +178,7 @@ function moveToTab(tab, onClick = false) {
   setNavSelector(a)
 
   if (!getPieceId() || onClick) {
+    pageInfo[tab].elem.style.animation = ""
     document.querySelector("footer").style.display = ""
     setTimeout(() => {
       document.querySelector("footer").classList.remove("hidden")
