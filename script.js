@@ -41,6 +41,7 @@ function isTouchDevice() {
 }
 
 for (let i of document.querySelectorAll("section")) {
+  if (i == id("piece")) continue
   i.style.animation = "none"
   i.style.display = "none"
 }
