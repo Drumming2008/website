@@ -135,7 +135,7 @@ id("hamburger-button").onclick = () => {
 
 let tabMoveTimeout
 
-function moveToTab(tab, onClick = false) {
+function moveToTab(tab, onClick = false, pageLoad = false) {
   if (tabMoveTimeout) {
     clearTimeout(tabMoveTimeout)
     document.querySelector(".low-z")?.classList.remove("low-z")
@@ -179,7 +179,7 @@ function moveToTab(tab, onClick = false) {
   setNavSelector(a)
 
   if (!getPieceId() || onClick) {
-    pageInfo[tab].elem.style.animation = ""
+    if (!pageLoad) pageInfo[tab].elem.style.animation = ""
     document.querySelector("footer").style.display = ""
     setTimeout(() => {
       document.querySelector("footer").classList.remove("hidden")
@@ -249,9 +249,9 @@ let params
 onload = () => {
   params = new URLSearchParams(location.search)
   if (params.has("p")) {
-    moveToTab(params.get("p"))
+    moveToTab(params.get("p"), false, true)
   } else {
-    moveToTab("home")
+    moveToTab("home", false, true)
   }
 }
 
