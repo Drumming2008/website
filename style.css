@@ -414,14 +414,6 @@ details::before {
     transition: inset 0.15s ease;
 }
 
-details:first-of-type::before {
-    border-radius: 15px 15px 0 0;
-}
-
-details:last-of-type::before {
-    border-radius: 0 0 15px 15px;
-}
-
 details:has(summary:hover) {
     --outline-offset: -2px;
 }
