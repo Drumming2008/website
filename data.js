@@ -52,14 +52,15 @@ let musicData = [
         instr: "String Quartet",
         year: 2025,
         cat: "chamber",
-        video: '<iframe width="560" height="315" src="https://www.youtube.com/embed/vU4ypttR1Ek?si=v9GA64c-1utNalic" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
+        video: '<iframe width="560" height="315" src="https://www.youtube.com/embed/OTOA83ry3iY?si=nN9AZi-yNI8xl2rW" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
         desc: "“Landscapes” is a piece for string quartet that I originally composed for a summer program at Boston Conservatory at Berklee. I liked the themes in the original score, but had ideas for improving it and adding to it. In this piece, I wanted to experiment with something different and used some aleatoric pizzicato that sounds a bit like rain. Because I haven’t often used extended techniques in my compositions, I thought it would be interesting to combine the aleatoric pizzicato with more traditional melody. The melody almost floats on top of the harmony, which sits almost static, or changes slowly at random times. I hope the listener will experience the different landscapes that the same theme is shown in during the piece."
     },
     {
         title: "Turbulence",
         instr: "String Trio",
         year: 2024,
-        cat: "chamber"
+        cat: "chamber",
+        video: '<iframe width="560" height="315" src="https://www.youtube.com/embed/IAuHp4EYSzo?si=tuEscE6vXNkufdA_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>'
     },
     {
         title: "Clarinet Vibes",
