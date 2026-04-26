@@ -88,7 +88,8 @@ let musicData = [
         instr: "Big Band",
         year: 2026,
         cat: "jazz",
-        subcat: "jazz"
+        subcat: "jazz",
+        video: '<iframe width="560" height="315" src="https://www.youtube.com/embed/EhwkGPrOooY?si=KvZj-JkYCe5mKsid" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>'
     },
     {
         title: "For the Beauty of the Earth",
@@ -125,6 +126,13 @@ let musicData = [
         title: "Rain Music",
         instr: "SATB Choir, divisi",
         year: 2024,
+        cat: "choral",
+        subcat: "satb"
+    },
+    {
+        title: "Human Nature Feels",
+        instr: "SATB Choir, divisi",
+        year: 2026,
         cat: "choral",
         subcat: "satb"
     },
