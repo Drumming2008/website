@@ -14,6 +14,8 @@ window.addEventListener("pageshow", e => {
 
 id("current-year").innerText = new Date().getFullYear()
 
+let navBreakpoint = 700
+
 let pageInfo = {
   home: {
     text: "About",
@@ -125,8 +127,22 @@ function setNavSelector(a) {
         `
 }
 
-onresize = () => {
+let navWidth = 0
+
+function resize() {
+  let logoRect = id("logo").getBoundingClientRect(),
+  pieceHeaderRect = id("piece-header").getBoundingClientRect()
+  if ((innerWidth - 100) - navWidth > Math.max(logoRect.width, id("piece-header").dataset.shown == "true" ? pieceHeaderRect.width : 0) + 25) {
+    document.body.classList.remove("hamburger")
+  } else {
+    document.body.classList.add("hamburger")
+  }
+
   setNavSelector(pageInfo[currentTab].link)
+}
+
+onresize = () => {
+  resize()
 }
 
 id("hamburger-button").onclick = () => {
@@ -222,6 +238,10 @@ function moveToTab(tab, onClick = false, pageLoad = false) {
       <span class="piece-instr">${data.instr.replace("divisi", "<i>divisi</i>")}</span>
     `
 
+    id("piece").scrollTop = 0
+
+    id("piece-header-text").innerText = `“${data.title}”`
+
     if (data.video) {
       id("piece").innerHTML += `<div class="video-wrapper">${data.video}</div>`
     }
@@ -247,12 +267,16 @@ function moveToTab(tab, onClick = false, pageLoad = false) {
 let params
 
 onload = () => {
+  navWidth = document.querySelector("nav").getBoundingClientRect().width
+  
   params = new URLSearchParams(location.search)
   if (params.has("p")) {
     moveToTab(params.get("p"), false, true)
   } else {
     moveToTab("home", false, true)
   }
+
+  resize()
 }
 
 let form = id("form")
@@ -271,4 +295,27 @@ form.onsubmit = async e => {
 
   id("form").style.display = "none"
   id("form-complete").style.display = ""
+}
+
+
+id("piece").onscroll = e => {
+  let scrollPos = id("piece").scrollTop
+  if (scrollPos >= 115) {
+    id("piece-header").classList.add("shown")
+    id("piece-header").dataset.shown = true
+    id("logo").classList.add("hidden")
+  } else {
+    id("piece-header").classList.remove("shown")
+    id("piece-header").dataset.shown = false
+    id("logo").classList.remove("hidden")
+  }
+  resize()
+}
+
+id("back-to-pieces").onclick = () => {
+  id("tab-music").click()
+  id("piece-header").classList.remove("shown")
+  id("piece-header").dataset.shown = false
+  id("logo").classList.remove("hidden")
+  resize()
 }
