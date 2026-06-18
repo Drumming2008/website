@@ -300,7 +300,7 @@ form.onsubmit = async e => {
 
 id("piece").onscroll = e => {
   let scrollPos = id("piece").scrollTop
-  if (scrollPos >= 115) {
+  if (scrollPos >= 100) {
     id("piece-header").classList.add("shown")
     id("piece-header").dataset.shown = true
     id("logo").classList.add("hidden")

@@ -50,7 +50,7 @@ let musicData = [
     {
         title: "Landscapes",
         instr: "String Quartet",
-        year: 2025,
+        year: 2026,
         cat: "chamber",
         video: '<iframe width="560" height="315" src="https://www.youtube.com/embed/OTOA83ry3iY?si=nN9AZi-yNI8xl2rW" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
         desc: "“Landscapes” is a piece for string quartet that I originally composed for a summer program at Boston Conservatory at Berklee. I liked the themes in the original score, but had ideas for improving it and adding to it. In this piece, I wanted to experiment with something different and used some aleatoric pizzicato that sounds a bit like rain. Because I haven’t often used extended techniques in my compositions, I thought it would be interesting to combine the aleatoric pizzicato with more traditional melody. The melody almost floats on top of the harmony, which sits almost static, or changes slowly at random times. I hope the listener will experience the different landscapes that the same theme is shown in during the piece."
@@ -98,7 +98,8 @@ let musicData = [
         cat: "choral",
         subcat: "ttbb",
         video: '<iframe width="560" height="315" src="https://www.youtube.com/embed/bfz72TKPpC0?si=AK41WPffoZDAO7BF" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
-        desc: "“For the Beauty of the Earth” is a TTBB choral piece, based on a Christian hymn of the same name. With my choir, Ragazzi Boys Chorus, I’ve sung two diﬀerent settings of “For the Beauty of the Earth” by other composers, and I was drawn to the lyrics. The structure of the poem has multiple stanzas that all finish with “Lord of all….” Using this structure, I created a build-up throughout the piece, where each verse is diﬀerent or bigger than the previous verse, starting with just one part singing the words, and culminating with every part singing in counterpoint."
+        desc: "“For the Beauty of the Earth” is a TTBB choral piece, based on a Christian hymn of the same name. With my choir, Ragazzi Boys Chorus, I’ve sung two diﬀerent settings of “For the Beauty of the Earth” by other composers, and I was drawn to the lyrics. The structure of the poem has multiple stanzas that all finish with “Lord of all….” Using this structure, I created a build-up throughout the piece, where each verse is diﬀerent or bigger than the previous verse, starting with just one part singing the words, and culminating with every part singing in counterpoint.",
+
     },
     {
         title: "For the Beauty of the Earth",
@@ -113,7 +114,8 @@ let musicData = [
         instr: "SATB Choir",
         year: 2025,
         cat: "choral",
-        subcat: "satb"
+        subcat: "satb",
+        desc: "“The Lonely Bird” is a piece based on the poem “Twilight” by Pulitzer Prize-winning American poet Sara Teasdale. It symbolizes the feeling of loneliness through the falling spring rain and the repetitious calling of a lonely bird. Through my music, I tried to show the duality of the intense emotion behind the heart’s calling through changing tonality, but also the stagnation of loneliness in the falling rain by staying within a confined tonal space."
     },
     {
         title: "Ave Maria",
@@ -142,7 +144,8 @@ let musicData = [
         instr: "TTBB Choir",
         year: 2025,
         cat: "choral",
-        subcat: "ttbb"
+        subcat: "ttbb",
+        desc: "“The Lonely Bird” is a piece based on the poem “Twilight” by Pulitzer Prize-winning American poet Sara Teasdale. It symbolizes the feeling of loneliness through the falling spring rain and the repetitious calling of a lonely bird. Through my music, I tried to show the duality of the intense emotion behind the heart’s calling through changing tonality, but also the stagnation of loneliness in the falling rain by staying within a confined tonal space."
     },
     {
         title: "Reggae for My Baby",
