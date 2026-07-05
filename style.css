@@ -213,6 +213,10 @@ section {
     z-index: 3;
 }
 
+#music {
+    padding-top: 80px;
+}
+
 #piece {
     position: absolute;
     bottom: 0;
@@ -254,6 +258,12 @@ section.low-z:not(#piece) {
     z-index: 2;
 }
 
+#contact > #links {
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 25px;
+}
+
 form, #form-complete {
     display: flex;
     flex-direction: column;
@@ -268,7 +278,7 @@ form, #form-complete {
     text-align: center;
 }
 
-input[type="text"], input[type="email"], textarea {
+input[type="text"], input[type="email"], input[type="search"], textarea {
     outline: 1px solid var(--color);
     transition: outline-offset 0.15s ease, padding 0.15s ease, margin 0.15s ease;
     padding: 5px;
@@ -345,6 +355,74 @@ textarea {
     outline-offset: 2px;
 }
 
+#music-controls {
+    height: 70px;
+    flex-shrink: 0;
+    padding: 20px 50px;
+    position: fixed;
+    top: 60px;
+    left: 0;
+    right: 0;
+    z-index: 9;
+    transition: transform 0.5s ease-out, clip-path 0.5s ease-out;
+    clip-path: inset(0 0 0 0);
+    background: var(--color-bg);
+}
+
+#music-controls.hidden {
+    transform: translateY(-100%);
+    clip-path: inset(100% 0 0 0);
+}
+
+#search-music {
+    height: 40px;
+    padding: 10px;
+}
+
+#music-controls > .input-wrapper > label {
+    top: 8px;
+    left: 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+#music-controls > .input-wrapper > label > svg {
+    width: 1em;
+    height: 1em;
+}
+
+#search-content {
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#search-content > .details-content {
+    padding: 0;
+}
+
+#search-content > .details-content li {
+    padding: 0;
+}
+
+#search-content .sub-category {
+    margin: 0 !important;
+    gap: 10px;
+}
+
+#search-content h3 {
+    display: none;
+}
+
+/* #music-controls > .input-wrapper > label::after {
+    background-color: var(--color-bg-1);
+} */
+
+::-webkit-search-cancel-button {
+    display: none;
+}
+
 #submit {
     font-size: inherit;
     cursor: pointer;
@@ -379,23 +457,6 @@ input:-webkit-autofill:focus,
 input:-webkit-autofill:active{
     -webkit-box-shadow: 0 0 0 30px var(--color-bg) inset !important;
     color: var(--color) !important;
-}
-
-#email-span {
-    display: inline-block;
-    font-size: 0.75em;
-    margin-top: -20px;
-    width: 100%;
-    font-family: sans-serif-font, sans-serif;
-}
-
-#email-address {
-    user-select: all;
-}
-
-#email-address:hover {
-    outline: 1px solid var(--color);
-    outline-offset: 1px;
 }
 
 #recordings {
@@ -471,7 +532,7 @@ summary::-webkit-details-marker {
     display: none;
 }
 
-summary > svg, footer svg, .icon-button > svg {
+summary > svg, footer svg, .icon-button > svg, #links svg {
     height: 1.25rem;
     width: 1.25rem;
     transition: transform 0.4s var(--bounce);
@@ -627,6 +688,7 @@ footer.hidden {
     display: flex;
     gap: 15px;
     width: min-content;
+    font-family: sans-serif-font;
 }
 
 #links > a {
@@ -797,6 +859,10 @@ footer.hidden {
     section {
         padding: 25px;
         padding-bottom: 100px;
+    }
+
+    #music-controls {
+        padding: 0 25px;
     }
 
     header {

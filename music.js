@@ -15,7 +15,7 @@ for (let i of musicCategories) {
     content.classList.add("details-content")
     details.append(content)
 
-    musicPage.append(details)
+    id("music-content").append(details)
 
     musicSubcategories.push({
         name: "",
@@ -92,4 +92,29 @@ for (let i of Object.values(musicData)) {
 
 for (let i of document.querySelectorAll(".sub-category")) {
     sortListAlphabetically(i)
+}
+
+for (let i of document.querySelectorAll(".details-content")) {
+    id("search-content").append(i.cloneNode(true))
+}
+
+id("search-music").oninput = () => {
+    if (id("search-music").value.trim()) {
+        id("music-content").style.display = "none"
+        id("search-content").style.display = "flex"
+
+        for (let i of document.querySelectorAll("#search-content li")) {
+            i.style.display = "none"
+        }
+
+        for (let i of document.querySelectorAll("#search-content li")) {
+            console.log(i.innerText.toLowerCase())
+            if (i.innerText.toLowerCase().includes(id("search-music").value.toLowerCase())) {
+                i.style.display = ""
+            }
+        }
+    } else {
+        id("music-content").style.display = ""
+        id("search-content").style.display = ""
+    }
 }

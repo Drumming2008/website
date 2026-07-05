@@ -157,6 +157,18 @@ function moveToTab(tab, onClick = false, pageLoad = false) {
     document.querySelector(".low-z")?.classList.remove("low-z")
   }
 
+  if (tab == "music") {
+    id("music-controls").style.display = ""
+    setTimeout(() => {
+      id("music-controls").classList.remove("hidden")
+    })
+  } else {
+    id("music-controls").classList.add("hidden")
+    setTimeout(() => {
+      id("music-controls").style.display = "none"
+    }, 500)
+  }
+
   for (let i of document.querySelectorAll("nav > a")) {
     i.tabIndex = ""
     i.classList.remove("selected")
@@ -319,3 +331,5 @@ id("back-to-pieces").onclick = () => {
   id("logo").classList.remove("hidden")
   resize()
 }
+
+id("contact").prepend(id("links").cloneNode(true))

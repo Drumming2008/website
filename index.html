@@ -24,7 +24,6 @@
             <nav class="closed"></nav>
         </header>
         <section id="home">
-            <!-- <h2>Bio Coming Soon</h2> -->
              <p id="bio">
                 <img alt="[Portrait Here]" id="portrait">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae voluptates ad odio reprehenderit similique necessitatibus, accusamus dolores adipisci? Voluptatibus, hic beatae cum ea tempore inventore quibusdam distinctio nostrum adipisci temporibus.
@@ -36,11 +35,24 @@
                 Lorem ipsum dolor, sit amet consectetur adipisicing elit. Unde possimus pariatur rem sed autem provident quisquam at repellendus praesentium, reiciendis nulla dolor laudantium architecto explicabo sit iusto ad dolorem odit.
              </p>
         </section>
-        <section id="music"></section>
+        <div id="music-controls" style="display: none;">
+            <div class="input-wrapper">
+                <label for="search-music">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path></svg>
+                    Search music
+                </label>
+                <input type="search" name="Search" id="search-music" placeholder=" ">
+            </div>
+        </div>
+        <section id="music">
+            <div id="search-content"></div>
+            <div id="music-content"></div>
+        </section>
         <section id="piece" style="display: none;"></section>
         <section id="recordings"></section>
         <section id="contact">
             <form id="form">
+                <h2>Contact Form</h2>
                 <div class="input-wrapper">
                     <label for="name">Name</label>
                     <input type="text" id="name" placeholder=" " required>
@@ -57,7 +69,6 @@
                     </div>
                 </div>
                 <button type="submit" id="submit">Send</button>
-                <span id="email-span">or email me directly at <a href="mailto:finn.reese@gmail.com">finn.reese@gmail.com</a></span>
             </form>
             <div id="form-complete" style="display: none">
                 <h2>Thank you for submitting an inquiry!</h2>
