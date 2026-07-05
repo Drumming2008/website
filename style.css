@@ -415,6 +415,10 @@ textarea {
     display: none;
 }
 
+#search-num {
+    font-size: 0.875em;
+}
+
 /* #music-controls > .input-wrapper > label::after {
     background-color: var(--color-bg-1);
 } */
