@@ -418,6 +418,18 @@ textarea {
     gap: 10px;
 }
 
+#search-content li.hidden {
+    display: none;
+}
+
+.details-content:has(li.hidden:only-child) {
+    display: none;
+}
+
+.details-content.hidden {
+    display: none;
+}
+
 #search-content h3 {
     display: none;
 }
@@ -455,12 +467,13 @@ select {
     appearance: base-select;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     border: 1px solid var(--color);
     margin: -1px;
     height: 42px;
     padding: 0 10px;
-    min-width: 100px;
+    gap: 5px;
+    width: 120px;
     cursor: pointer;
     outline-offset: -3px;
     transition: background 0.1s linear, outline-offset 0.2s ease   
@@ -498,6 +511,21 @@ select:focus-visible {
     }
 }
 
+@keyframes change-select-text {
+    from {
+        transform: translateY(40px);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+
+selectedcontent > * {
+    display: block;
+    animation: change-select-text 0.4s var(--bounce) forwards;
+}
+
 select:open::picker(select) {
     animation: select-appear 0.4s var(--bounce);
     clip-path: inset(0 0 0 0);
@@ -521,8 +549,12 @@ option {
     color: var(--color);
     height: 40px;
     position: relative;
-    max-width: 98px;
-    justify-content: center;
+    max-width: 118px;
+    width: 100%;
+}
+
+option > span {
+    display: block;
 }
 
 option:checked {
@@ -540,6 +572,10 @@ option:not(:checked):active {
 
 option:focus-visible {
     outline: 2px solid var(--color-accent);
+}
+
+option:checked:focus-visible {
+    outline: 2px solid var(--color-bg);
 }
 
 /* #music-controls > .input-wrapper > label::after {
@@ -659,7 +695,7 @@ summary::-webkit-details-marker {
     display: none;
 }
 
-summary > svg, footer svg, .icon-button > svg, #links svg {
+summary > svg, footer svg, .icon-button > svg, #links svg, select svg {
     height: 1.25rem;
     width: 1.25rem;
     transition: transform 0.4s var(--bounce);
@@ -1003,7 +1039,7 @@ footer.hidden {
     }
 
     #music-controls {
-        padding: 0 25px;
+        padding: 20px 25px;
     }
 
     header {

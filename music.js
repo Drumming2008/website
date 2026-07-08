@@ -98,26 +98,47 @@ for (let i of document.querySelectorAll(".details-content")) {
     id("search-content").append(i.cloneNode(true))
 }
 
-id("search-music").oninput = () => {
-    if (id("search-music").value.trim()) {
-        id("music-content").style.display = "none"
-        id("search-content").style.display = "flex"
-
-        for (let i of document.querySelectorAll("#search-content a")) {
-            i.parentElement.parentElement.style.display = "none"
-        }
-
-        let numResults = 0
-        for (let i of document.querySelectorAll("#search-content a")) {
-            if (i.innerText.toLowerCase().includes(id("search-music").value.toLowerCase())) {
-                i.parentElement.parentElement.style.display = ""
-                numResults++
-            }
-        }
-
-        id("search-num").innerHTML = `${numResults} r<span>esults</span>`
-    } else {
+function search() {
+    if (!id("search-music").value.trim() && !id("filters").value) {
         id("music-content").style.display = ""
         id("search-content").style.display = ""
+        return
     }
+
+    id("music-content").style.display = "none"
+    id("search-content").style.display = "flex"
+
+    for (let i of document.querySelectorAll("#search-content a")) {
+        i.parentElement.parentElement.style.display = "none"
+        i.parentElement.parentElement.parentElement.parentElement.classList.add("hidden")
+        i.closest(".details-content").classList.add("hidden")
+    }
+
+    let numResults = 0
+    for (let i of document.querySelectorAll("#search-content a")) {
+        let value = 0
+        if (i.innerText.toLowerCase().includes(id("search-music").value.toLowerCase()) || !id("search-music").value.trim()) {
+            value++
+        }
+        if (i.parentElement.querySelector("div").lastChild.innerText.trim() == id("filters").value || !id("filters").value) {
+            value++
+        }
+
+        if (value == 2) {
+            i.parentElement.parentElement.style.display = ""
+            i.parentElement.parentElement.parentElement.parentElement.classList.remove("hidden")
+            i.closest(".details-content").classList.remove("hidden")
+            numResults++
+        }
+    }
+
+    id("search-num").innerHTML = `${numResults} r<span>esult${numResults == 1 ? "" : "s"}</span>`
+}
+
+id("search-music").oninput = () => {
+    search()
+}
+
+id("filters").onchange = () => {
+    search()
 }
