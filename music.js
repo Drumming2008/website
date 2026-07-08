@@ -103,20 +103,19 @@ id("search-music").oninput = () => {
         id("music-content").style.display = "none"
         id("search-content").style.display = "flex"
 
-        for (let i of document.querySelectorAll("#search-content li")) {
-            i.style.display = "none"
+        for (let i of document.querySelectorAll("#search-content a")) {
+            i.parentElement.parentElement.style.display = "none"
         }
 
         let numResults = 0
-        for (let i of document.querySelectorAll("#search-content li")) {
-            console.log(i.innerText.toLowerCase())
+        for (let i of document.querySelectorAll("#search-content a")) {
             if (i.innerText.toLowerCase().includes(id("search-music").value.toLowerCase())) {
-                i.style.display = ""
+                i.parentElement.parentElement.style.display = ""
                 numResults++
             }
         }
 
-        id("search-num").innerText = `${numResults} results`
+        id("search-num").innerHTML = `${numResults} r<span>esults</span>`
     } else {
         id("music-content").style.display = ""
         id("search-content").style.display = ""

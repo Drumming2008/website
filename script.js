@@ -209,6 +209,7 @@ function moveToTab(tab, onClick = false, pageLoad = false) {
   if (!getPieceId() || onClick) {
     if (!pageLoad) pageInfo[tab].elem.style.animation = ""
     document.querySelector("footer").style.display = ""
+    id("music-controls").style.display = ""
     setTimeout(() => {
       document.querySelector("footer").classList.remove("hidden")
     })

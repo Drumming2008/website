@@ -249,7 +249,7 @@ section.low-z:not(#piece) {
 }
 
 #piece {
-    z-index: 5;
+    z-index: 10;
     animation: slide-up 0.5s ease forwards, fade-in 0.25s linear forwards;
     /* transition: transform 0.2s ease, opacity 0.1s linear; */
 }
@@ -367,6 +367,8 @@ textarea {
     transition: transform 0.5s ease-out, clip-path 0.5s ease-out;
     clip-path: inset(0 0 0 0);
     background: var(--color-bg);
+    display: flex;
+    gap: 15px;
 }
 
 #music-controls.hidden {
@@ -377,6 +379,11 @@ textarea {
 #search-music {
     height: 40px;
     padding: 10px;
+}
+
+#music-controls > .input-wrapper {
+    width: unset;
+    flex-grow: 1;
 }
 
 #music-controls > .input-wrapper > label {
@@ -416,7 +423,123 @@ textarea {
 }
 
 #search-num {
+    display: inline-block;
     font-size: 0.875em;
+    font-family: sans-serif-font;
+    text-transform: uppercase;
+}
+
+#search-num > span {
+    font-size: 0.75em;
+    font-weight: 500;
+}
+
+/* for browsers that don't support the fancy select */
+select {
+    appearance: none;
+    font-size: inherit;
+    text-align: center;
+    font-family: sans-serif-font;
+}
+
+select:hover {
+    background: var(--color-bg-1);
+}
+
+select:active {
+    background: var(--color-bg-2);
+}
+
+/* for the fancy select */
+select {
+    appearance: base-select;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--color);
+    margin: -1px;
+    height: 42px;
+    padding: 0 10px;
+    min-width: 100px;
+    cursor: pointer;
+    outline-offset: -3px;
+    transition: background 0.1s linear, outline-offset 0.2s ease   
+}
+
+select:open {
+    border-bottom: none;
+    height: 41px;
+}
+
+select:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: -1px;
+}
+
+::picker(select) {
+    appearance: base-select;
+    border: none;
+    /* width: 100%; */
+    background: red;
+    background: var(--color-bg);
+    border: 1px solid var(--color);
+    border-top: 0;
+    clip-path: inset(0 0 100% 0);
+    transition: display 0.4s allow-discrete, overlay 0.4s allow-discrete, outline-offset 0.2s ease, clip-path 0.4s var(--bounce);
+}
+
+@keyframes select-appear {
+    from {
+        clip-path: inset(0 0 100% 0);
+    }
+
+    to {
+        clip-path: inset(0 0 0 0);
+    }
+}
+
+select:open::picker(select) {
+    animation: select-appear 0.4s var(--bounce);
+    clip-path: inset(0 0 0 0);
+}
+
+::checkmark {
+    display: none;
+}
+
+::picker-icon {
+    display: none;
+}
+
+option {
+    background: transparent;
+    outline: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background 0.1s linear, outline-offset 0.2s ease;
+    outline-offset: -2px;
+    color: var(--color);
+    height: 40px;
+    position: relative;
+    max-width: 98px;
+    justify-content: center;
+}
+
+option:checked {
+    color: var(--color-bg);
+    background: var(--color-accent);
+}
+
+option:not(:checked):hover {
+    background: var(--color-bg-1);
+}
+
+option:not(:checked):active {
+    background: var(--color-bg-2);
+}
+
+option:focus-visible {
+    outline: 2px solid var(--color-accent);
 }
 
 /* #music-controls > .input-wrapper > label::after {
@@ -480,7 +603,7 @@ input:-webkit-autofill:active{
 details {
     interpolate-size: allow-keywords;
     transition: outline-offset 0.15s ease;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     position: relative;
 }
 
@@ -751,6 +874,20 @@ footer.hidden {
     --active: var(--color-bg-3);
 }
 
+@keyframes move {
+    0%, 100% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateX(-2px);
+    }
+}
+
+.back-to-pieces:hover > svg {
+    animation: move 0.5s ease;
+}
+
 .piece-title {
     display: flex;
     gap: 10px;
@@ -785,11 +922,11 @@ footer.hidden {
     justify-content: center;
     border-radius: 100px;
     transition: background 0.1s linear, outline-offset 0.2s ease;
+    outline-offset: -2px;
     cursor: pointer;
     --hover: var(--color-bg-1);
     --active: var(--color-bg-2);
     color: var(--color);
-    outline-offset: -2px;
 }
 
 .icon-button:focus-visible {
@@ -836,7 +973,7 @@ footer.hidden {
 .hamburger nav.closed:not(:has(:focus-visible)) {
     clip-path: inset(0 100% 0 0);
     right: -100%;
-    transition: clip-path 0.5s ease, right 0.5s ease;
+    transition: clip-path 0.2s ease-out, right 0.2s ease-out;
 }
 
 .hamburger nav a, .hamburger #inverted-nav a {
