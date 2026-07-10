@@ -7,7 +7,8 @@
     --color-bg-2: #dee0e3;
     --color-bg-3: #cdd0d5;
 
-    --nav-radius: 0;
+    --br: 5px;
+    --nav-radius: var(--br);
 
     --bounce: linear(0, 0.008 1.1%, 0.029 2.2%, 0.118 4.8%, 0.621 14.5%, 0.821 19.2%, 0.895 21.5%, 0.956 23.9%, 1.003 26.4%, 1.036 29%, 1.061 32.6%, 1.067 36.7%, 1.015 54.2%, 1 62.4%, 1);
 }
@@ -164,6 +165,7 @@ nav a::after {
     z-index: -1;
     opacity: 0;
     transition: opacity 0.2s linear;
+    border-radius: var(--br);
 }
 
 nav a.selected::after {
@@ -281,7 +283,7 @@ form, #form-complete {
 input[type="text"], input[type="email"], input[type="search"], textarea {
     outline: 1px solid var(--color);
     transition: outline-offset 0.15s ease, padding 0.15s ease, margin 0.15s ease;
-    padding: 5px;
+    padding: 5px 10px;
     font-size: inherit;
     width: 100%;
     min-height: 35.5px;
@@ -289,6 +291,7 @@ input[type="text"], input[type="email"], input[type="search"], textarea {
     resize: vertical;
     display: block;
     font-family: sans-serif-font, sans-serif;
+    border-radius: var(--br);
 }
 
 textarea {
@@ -311,6 +314,7 @@ textarea {
     background: var(--color-bg);
     outline: 1px solid var(--color-bg);
     border-top-left-radius: 10px;
+    border-bottom-right-radius: calc(var(--br) + 1px);
 }
 
 .textarea-resizer svg {
@@ -326,7 +330,7 @@ textarea {
 
 .input-wrapper > label {
     position: absolute;
-    left: 3px;
+    left: 8px;
     top: 5px;
     pointer-events: none;
     padding: 0 2px;
@@ -381,14 +385,57 @@ textarea {
     padding: 10px;
 }
 
+#search-music:not(:placeholder-shown) {
+    padding-right: 40px;
+}
+
 #music-controls > .input-wrapper {
     width: unset;
     flex-grow: 1;
+    position: relative;
+    height: 40px;
+}
+
+#music-controls:has(input:placeholder-shown) > .input-wrapper > .icon-button {
+    display: none;
+}
+
+#music-controls > .input-wrapper > .icon-button {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: calc(var(--br) - 4px);
+    height: 30px;
+    width: 30px;;
+}
+
+#clear-search::after {
+    content: "Clear Search";
+    padding: 5px;
+    background: var(--color);
+    color: var(--color-bg);
+    position: absolute;
+    top: 50%;
+    right: calc(100% + 5px);
+    transform: translateY(-50%) translateX(5px);
+    font-size: 0.875em;
+    width: max-content;
+    border-radius: var(--br);
+    pointer-events: none;
+    transition: opacity 0.2s ease-in, transform 0.4s ease-out;
+    opacity: 0;
+    font-family: sans-serif-font;
+}
+
+#clear-search:hover::after {
+    opacity: 1;
+    pointer-events: all;
+    transform: translateY(-50%);
 }
 
 #music-controls > .input-wrapper > label {
     top: 8px;
-    left: 10px;
     display: flex;
     align-items: center;
     gap: 5px;
@@ -443,7 +490,7 @@ textarea {
 
 #search-num > span {
     font-size: 0.75em;
-    font-weight: 500;
+    font-weight: 550;
 }
 
 /* for browsers that don't support the fancy select */
@@ -452,6 +499,7 @@ select {
     font-size: inherit;
     text-align: center;
     font-family: sans-serif-font;
+    border-radius: var(--br);
 }
 
 select:hover {
@@ -476,12 +524,14 @@ select {
     width: 120px;
     cursor: pointer;
     outline-offset: -3px;
-    transition: background 0.1s linear, outline-offset 0.2s ease   
+    transition: background 0.1s linear, outline-offset 0.2s ease, border-radius 0.1s 0.075s ease;
 }
 
 select:open {
     border-bottom: none;
     height: 41px;
+    border-radius: var(--br) var(--br) 0 0;
+    transition: background 0.1s linear, outline-offset 0.2s ease;
 }
 
 select:focus-visible {
@@ -499,6 +549,7 @@ select:focus-visible {
     border-top: 0;
     clip-path: inset(0 0 100% 0);
     transition: display 0.4s allow-discrete, overlay 0.4s allow-discrete, outline-offset 0.2s ease, clip-path 0.4s var(--bounce);
+    border-radius: 0 0 var(--br) var(--br);
 }
 
 @keyframes select-appear {
@@ -553,6 +604,10 @@ option {
     width: 100%;
 }
 
+option:last-child {
+    border-radius: 0 0 calc(var(--br) - 1px) calc(var(--br) - 1px);
+}
+
 option > span {
     display: block;
 }
@@ -597,6 +652,8 @@ option:checked:focus-visible {
     outline: 2px solid var(--color);
     outline-offset: -2px;
     margin-top: -5px;
+    border-radius: var(--br);
+    height: 40px;
 }
 
 #submit:hover {
@@ -634,6 +691,7 @@ input:-webkit-autofill:active{
     max-width: 100%;
     outline: 1px solid currentColor;
     outline-offset: 5px;
+    border-radius: var(--br);
 }
 
 details {
@@ -650,6 +708,7 @@ details::before {
     border: 1px solid var(--color);
     pointer-events: none;
     transition: inset 0.15s ease;
+    border-radius: var(--br);
 }
 
 details:has(summary:hover) {
@@ -695,7 +754,7 @@ summary::-webkit-details-marker {
     display: none;
 }
 
-summary > svg, footer svg, .icon-button > svg, #links svg, select svg {
+summary > svg, footer svg, .icon-button > svg, #links svg, select svg, #music-controls > .input-wrapper > svg {
     height: 1.25rem;
     width: 1.25rem;
     transition: transform 0.4s var(--bounce);
@@ -820,6 +879,7 @@ details:has(summary:focus-visible:not(:hover))::details-content {
     outline-offset: 5px;
     height: unset !important;
     aspect-ratio: 560 / 315;
+    border-radius: var(--br);
 }
 
 footer {
@@ -871,6 +931,7 @@ footer.hidden {
     bottom: 0;
     height: 2px;
     background: currentColor;
+    border-radius: 2px;
 }
 
 #links > a:is(:hover, :focus-visible)::after {
@@ -1073,6 +1134,7 @@ footer.hidden {
     font-style: italic;
     text-align: center;
     margin-left: 25px;
+    border-radius: var(--br);
 }
 
 @media (max-width: 480px) {

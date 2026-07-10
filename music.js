@@ -98,6 +98,14 @@ for (let i of document.querySelectorAll(".details-content")) {
     id("search-content").append(i.cloneNode(true))
 }
 
+for (let i of document.querySelectorAll("#search-content a")) {
+    i.onclick = e => {
+        e.preventDefault()
+        parent.pushState(i.href)
+        moveToTab("music")
+    }
+}
+
 function search() {
     if (!id("search-music").value.trim() && !id("filters").value) {
         id("music-content").style.display = ""

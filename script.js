@@ -334,3 +334,8 @@ id("back-to-pieces").onclick = () => {
 }
 
 id("contact").prepend(id("links").cloneNode(true))
+
+id("clear-search").onclick = () => {
+  id("search-music").value = ""
+  search()
+}
