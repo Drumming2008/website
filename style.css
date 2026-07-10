@@ -405,7 +405,7 @@ textarea {
     right: 5px;
     top: 50%;
     transform: translateY(-50%);
-    border-radius: calc(var(--br) - 4px);
+    border-radius: calc(var(--br) - 3px);
     height: 30px;
     width: 30px;;
 }
