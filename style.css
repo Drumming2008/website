@@ -130,6 +130,7 @@ a {
     outline: none;
     outline-offset: -2px;
     transition: outline-offset 0.2s ease;
+    border-radius: 1px;
 }
 
 a:not(header a):focus-visible {
@@ -948,7 +949,6 @@ footer.hidden {
     gap: 5px;
     text-decoration-color: transparent;
     position: relative;
-    border-radius: 1px;
 }
 
 #links > a::after {
