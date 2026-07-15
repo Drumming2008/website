@@ -9,6 +9,7 @@
 
     --br: 5px;
     --nav-radius: var(--br);
+    --max-text-width: 65ch;
 
     --bounce: linear(0, 0.008 1.1%, 0.029 2.2%, 0.118 4.8%, 0.621 14.5%, 0.821 19.2%, 0.895 21.5%, 0.956 23.9%, 1.003 26.4%, 1.036 29%, 1.061 32.6%, 1.067 36.7%, 1.015 54.2%, 1 62.4%, 1);
 }
@@ -405,6 +406,11 @@ textarea {
     margin: 0 -2px;
 }
 
+#music.bordered:has(.bordered-details:active)::before {
+    transform-origin: center;
+    margin: 0 -1px;
+}
+
 #music.bordered::before {
     opacity: 1;
 }
@@ -505,6 +511,23 @@ textarea {
 .details-content.hidden {
     display: none;
 }
+
+/* @keyframes search-result-in {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#search-content li {
+    opacity: 0;
+    animation: search-result-in 0.5s calc(var(--delay) * 0.1s) ease-out forwards;
+} */
 
 #search-content h3 {
     display: none;
@@ -730,6 +753,10 @@ details {
     position: relative;
 }
 
+details:last-of-type {
+    margin-bottom: 0;
+}
+
 details::before {
     content: "";
     position: absolute;
@@ -903,7 +930,7 @@ details:has(summary:focus-visible:not(:hover))::details-content {
 
 /* .video-wrapper > iframe {
     width: unset !important;
-    max-width: 65ch;
+    max-width: var(--max-text-width);
     outline: 1px solid currentColor;
     outline-offset: 5px;
     height: unset !important;
@@ -1025,7 +1052,9 @@ footer.hidden {
     font-size: 0.75em;
 }
 
-.piece-desc-title {
+.piece-header {
+    max-width: var(--max-text-width);
+    width: max-content;
     display: inline-block;
     margin-bottom: 10px;
     background: var(--color-bg-1);
@@ -1038,7 +1067,7 @@ footer.hidden {
     margin: 0 auto;
     margin-top: 25px;
     text-align: justify;
-    max-width: 65ch;
+    max-width: var(--max-text-width);
 }
 
 .icon-button, .plyr__controls .plyr__control {
@@ -1156,7 +1185,7 @@ footer.hidden {
 
 #bio {
     text-align: justify;
-    max-width: 65ch;
+    max-width: var(--max-text-width);
     margin: 0 auto;
 }
 
@@ -1189,7 +1218,7 @@ footer.hidden {
 
 .plyr--video {
     width: 100%;
-    max-width: 65ch;
+    max-width: var(--max-text-width);
 
     --plyr-color-main: transparent;
     --plyr-control-icon-size: 1.25rem;
@@ -1208,6 +1237,16 @@ footer.hidden {
     --plyr-range-thumb-background: var(--color-accent);
     --plyr-range-fill-background: var(--color-bg-2);
     --plyr-video-range-track-background: var(--color-bg-1);
+}
+
+input[type=range]:focus-visible {
+    outline: 2px solid var(--color-accent);
+    border-radius: var(--br);
+    outline-offset: 2px;
+}
+
+.plyr__video-embed iframe, .plyr__video-wrapper--fixed-ratio video {
+    border: 1px solid var(--color);
 }
 
 .plyr--full-ui input[type=range]::-webkit-slider-thumb {
@@ -1295,4 +1334,74 @@ input[type="range"] {
 .plyr__tooltip--visible {
     opacity: 1;
     transform: translate(-50%, 0);
+}
+
+/* pdf stuff */
+.pdf-wrapper {
+    outline: 1px solid var(--color);
+    outline-offset: 5px;
+    aspect-ratio: 17 / 11;
+    margin: 5px auto;
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    width: min-content;
+    width: 100%;
+    max-width: var(--max-text-width);
+    border-radius: var(--br);
+    flex-shrink: 0;
+}
+
+.page-set {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    background: white;
+    transition: transform 0.2s ease-out;
+    transform: translateX(-100%);
+}
+
+.page-set.shown {
+transform: translateX(0);
+}
+
+.pdf-canvas:first-child {
+    border-right: 1px solid var(--color-bg-1);
+}
+
+.pdf-buttons {
+    /* position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 2;
+    display: flex;
+    gap: 10px;
+    padding: 5px; */
+}
+
+.pdf-buttons > button {
+    position: absolute;
+}
+
+.pdf-buttons > button:not(:is(:hover, :active)) {
+    background: var(--color-bg);
+}
+
+.pdf-buttons > .fullscreen-button {
+    bottom: 5px;
+    right: 5px;
+}
+
+.pdf-buttons > .prev-button {
+    top: 50%;
+    transform: translateY(-50%);
+    left: 5px;
+}
+
+.pdf-buttons > .next-button {
+    top: 50%;
+    transform: translateY(-50%);
+    right: 5px;
 }

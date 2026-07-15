@@ -270,7 +270,7 @@ function moveToTab(tab, onClick = false, pageLoad = false) {
     if (data.desc) {
       id("piece").innerHTML += `
         <div class="piece-desc">
-          <h3 class="piece-desc-title">Program Note</h3>
+          <h3 class="piece-header">Program Note</h3>
           <p>
             ${data.desc}
           </p>
@@ -278,9 +278,14 @@ function moveToTab(tab, onClick = false, pageLoad = false) {
       `
     }
 
+    if (data.score) {
+      createPDF(id("piece"), data.score)
+    }
+
     // keep at end
 
-    let player = new Plyr(`#video-${data.videoID}`, {
+    if (data.video) {
+      let player = new Plyr(`#video-${data.videoID}`, {
         // Custom controls layout
         controls: [
           "play", 
@@ -336,6 +341,8 @@ function moveToTab(tab, onClick = false, pageLoad = false) {
           elem.innerHTML += playerSVGs.pressed[i].replace("fill=\"#000000\"", "fill=\"currentColor\" class=\"icon--pressed\"")
         }
       })
+    }
+    
     id("piece").querySelector(".back-to-pieces").onclick = () => {
       id("tab-music").click()
     }

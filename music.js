@@ -133,6 +133,7 @@ function search() {
   id("music-content").style.display = "none"
   id("search-content").style.display = "flex"
 
+  let index = 0
   for (let i of document.querySelectorAll("#search-content a")) {
     i.parentElement.parentElement.style.display = "none"
     i.parentElement.parentElement.parentElement.parentElement.classList.add("hidden")
@@ -151,6 +152,8 @@ function search() {
 
     if (value == 2) {
       i.parentElement.parentElement.style.display = ""
+      i.parentElement.parentElement.style.setProperty("--delay", index)
+      index++
       i.parentElement.parentElement.parentElement.parentElement.classList.remove("hidden")
       i.closest(".details-content").classList.remove("hidden")
       numResults++
