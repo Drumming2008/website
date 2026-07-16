@@ -298,7 +298,7 @@ function moveToTab(tab, onClick = false, pageLoad = false) {
         ],
         keyboard: {
           focused: true,
-          global: true
+          global: false
         },
         tooltips: {
           controls: false,

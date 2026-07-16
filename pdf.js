@@ -28,6 +28,10 @@ function createPDF(elem, pdf) {
   wrapper.classList.add("pdf-wrapper")
   outerWrapper.append(wrapper)
 
+  wrapper.ondblclick = e => {
+    if (e.target != buttons && !button.contains(e.target)) fullscreen.click()
+  }
+
   let title = document.createElement("h3")
   title.innerText = "Perusal Score"
   title.classList.add("piece-header")
@@ -67,48 +71,58 @@ function createPDF(elem, pdf) {
   pdfjsLib.GlobalWorkerOptions.workerSrc = "/pdf.worker.mjs"
 
   pdfjsLib.getDocument({ url: pdfURL }).promise.then(pdfDoc => {
-    buttons.style.zIndex = pdfDoc.numPages + 1
-
     prev.onclick = () => {
       if (currentPage - 1 >= 0) {
-        goToPDFPage(wrapper, currentPage - 1)
+        goToPDFPage(wrapper, currentPage - 1, "left")
         currentPage -= 1
       }
     }
 
     next.onclick = () => {
-      if (currentPage + 1 < pdfDoc.numPages) {
-        goToPDFPage(wrapper, currentPage + 1)
+      if (currentPage + 1 <= pdfDoc.numPages) {
+        goToPDFPage(wrapper, currentPage + 1, "right")
         currentPage += 1
       }
     }
 
     let pageSets = []
-    for (let i = 0; i <= pdfDoc.numPages; i++) {
+    for (let i = 0; i <= pdfDoc.numPages + 1; i++) {
       if (i % 2 == 0) continue
       let pageSet = document.createElement("div")
       pageSet.classList.add("page-set")
-      pageSet.style.zIndex = pdfDoc.numPages - i
+      // pageSet.style.zIndex = (pdfDoc.numPages + 1) - i
       if (i == 1) pageSet.classList.add("shown")
-      else pageSet.style.display = "none"
+      else {
+        pageSet.classList.add("hidden-right")
+        pageSet.style.display = "none"
+      }
       wrapper.append(pageSet)
       pageSets.push(pageSet)
     }
 
-    for (let i = 0; i <= pdfDoc.numPages; i++) {
-      pdfDoc.getPage(i).then(page => {
+    for (let i = 0; i <= pdfDoc.numPages + 1; i++) {
+      if (i == 0) {
+        let fakePage = document.createElement("div")
+        fakePage.classList.add("fake-page")
+        pageSets[0].append(fakePage)
+        continue
+      }
+
+      pdfDoc.getPage(i - 1).then(page => {
         let canvas = document.createElement("canvas")
         canvas.classList.add("pdf-canvas")
         if (i % 2 == 0) {
           pageSets[Math.floor(i / 2) - 1].append(canvas)
-          console.log("2")
         } else {
           pageSets[Math.floor(i / 2)].append(canvas)
-          console.log("n/a")
+        }
+
+        if (i == pdfDoc.numPages + 1) {
+          canvas.style.flexBasis = "unset"
         }
 
         let viewport = page.getViewport({ scale: 1 })
-        canvas.width = viewport.width * devicePixelRatio
+        canvas.width = (viewport.height / (11 / 8.5)) * devicePixelRatio
         canvas.height = viewport.height * devicePixelRatio
 
         let ctx = canvas.getContext("2d")
@@ -118,6 +132,7 @@ function createPDF(elem, pdf) {
         }
 
         ctx.scale(devicePixelRatio, devicePixelRatio)
+        if (i % 2 != 0) ctx.translate(((viewport.height / (11 / 8.5))) - viewport.width, 0)
 
         page.render(renderContext)
       })
@@ -125,11 +140,26 @@ function createPDF(elem, pdf) {
   })
 }
 
-function goToPDFPage(wrapper, page) {
+function goToPDFPage(wrapper, page, rl) {
   let pages = [...wrapper.querySelectorAll(".page-set")]
   pages[page].style.display = ""
+  if (rl == "right") pages[page].classList.add("hidden-right")
+  else pages[page].classList.add("hidden-left")
+
+  // for (let i = 0; i < pages.length; i++) {
+  //   pages[i].style.zIndex = 0
+  // }
+
+  // if (page > 1) pages[page - 1].style.zIndex = 1
+  // pages[page].style.zIndex = 2
+  // if (page < pages.length - 1) pages[page + 1].style.zIndex = 1
+
   setTimeout(() => {
+    if (rl == "right") wrapper.querySelector(".page-set.shown").classList.add("hidden-left")
+    else wrapper.querySelector(".page-set.shown").classList.add("hidden-right")
     wrapper.querySelector(".page-set.shown").classList.remove("shown")
+    pages[page].classList.remove("hidden-right")
+    pages[page].classList.remove("hidden-left")
     pages[page].classList.add("shown")
   })
   
