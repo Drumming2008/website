@@ -1436,7 +1436,7 @@ input[type="range"] {
 
 .page-set.hidden-left > :last-child {
     transform: translateX(-100%) rotateY(180deg);
-    /* z-index: 2; */
+    z-index: 2;
 }
 
 .page-set.hidden-right > :first-child {
@@ -1455,13 +1455,13 @@ input[type="range"] {
     /* transition: opacity 0s linear, transform 0.4s ease-out; */
 }
 
-.page-set :first-child {
+/* .page-set :first-child {
     transform-origin: right;
 }
 
 .page-set :last-child {
     transform-origin: left;
-}
+} */
 
 .page-set.shown {
     pointer-events: all;
@@ -1507,13 +1507,15 @@ input[type="range"] {
 }
 
 .pdf-buttons > .prev-button {
-    top: 50%;
-    transform: translateY(-50%);
     left: 5px;
 }
 
 .pdf-buttons > .next-button {
+    right: 5px;
+}
+
+.prev-button, .next-button {
     top: 50%;
     transform: translateY(-50%);
-    right: 5px;
+    height: 120px;
 }
