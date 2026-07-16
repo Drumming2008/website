@@ -154,7 +154,8 @@ let musicData = [
         cat: "jazz",
         subcat: "steel drums",
         subcat: "arrangements",
-        composer: "Robert Greenidge"
+        composer: "Robert Greenidge",
+        score: "Reggae for My Baby Full Score - Full Score"
     },
     {
         title: "The Ministry of Rhythm",

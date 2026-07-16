@@ -152,6 +152,9 @@ id("hamburger-button").onclick = () => {
 let tabMoveTimeout
 
 function moveToTab(tab, onClick = false, pageLoad = false) {
+  id("piece-header").classList.remove("shown")
+  id("logo").classList.remove("hidden")
+
   if (tabMoveTimeout) {
     clearTimeout(tabMoveTimeout)
     document.querySelector(".low-z")?.classList.remove("low-z")
