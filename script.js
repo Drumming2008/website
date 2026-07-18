@@ -414,3 +414,7 @@ id("clear-search").onclick = () => {
   id("search-music").value = ""
   search()
 }
+
+id("see-music").onclick = () => {
+  moveToTab("music")
+}

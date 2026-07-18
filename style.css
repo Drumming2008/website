@@ -1201,8 +1201,23 @@ footer.hidden {
     transform: translateX(-50%);
     z-index: 2;
     background: var(--color-bg);
-    border-radius: var(--br);
+    border-radius: calc(var(--br) + 25px);
+    padding: 25px;
+}
+
+#see-music {
+    display: flex;
+    margin: 10px auto;
+    margin-bottom: 0;
+    cursor: pointer;
     padding: 10px;
+    border-radius: var(--br);
+    background: var(--color);
+    color: var(--color-bg);
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.875rem;
 }
 
 #portrait {
