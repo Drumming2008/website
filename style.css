@@ -1184,9 +1184,25 @@ footer.hidden {
 }
 
 #bio {
+    /* temporary */
+    filter: blur(10px);
+    pointer-events: none;
+    /*  */
+
     text-align: justify;
     max-width: var(--max-text-width);
     margin: 0 auto;
+}
+
+#under-construction {
+    position: absolute;
+    left: 50%;
+    top: 50px;
+    transform: translateX(-50%);
+    z-index: 2;
+    background: var(--color-bg);
+    border-radius: var(--br);
+    padding: 10px;
 }
 
 #portrait {
@@ -1373,7 +1389,6 @@ input[type="range"] {
     border: 1px solid var(--color-bg-1);
     border-radius: var(--br) 0 0 var(--br);
     transition: transform 0.4s ease-out, opacity 0s linear;
-    /* outline: 5px solid var(--color-bg); */
     backface-visibility: hidden;
 }
 
@@ -1445,13 +1460,13 @@ input[type="range"] {
 }
 
 .page-set.hidden-right > :last-child {
-    transition: transform 0.4s ease-out, opacity 0s 0.4s linear;
+    transition: transform 0.4s ease-out, opacity 0.2s 0.4s linear;
     opacity: 0;
 }
 
 .page-set.hidden-left > :first-child {
     opacity: 0;
-    transition: transform 0.4s ease-out, opacity 0s 0.4s linear;
+    transition: transform 0.4s ease-out, opacity 0.2s 0.4s linear;
     /* transition: opacity 0s linear, transform 0.4s ease-out; */
 }
 

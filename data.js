@@ -159,11 +159,12 @@ let musicData = [
     },
     {
         title: "The Ministry of Rhythm",
-        instr: "Steel Drum Band",
+        instr: "Steel Drum Band and Singer",
         year: 2025,
         cat: "jazz",
         subcat: "arrangements",
-        composer: "David Rudder"
+        composer: "David Rudder",
+        score: "The Ministry of Rhythm Finished - Full Score"
     }
 ]
 
