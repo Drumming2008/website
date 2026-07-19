@@ -67,23 +67,43 @@ function createPDF(elem, pdf) {
   buttons.append(prev)
   buttons.append(next)
 
+  function updateButtons(pdfDoc) {
+    console.log(currentPage, pdfDoc.numPages)
+
+    if (currentPage - 1 >= 0) {
+      prev.style.display = ""
+    } else {
+      prev.style.display = "none"
+    }
+
+    if (currentPage < pdfDoc.numPages / 2) {
+      next.style.display = ""
+    } else {
+      next.style.display = "none"
+    }
+  }
+
   let pdfURL = `/pdfs/${pdf}.pdf`
 
   pdfjsLib.GlobalWorkerOptions.workerSrc = "/pdf.worker.mjs"
 
   pdfjsLib.getDocument({ url: pdfURL }).promise.then(pdfDoc => {
+    updateButtons(pdfDoc)
+
     prev.onclick = () => {
       if (currentPage - 1 >= 0) {
         goToPDFPage(wrapper, currentPage - 1, "left")
         currentPage -= 1
       }
+      updateButtons(pdfDoc)
     }
 
     next.onclick = () => {
-      if (currentPage + 1 <= pdfDoc.numPages) {
+      if (currentPage < pdfDoc.numPages / 2) {
         goToPDFPage(wrapper, currentPage + 1, "right")
         currentPage += 1
       }
+      updateButtons(pdfDoc)
     }
 
     let pageSets = []
