@@ -99,7 +99,7 @@ let musicData = [
         subcat: "ttbb",
         video: '<iframe width="560" height="315" src="https://www.youtube.com/embed/bfz72TKPpC0?si=AK41WPffoZDAO7BF" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
         desc: "“For the Beauty of the Earth” is a TTBB choral piece, based on a Christian hymn of the same name. With my choir, Ragazzi Boys Chorus, I’ve sung two diﬀerent settings of “For the Beauty of the Earth” by other composers, and I was drawn to the lyrics. The structure of the poem has multiple stanzas that all finish with “Lord of all….” Using this structure, I created a build-up throughout the piece, where each verse is diﬀerent or bigger than the previous verse, starting with just one part singing the words, and culminating with every part singing in counterpoint.",
-        score: "ftbofe"
+        score: "For the Beauty of the Earth - Full Score_watermarked"
     },
     {
         title: "For the Beauty of the Earth",
@@ -155,7 +155,7 @@ let musicData = [
         subcat: "steel drums",
         subcat: "arrangements",
         composer: "Robert Greenidge",
-        score: "Reggae for My Baby Full Score - Full Score"
+        score: "Reggae for My Baby Full Score - Full Score_watermarked"
     },
     {
         title: "The Ministry of Rhythm",
@@ -164,7 +164,7 @@ let musicData = [
         cat: "jazz",
         subcat: "arrangements",
         composer: "David Rudder",
-        score: "The Ministry of Rhythm Finished - Full Score"
+        score: "The Ministry of Rhythm Finished - Full Score_watermarked"
     }
 ]
 

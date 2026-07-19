@@ -98,6 +98,10 @@ p, li, footer {
     font-family: sans-serif-font, sans-serif;
 }
 
+footer > span {
+    margin-left: 15px;
+}
+
 header {
     position: absolute;
     left: 0;
@@ -460,7 +464,7 @@ textarea {
     pointer-events: none;
     transition: opacity 0.2s ease-in, transform 0.4s ease-out;
     opacity: 0;
-    font-family: sans-serif-font;
+    font-family: sans-serif-font, sans-serif;
 }
 
 #clear-search:hover::after {
@@ -536,7 +540,7 @@ textarea {
 #search-num {
     display: inline-block;
     font-size: 0.875em;
-    font-family: sans-serif-font;
+    font-family: sans-serif-font, sans-serif;
     text-transform: uppercase;
 }
 
@@ -550,7 +554,7 @@ select {
     appearance: none;
     font-size: inherit;
     text-align: center;
-    font-family: sans-serif-font;
+    font-family: sans-serif-font, sans-serif;
     border-radius: var(--br);
 }
 
@@ -693,7 +697,7 @@ option:checked:focus-visible {
     display: none;
 }
 
-#submit {
+#submit, .normal-button {
     font-size: inherit;
     cursor: pointer;
     padding: 5px;
@@ -708,15 +712,15 @@ option:checked:focus-visible {
     height: 40px;
 }
 
-#submit:hover {
+#submit:hover, .normal-button:hover {
     outline-offset: 0;
 }
 
-#submit:active {
+#submit:active, .normal-button:active {
     outline-offset: -1px;
 }
 
-#submit:focus-visible {
+#submit:focus-visible, .normal-button:focus-visible {
     transition: outline-offset 0.2s ease;
     /* background: var(--color-accent); */
     outline-color: var(--color-accent);
@@ -967,10 +971,10 @@ footer.hidden {
     display: flex;
     gap: 15px;
     width: min-content;
-    font-family: sans-serif-font;
+    font-family: sans-serif-font, sans-serif;
 }
 
-#links > a {
+#links > a, #tools-link {
     display: flex;
     align-items: start;
     gap: 5px;
@@ -978,7 +982,7 @@ footer.hidden {
     position: relative;
 }
 
-#links > a::after {
+#links > a::after, #tools-link::after {
     content: "";
     position: absolute;
     left: 50%;
@@ -990,12 +994,12 @@ footer.hidden {
     border-radius: 2px;
 }
 
-#links > a:is(:hover, :focus-visible)::after {
+#links > a:is(:hover, :focus-visible)::after, #tools-link:is(:hover, :focus-visible)::after {
     left: 0;
     right: 0;
 }
 
-#links > a:active::after {
+#links > a:active::after, #tools-link:active::after {
     height: 1px;
 }
 
@@ -1005,6 +1009,10 @@ footer.hidden {
 
 #email-link {
     color: var(--color-accent);
+}
+
+#tools-link {
+    margin-left: 15px;
 }
 
 #piece-header {
@@ -1277,7 +1285,7 @@ input[type=range]:focus-visible {
 }
 
 .plyr__video-embed iframe, .plyr__video-wrapper--fixed-ratio video {
-    border: 1px solid var(--color);
+    border: none;
 }
 
 .plyr--full-ui input[type=range]::-webkit-slider-thumb {
@@ -1309,7 +1317,7 @@ input[type="range"] {
     padding: 5px;
     padding-top: 10px;
     background: var(--color-bg);
-    font-family: sans-serif-font;
+    font-family: sans-serif-font, sans-serif;
     gap: 10px;
     height: 60px;
     position: absolute;
@@ -1411,7 +1419,7 @@ input[type="range"] {
 
 .pdf-canvas {
     border-radius: var(--br) 0 0 var(--br);
-    transition: transform 0.4s ease-out, opacity 0s linear;
+    transition: transform 0.4s ease-out, border-radius 0s linear;
     backface-visibility: hidden;
     background: white;
 }
@@ -1437,13 +1445,13 @@ input[type="range"] {
 }
 
 .page-set.hidden-right > :last-child {
-    transition: transform 0.4s ease-out, opacity 0.2s 0.4s linear;
-    opacity: 0;
+    transition: transform 0.4s ease-out, border-radius 0s 0.3s linear;
+    border-radius: var(--br);
 }
 
 .page-set.hidden-left > :first-child {
-    opacity: 0;
-    transition: transform 0.4s ease-out, opacity 0.2s 0.4s linear;
+    border-radius: var(--br);
+    transition: transform 0.4s ease-out, border-radius 0s 0.3s linear;
     /* transition: opacity 0s linear, transform 0.4s ease-out; */
 }
 
@@ -1482,11 +1490,13 @@ input[type="range"] {
 }
 
 .pdf-buttons > button {
+    --hover: var(--color-bg-2);
+    --active: var(--color-bg-3);
     position: absolute;
 }
 
 .pdf-buttons > button:not(:is(:hover, :active)) {
-    background: var(--color-bg);
+    background: var(--color-bg-1);
 }
 
 .pdf-buttons > .fullscreen-button {

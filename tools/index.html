@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finn Reese | Tools</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="./style.css">
+  </head>
+  <body>
+    <h1>Musical Tools</h1>
+    <div class="card">
+      <h2>Perusal Score Watermarks</h2>
+      <div class="row">
+        <div class="input-wrapper">
+            <label for="large-text">Large Text</label>
+            <input type="text" id="large-text" placeholder=" " required value="FOR PERUSAL ONLY">
+        </div>
+        <div class="input-wrapper">
+            <label for="bottom-text">Bottom Text</label>
+            <input type="text" id="bottom-text" placeholder=" " required value="This score is for perusal only. It can not be used for performance or rehearsal.">
+        </div>
+      </div>
+      <div class="row">
+        <input type="file" id="pdf-upload" accept="application/pdf" style="display: none;">
+        <button id="upload" class="normal-button">
+          Upload PDF
+        </button>
+        <button id="add-watermark" class="normal-button">
+          Add Watermark
+        </button>
+      </div>
+      <span id="upload-output">No File Uploaded</span>
+    </div>
+    <script src="./pdf-lib.min.js"></script>
+    <script src="./script.js"></script>
+  </body>
+</html>
