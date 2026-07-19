@@ -453,6 +453,7 @@ textarea {
     width: unset;
     flex-grow: 1;
     height: 40px;
+    margin: 0;
 }
 
 #music-controls:has(input:placeholder-shown) > .input-wrapper > .icon-button {
