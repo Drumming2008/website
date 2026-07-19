@@ -2,6 +2,10 @@ function id(id) {
   return document.getElementById(id)
 }
 
+id("back").onclick = () => {
+  location = "/"
+}
+
 let upload = id("pdf-upload")
 let button = id("add-watermark")
 
@@ -57,7 +61,7 @@ button.addEventListener("click", async () => {
     page.drawText(id("bottom-text").value, {
       x: 5,
       y: 5,
-      size: 16,
+      size: 12,
       font,
       color: PDFLib.rgb(0, 0, 0),
       opacity: 1
