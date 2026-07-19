@@ -17,10 +17,6 @@ body {
   gap: 10px;
 }
 
-.input-wrapper {
-  margin: 5px;
-}
-
 .card label::after {
   background: var(--color-bg-1);
 }
@@ -28,4 +24,11 @@ body {
 #upload-output {
   font-size: 0.75em;
   font-family: sans-serif-font, sans-serif;
+}
+
+
+@media (max-width: 550px) {
+  .row {
+    flex-direction: column;
+  }
 }
