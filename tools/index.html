@@ -104,11 +104,21 @@
       </div>
       <span id="upload-output">No PDF Uploaded</span>
     </div>
+    <div class="card">
+      <h2>PDF to PNGs</h2>
+      <input type="file" id="png-pdf-upload" accept="application/pdf" style="display: none;">
+      <button id="png-pdf-button" class="normal-button">
+        Upload PDF <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"><path d="M224,144v64a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V144a8,8,0,0,1,16,0v56H208V144a8,8,0,0,1,16,0ZM93.66,77.66,120,51.31V144a8,8,0,0,0,16,0V51.31l26.34,26.35a8,8,0,0,0,11.32-11.32l-40-40a8,8,0,0,0-11.32,0l-40,40A8,8,0,0,0,93.66,77.66Z"></path></svg>
+      </button>
+      <button id="png-pdf-download" class="normal-button">
+        Download PNGs <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"><path d="M224,144v64a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V144a8,8,0,0,1,16,0v56H208V144a8,8,0,0,1,16,0Zm-101.66,5.66a8,8,0,0,0,11.32,0l40-40a8,8,0,0,0-11.32-11.32L136,124.69V32a8,8,0,0,0-16,0v92.69L93.66,98.34a8,8,0,0,0-11.32,11.32Z"></path></svg>
+      </button>
+    </div>
     <script src="https://unpkg.com/@ffmpeg/ffmpeg@0.12.10/dist/umd/ffmpeg.js"></script>
     <script src="https://unpkg.com/@ffmpeg/util@0.12.1/dist/umd/index.js"></script>
     <script src="/tools/pdf-lib.min.js"></script>
-    <script src="/tools/script.js"></script>
     <script src="/pdf.mjs" type="module"></script>
+    <script src="/tools/script.js"></script>
     <script src="/tools/video.js" type="module"></script>
   </body>
 </html>

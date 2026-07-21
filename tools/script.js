@@ -87,3 +87,43 @@ button.addEventListener("click", async () => {
 id("upload").onclick = () => {
   upload.click()
 }
+
+id("png-pdf-button").onclick = () => {
+  id("png-pdf-upload").click()
+}
+
+id("png-pdf-download").onclick = async () => {
+  if (!id("png-pdf-upload").files.length) {
+    alert("Please choose a PDF first!")
+    return
+  }
+
+  let pdfFile = id("png-pdf-upload").files[0]
+  pdfjsLib.GlobalWorkerOptions.workerSrc = "/pdf.worker.mjs"
+
+  let pdf = await pdfjsLib.getDocument({
+    data: await pdfFile.arrayBuffer()
+  }).promise
+
+  for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+    let page = await pdf.getPage(pageNum)
+
+    let viewport = page.getViewport({ scale: 2 })
+
+    let canvas = document.createElement("canvas")
+    let ctx = canvas.getContext("2d")
+
+    canvas.width = viewport.width
+    canvas.height = viewport.height
+
+    await page.render({
+      canvasContext: ctx,
+      viewport
+    }).promise
+
+    let a = document.createElement("a")
+    a.href = canvas.toDataURL()
+    a.download = `${pdfFile.name.split(".")[0]}_${pageNum}.png`
+    a.click()
+  }
+}

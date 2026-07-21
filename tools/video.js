@@ -22,10 +22,6 @@ function xToTime(pos) {
   return ((pos / (samples * devicePixelRatio)) * audioDuration) / stepSize
 }
 
-function timeToX(time) {
-  return (time * stepSize * (samples * devicePixelRatio)) / audioDuration
-}
-
 function formatTime(totalSeconds) {
   let totalMs = totalSeconds * 1000
 
