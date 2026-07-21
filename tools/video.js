@@ -138,7 +138,8 @@ id("upload-video-files").onclick = async () => {
     let canvas = document.createElement("canvas")
     let ctx = canvas.getContext("2d")
 
-    globalViewport = viewport
+    console.log(globalViewport, viewport)
+    if (pageNum == 1 || viewport.width > globalViewport.width || viewport.height > globalViewport.height) globalViewport = viewport
 
     canvas.width = viewport.width
     canvas.height = viewport.height
@@ -148,12 +149,25 @@ id("upload-video-files").onclick = async () => {
       viewport
     }).promise
 
-    let button = document.createElement("button")
+    let button = document.createElement("div")
     button.innerHTML = `<div>${pageNum}</div>`
-    button.append(canvas)
+    button.style.backgroundImage = `url(${canvas.toDataURL()})`
+    button.classList.add("page-button")
+    // button.append(canvas)
     id("panel-1").append(button)
 
-    button.onclick = async () => {
+    // let look = document.createElement("button")
+    // look.classList.add("icon-button")
+    // look.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path></svg>'
+    // button.append(look)
+
+    let add = document.createElement("button")
+    add.classList.add("add")
+    add.classList.add("icon-button")
+    add.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"><path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"></path></svg>'
+    button.append(add)
+
+    add.onclick = async () => {
       let newCanvas = addNewSlide(pageNum)
       newCanvas.width = viewport.width
       newCanvas.height = viewport.height
@@ -161,12 +175,14 @@ id("upload-video-files").onclick = async () => {
         canvasContext: newCanvas.getContext("2d"),
         viewport
       }).promise
+      newCanvas.style.display = "none"
+      newCanvas.parentElement.style.backgroundImage = `url(${canvas.toDataURL()})`
     }
   }
 
   id("order").onclick = () => {
     for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
-      id("panel-1").children[pageNum - 1].click()
+      id("panel-1").children[pageNum - 1].querySelector(".add").click()
     }
   }
 
@@ -278,6 +294,10 @@ id("upload-video-files").onclick = async () => {
       let pos = ((samples * devicePixelRatio) / audioBuffer.duration) * playPos / stepSize
       id("caret").style.left = pos + "px"
       updateTimestemp()
+
+      if (playPos / stepSize >= audioBuffer.duration) {
+        id("pause").click()
+      }
 
       playPos += 1
     }
