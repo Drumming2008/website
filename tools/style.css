@@ -324,3 +324,8 @@ body.resizing, body.resizing * {
   align-items: center;
   justify-content: center;
 }
+
+#quick-tip {
+  font-size: 0.625em;
+  align-content: center;
+}

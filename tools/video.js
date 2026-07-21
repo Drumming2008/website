@@ -92,11 +92,17 @@ function addNewSlide(num) {
   }
 
   resizeBar.onmousemove = e => {
-    if (!mouseDown) updateTimeStampTooltip(e, wrapper.getBoundingClientRect().right)
+    if (!mouseDown) {
+      updateTimeStampTooltip(e, wrapper.getBoundingClientRect().right)
+      id("quick-tip").innerText = "Quick tip: double-click the resize bar to snap it to the playhead"
+    }
   }
 
   resizeBar.onmouseleave = () => {
-    if (!mouseDown) id("timestamp-tooltip").style.display = "none"
+    if (!mouseDown) {
+      id("timestamp-tooltip").style.display = "none"
+      id("quick-tip").innerText = ""
+    }
   }
 
   document.addEventListener("mousemove", e => {
