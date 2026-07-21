@@ -22,6 +22,10 @@ function xToTime(pos) {
   return ((pos / (samples * devicePixelRatio)) * audioDuration) / stepSize
 }
 
+function timeToX(time) {
+  return (time * stepSize * (samples * devicePixelRatio)) / audioDuration
+}
+
 function formatTime(totalSeconds) {
   let totalMs = totalSeconds * 1000
 
@@ -60,11 +64,12 @@ function addNewSlide(num) {
   resizeBar.innerHTML = "<div></div>"
   wrapper.append(resizeBar)
 
-  let mouseDown = false
+  let mouseDown = false, offset = 0
 
-  resizeBar.onmousedown = () => {
+  resizeBar.onmousedown = e => {
     mouseDown = true
     document.body.classList.add("resizing")
+    offset = e.clientX - resizeBar.getBoundingClientRect().left
   }
 
   resizeBar.ondblclick = () => {
@@ -77,15 +82,30 @@ function addNewSlide(num) {
     id("timestamp-tooltip").style.display = "none"
   })
 
+  function updateTimeStampTooltip(e, x = null) {
+    let pos = e.clientX
+    if (x) pos = x
+    id("timestamp-tooltip").style.display = ""
+    id("timestamp-tooltip").style.left = e.clientX + "px"
+    id("timestamp-tooltip").style.top = e.clientY + "px"
+    id("timestamp-tooltip").innerText = formatTime(xToTime(pos - id("edit-timeline").getBoundingClientRect().left) * stepSize)
+  }
+
+  resizeBar.onmousemove = e => {
+    if (!mouseDown) updateTimeStampTooltip(e, wrapper.getBoundingClientRect().right)
+  }
+
+  resizeBar.onmouseleave = () => {
+    if (!mouseDown) id("timestamp-tooltip").style.display = "none"
+  }
+
   document.addEventListener("mousemove", e => {
     if (mouseDown) {
-      let pos = (e.clientX - wrapper.getBoundingClientRect().left)
+      console.log(offset)
+      let pos = (e.clientX - wrapper.getBoundingClientRect().left) + (resizeBar.getBoundingClientRect().width - offset)
       if (pos <= 10) return
       wrapper.style.width = pos + "px"
-      id("timestamp-tooltip").style.display = ""
-      id("timestamp-tooltip").style.left = e.clientX + "px"
-      id("timestamp-tooltip").style.top = e.clientY + "px"
-      id("timestamp-tooltip").innerText = formatTime(xToTime(e.clientX- id("edit-timeline").getBoundingClientRect().left) * stepSize)
+      updateTimeStampTooltip(e, wrapper.getBoundingClientRect().right)
     }
   })
 
@@ -165,15 +185,18 @@ id("upload-video-files").onclick = async () => {
 
   let playPos = 0, playing = false
   id("play").onclick = () => {
-    if (playPos * stepSize >= audioBuffer.duration) return
+    if (playPos / stepSize >= audioBuffer.duration) {
+      return
+    }
     playing = true
     id("play").style.display = "none"
     id("pause").style.display = ""
+    source?.stop()
     source = audioContext.createBufferSource()
     source.buffer = audioBuffer
     source.connect(audioContext.destination)
-    console.log(playPos * stepSize)
-    source.start(0, playPos * stepSize)
+    console.log(playPos / stepSize)
+    source.start(0, playPos / stepSize)
   }
 
   id("pause").onclick = () => {
@@ -214,7 +237,7 @@ id("upload-video-files").onclick = async () => {
     mouseDown = true
     let pos = e.clientX - id("timeline").getBoundingClientRect().left
     id("caret").style.left = pos + "px"
-    playPos = xToTime(pos)
+    playPos = xToTime(pos) * stepSize * stepSize
     document.body.classList.add("grabbing")
     updateTimestemp()
 
@@ -232,7 +255,7 @@ id("upload-video-files").onclick = async () => {
   })
 
   function updateTimestemp() {
-    id("timestamp").innerText = formatTime(playPos * stepSize)
+    id("timestamp").innerText = formatTime(playPos / stepSize)
   }
 
   document.addEventListener("mousemove", e => {
@@ -245,18 +268,18 @@ id("upload-video-files").onclick = async () => {
         pos = id("timeline").getBoundingClientRect().width
       }
       id("caret").style.left = pos + "px"
-      playPos = ((pos / (samples * devicePixelRatio)) * audioBuffer.duration) / stepSize
+      playPos = xToTime(pos) * stepSize * stepSize
       updateTimestemp()
     }
   })
 
   let playInterval = setInterval(() => {
     if (playing) {
-      let pos = ((playPos * stepSize) / audioBuffer.duration) * (samples * devicePixelRatio)
+      let pos = ((samples * devicePixelRatio) / audioBuffer.duration) * playPos / stepSize
       id("caret").style.left = pos + "px"
       updateTimestemp()
 
-      playPos += (1 / stepSize) / audioBuffer.duration
+      playPos += 1
     }
   }, 1000 / stepSize)
 
@@ -288,7 +311,7 @@ id("upload-video-files").onclick = async () => {
   ctx.fillStyle = "white"
   ctx.fillRect(0, 0, audioCanvas.width, audioCanvas.height)
 
-  ctx.strokeStyle = "#2d4f94"
+  ctx.strokeStyle = "#5d709d"
   ctx.lineWidth = 2
 
   for (let i = 0; i < waveform.length; i++) {

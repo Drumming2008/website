@@ -180,7 +180,6 @@ body.resizing, body.resizing * {
 
 #audio-canvas {
   height: 25px;
-  opacity: 0.5;
 }
 
 #editor-buttons {
@@ -188,7 +187,6 @@ body.resizing, body.resizing * {
   gap: 10px;
   padding-top: 10px;
   background: var(--color-bg);
-  border-top: 5px;
   position: sticky;
   left: 0;
   z-index: 2;
