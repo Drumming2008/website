@@ -14,6 +14,7 @@ h1 {
   margin: 0 -50px;
   background: var(--color-bg-1);
   width: 100%;
+  z-index: 10;
 }
 
 #back {
@@ -28,7 +29,7 @@ h1 {
   flex-direction: column;
   gap: 10px;
   border: 1px solid var(--color);
-  max-width: var(--max-text-width);
+  /* max-width: 700px; */
   margin: 25px auto;
 }
 
@@ -47,13 +48,28 @@ h1 {
   outline: 1px solid var(--color);
 }
 
+
+#video-upload-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 #upload-output, #video-upload-video-output, #video-upload-pdf-output {
   font-size: 0.75em;
   font-family: sans-serif-font, sans-serif;
 }
 
 #video-editor-outputs {
-  justify-content: space-between;
+  gap: 10px;
+}
+
+#video-editor-outputs > span {
+  display: inline-block;
+  width: calc(50% - 5px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 
@@ -61,4 +77,228 @@ h1 {
   .row {
     flex-direction: column;
   }
+}
+
+#video-editor-wrapper {
+  /* outline: 1px solid var(--color); */
+  background: var(--color-bg-1);
+  border-radius: var(--br);
+  display: flex;
+  overflow: hidden;
+  background: var(--color);
+  flex-direction: column;
+}
+
+#panel-2 {
+  flex-grow: 1;
+}
+
+#panel-1 {
+  height: 100px;
+  overflow: auto;
+  padding: 5px;
+  border-bottom: 1px solid var(--color-bg);
+  border-left: 1px solid var(--color);
+  border-right: 1px solid var(--color);
+  display: flex;
+  gap: 10px;
+}
+
+#panel-1 > button {
+  position: relative;
+  border-radius: var(--br);
+  overflow: hidden;
+  height: 100%;
+  aspect-ratio: 8.5 / 11;
+  flex-shrink: 0;
+  transition: transform 0.4s var(--bounce);
+  cursor: pointer;
+}
+
+#panel-1 > button:hover {
+  transform: scale(0.95);
+}
+
+#panel-1 > button:active {
+  transform: scale(0.9);
+}
+
+#panel-1 > button > div {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-family: sans-serif-font, sans-serif;
+  background: white;
+  padding: 2px;
+  border-radius: var(--br);
+}
+
+#panel-1 > button > canvas {
+  display: block;
+  width: 100%;
+}
+
+#panel-2 {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow-x: auto;
+}
+
+#edit-timeline {
+  flex-grow: 1;
+  display: flex;
+  height: 255px;
+}
+
+#panel-2 * {
+  font-family: sans-serif-font, sans-serif;
+}
+
+#timeline {
+  position: relative;
+  border-top: none;
+  border: 1px solid var(--color);
+  height: 35px;
+  z-index: 2;
+  background: var(--color-bg);
+  padding-bottom: 10px;
+  flex-shrink: 0;
+  width: max-content;
+  cursor: grab;
+}
+
+body.grabbing, body.grabbing * {
+  cursor: grabbing !important;
+  user-select: none;
+}
+
+body.resizing, body.resizing * {
+  cursor: ew-resize !important;
+  user-select: none;
+}
+
+#audio-canvas {
+  height: 25px;
+  opacity: 0.5;
+}
+
+#editor-buttons {
+  display: flex;
+  gap: 10px;
+  padding-top: 10px;
+  background: var(--color-bg);
+  border-top: 5px;
+  position: sticky;
+  left: 0;
+  z-index: 2;
+}
+
+#editor-buttons button {
+  flex-shrink: 0;
+}
+
+.timeline-wrapper {
+  width: 100px;
+  height: 100%;
+  border-radius: var(--br);
+  overflow: hidden;
+  border: 1px solid var(--color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.timeline-wrapper > canvas {
+  width: 100%;
+  height: 100%;
+  background: white;
+}
+
+.timeline-number {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  font-family: sans-serif-font, sans-serif;
+}
+
+.resize-bar {
+  background: var(--color-bg-1);
+  width: 10px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  cursor: ew-resize;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.resize-bar > div {
+  height: 25%;
+  width: 2px;
+  background: var(--color);
+  border-radius: 2px;
+}
+
+.timeline-delete {
+  position: absolute;
+  top: 5px;
+}
+
+.spacer {
+  flex-grow: 1;
+}
+
+#order, #render {
+  width: max-content;
+}
+
+#caret {
+  position: absolute;
+  width: 2px;
+  height: 100%;
+  background: var(--color-accent);
+  z-index: 1;
+}
+
+#timestamp {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: -68px;
+  color: var(--color-bg);
+  background: var(--color);
+  border-radius: var(--br) var(--br) 0 0;
+  padding: 5px;
+}
+
+#timestamp-tooltip {
+  position: fixed;
+  z-index: 100;
+  background: var(--color);
+  color: var(--color-bg);
+  font-family: sans-serif-font, sans-serif;
+  padding: 5px;
+  border-radius: var(--br);
+}
+
+@keyframes spin {
+  from {
+    rotate: 0;
+  }
+
+  to {
+    rotate: 360deg;
+  }
+}
+
+#video-loading {
+  animation: spin 1s linear infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

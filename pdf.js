@@ -68,8 +68,6 @@ function createPDF(elem, pdf) {
   buttons.append(next)
 
   function updateButtons(pdfDoc) {
-    console.log(currentPage, pdfDoc.numPages)
-
     if (currentPage - 1 >= 0) {
       prev.style.display = ""
     } else {

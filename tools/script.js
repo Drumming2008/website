@@ -15,7 +15,7 @@ upload.oninput = () => {
 
 button.addEventListener("click", async () => {
   if (!upload.files.length) {
-    alert("Please choose a PDF first.")
+    alert("Please choose a PDF first!")
     return
   }
 
