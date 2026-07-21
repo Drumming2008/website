@@ -79,7 +79,9 @@ function addNewSlide(num) {
 
   document.addEventListener("mousemove", e => {
     if (mouseDown) {
-      wrapper.style.width = (e.clientX - wrapper.getBoundingClientRect().left) + "px"
+      let pos = (e.clientX - wrapper.getBoundingClientRect().left)
+      if (pos <= 0) return
+      wrapper.style.width = pos + "px"
       id("timestamp-tooltip").style.display = ""
       id("timestamp-tooltip").style.left = e.clientX + "px"
       id("timestamp-tooltip").style.top = e.clientY + "px"
@@ -158,7 +160,7 @@ id("upload-video-files").onclick = async () => {
 
   let channelData = audioBuffer.getChannelData(0)
 
-  samples = audioBuffer.duration * 7
+  samples = audioBuffer.duration * 11
   let waveform = []
 
   let playPos = 0, playing = false
@@ -170,6 +172,7 @@ id("upload-video-files").onclick = async () => {
     source = audioContext.createBufferSource()
     source.buffer = audioBuffer
     source.connect(audioContext.destination)
+    console.log(playPos * stepSize)
     source.start(0, playPos * stepSize)
   }
 
@@ -242,7 +245,6 @@ id("upload-video-files").onclick = async () => {
         pos = id("timeline").getBoundingClientRect().width
       }
       id("caret").style.left = pos + "px"
-      // updatePlayPos()
       playPos = ((pos / (samples * devicePixelRatio)) * audioBuffer.duration) / stepSize
       updateTimestemp()
     }
@@ -254,8 +256,7 @@ id("upload-video-files").onclick = async () => {
       id("caret").style.left = pos + "px"
       updateTimestemp()
 
-      playPos = xToTime(pos - id("edit-timeline").getBoundingClientRect().left) + (1 / stepSize)
-      //  / (audioBuffer.duration / stepSize)
+      playPos += (1 / stepSize) / audioBuffer.duration
     }
   }, 1000 / stepSize)
 
