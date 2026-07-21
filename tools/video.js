@@ -80,7 +80,7 @@ function addNewSlide(num) {
   document.addEventListener("mousemove", e => {
     if (mouseDown) {
       let pos = (e.clientX - wrapper.getBoundingClientRect().left)
-      if (pos <= 0) return
+      if (pos <= 10) return
       wrapper.style.width = pos + "px"
       id("timestamp-tooltip").style.display = ""
       id("timestamp-tooltip").style.left = e.clientX + "px"
