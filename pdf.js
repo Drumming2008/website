@@ -74,7 +74,7 @@ function createPDF(elem, pdf) {
       prev.style.display = "none"
     }
 
-    if (currentPage < pdfDoc.numPages / 2) {
+    if (currentPage < Math.floor(pdfDoc.numPages / 2)) {
       next.style.display = ""
     } else {
       next.style.display = "none"
