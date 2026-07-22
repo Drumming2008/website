@@ -1,3 +1,20 @@
+function createToast(text) {
+  let toast = document.createElement("div")
+  toast.classList.add("toast")
+  toast.classList.add("hidden")
+  toast.innerText = text
+  document.body.append(toast)
+  setTimeout(() => {
+    toast.classList.remove("hidden")
+  })
+  setTimeout(() => {
+    toast.classList.add("hidden")
+    setTimeout(() => {
+      toast.remove()
+    }, 400)
+  }, 2000)
+}
+
 function id(id) {
   return document.getElementById(id)
 }
@@ -82,6 +99,8 @@ button.addEventListener("click", async () => {
   a.click()
 
   URL.revokeObjectURL(url)
+
+  createToast("Watermarked PDF Downloaded")
 })
 
 id("upload").onclick = () => {
@@ -92,7 +111,11 @@ id("png-pdf-button").onclick = () => {
   id("png-pdf-upload").click()
 }
 
-id("png-pdf-download").onclick = async () => {
+id("png-pdf-upload").onchange = () => {
+  id("png-pdf-output").innerText = id("png-pdf-upload").files[0].name
+}
+
+async function downloadPNG(hd) {
   if (!id("png-pdf-upload").files.length) {
     alert("Please choose a PDF first!")
     return
@@ -108,7 +131,7 @@ id("png-pdf-download").onclick = async () => {
   for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
     let page = await pdf.getPage(pageNum)
 
-    let viewport = page.getViewport({ scale: 2 })
+    let viewport = page.getViewport({ scale: hd ? 8 : 2 })
 
     let canvas = document.createElement("canvas")
     let ctx = canvas.getContext("2d")
@@ -126,4 +149,13 @@ id("png-pdf-download").onclick = async () => {
     a.download = `${pdfFile.name.split(".")[0]}_${pageNum}.png`
     a.click()
   }
+  createToast("PNGs Downloaded")
+}
+
+id("png-pdf-download").onclick = async () => {
+  downloadPNG()
+}
+
+id("png-pdf-download-hd").onclick = async () => {
+  downloadPNG(true)
 }

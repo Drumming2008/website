@@ -373,7 +373,7 @@ id("render").onclick = async () => {
     await img.decode()
     frameImages[frame] = img
   }
-
+  createToast("Rendering…")
   id("video-editor-wrapper").style.display = "none"
   id("video-loading").style.display = ""
 
@@ -506,6 +506,8 @@ id("render").onclick = async () => {
 
   id("video-loading").style.display = "none"
   id("another-video").style.display = ""
+
+  createToast("Video Finished Rendering")
 
   id("another-video").onclick = () => {
     location.reload()

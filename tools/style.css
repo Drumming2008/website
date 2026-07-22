@@ -55,7 +55,7 @@ h1 {
   gap: 10px;
 }
 
-#upload-output, #video-upload-video-output, #video-upload-pdf-output {
+#upload-output, #video-upload-video-output, #video-upload-pdf-output, #png-pdf-output {
   font-size: 0.75em;
   font-family: sans-serif-font, sans-serif;
 }
@@ -328,4 +328,21 @@ body.resizing, body.resizing * {
 #quick-tip {
   font-size: 0.625em;
   align-content: center;
+}
+
+.toast {
+  position: fixed;
+  z-index: 100;
+  top: 5px;
+  right: 5px;
+  padding: 5px 10px;
+  border-radius: var(--br);
+  font-family: sans-serif-font, sans-serif;
+  transition: transform 0.4s var(--bounce);
+  background: var(--color);
+  color: var(--color-bg);
+}
+
+.toast.hidden {
+  transform: translateX(calc(100% + 5px));
 }
