@@ -122,7 +122,8 @@ let musicData = [
         instr: "SATB Choir, divisi",
         year: 2026,
         cat: "choral",
-        subcat: "satb"
+        subcat: "satb",
+        score: "Avé Mariá - Full Score_watermarked"
     },
     {
         title: "Rain Music",
