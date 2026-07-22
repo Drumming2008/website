@@ -123,7 +123,7 @@ let musicData = [
         year: 2026,
         cat: "choral",
         subcat: "satb",
-        score: "Avé Mariá - Full Score_watermarked"
+        score: "Ave Maria - Full Score_watermarked"
     },
     {
         title: "Rain Music",
