@@ -1,4 +1,4 @@
-import { Muxer, ArrayBufferTarget } from "https://unpkg.com/mp4-muxer/build/mp4-muxer.mjs"
+import { Muxer, ArrayBufferTarget } from "./mp4-muxer.mjs"
 
 id("video-upload-pdf").onclick = () => {
   id("video-pdf-input").click()
@@ -182,9 +182,31 @@ id("upload-video-files").onclick = async () => {
     }
   }
 
+  let button = document.createElement("div")
+  button.classList.add("page-button")
+  button.innerText = "Blank Space"
+  id("panel-1").prepend(button)
+
+  let add = document.createElement("button")
+  add.classList.add("add")
+  add.classList.add("icon-button")
+  add.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"><path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"></path></svg>'
+  button.append(add)
+
+  add.onclick = async () => {
+    let newCanvas = addNewSlide("")
+    newCanvas.width = globalViewport.width
+    let newCanvasCTX = newCanvas.getContext("2d")
+    newCanvas.height = globalViewport.height
+    newCanvasCTX.fillStyle = "black"
+    newCanvasCTX.fillRect(0, 0, newCanvas.width, newCanvas.height)
+    newCanvas.style.display = "none"
+    newCanvas.parentElement.style.backgroundImage = `url(${newCanvas.toDataURL()})`
+  }
+
   id("order").onclick = () => {
     for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
-      id("panel-1").children[pageNum - 1].querySelector(".add").click()
+      id("panel-1").children[pageNum].querySelector(".add").click()
     }
   }
 
@@ -330,11 +352,12 @@ id("upload-video-files").onclick = async () => {
 
   ctx.beginPath()
 
-  ctx.fillStyle = "white"
-  ctx.fillRect(0, 0, audioCanvas.width, audioCanvas.height)
+  // ctx.fillStyle = "white"
+  // ctx.fillRect(0, 0, audioCanvas.width, audioCanvas.height)
 
-  ctx.strokeStyle = "#5d709d"
+  ctx.fillStyle = "#5d709d"
   ctx.lineWidth = 2
+  ctx.strokeStyle = "#5d709d"
 
   for (let i = 0; i < waveform.length; i++) {
     let x = i
@@ -345,6 +368,8 @@ id("upload-video-files").onclick = async () => {
     } else {
       ctx.lineTo(x, y)
     }
+
+    ctx.fillRect(x - 1, y, 2, y * 100)
   }
 
   ctx.stroke()

@@ -1421,7 +1421,7 @@ input[type="range"] {
 }
 
 .pdf-wrapper:fullscreen {
-    padding: 25px;
+    padding: 10px;
     background: var(--color);
 }
 
@@ -1436,8 +1436,8 @@ input[type="range"] {
 }
 
 .pdf-wrapper:fullscreen .page-set {
-    width: calc(100% - 50px);
-    height: calc(100% - 50px);
+    width: calc(100% - 20px);
+    height: calc(100% - 20px);
 }
 
 .page-set:last-child {
@@ -1531,12 +1531,25 @@ input[type="range"] {
     right: 5px;
 }
 
+.pdf-wrapper:fullscreen .fullscreen-button {
+    top: 20px;
+    right: 20px;
+}
+
 .pdf-buttons > .prev-button {
     left: 5px;
 }
 
+.pdf-wrapper:fullscreen .prev-button {
+    left: 20px;
+}
+
 .pdf-buttons > .next-button {
     right: 5px;
+}
+
+.pdf-wrapper:fullscreen .next-button {
+    right: 20px;
 }
 
 .prev-button, .next-button {

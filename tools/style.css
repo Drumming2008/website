@@ -1,5 +1,6 @@
 body {
   padding: 50px;
+  padding-top: 60px;
   overflow: auto;
 }
 
@@ -31,6 +32,11 @@ h1 {
   border: 1px solid var(--color);
   /* max-width: 700px; */
   margin: 25px auto;
+  color: var(--color);
+}
+
+.card:first-of-type {
+  margin-top: 50px;
 }
 
 .row {
@@ -41,6 +47,7 @@ h1 {
 #watermark-images {
   align-items: center;
   justify-content: center;
+  display: none;
 }
 
 #watermark-images img {
@@ -48,6 +55,20 @@ h1 {
   outline: 1px solid var(--color);
 }
 
+#score-video-card {
+  padding-right: 0;
+  padding-bottom: 0;
+}
+
+#score-video-card .row {
+  margin-right: 10px;
+}
+
+#upload-video-files, #another-video {
+  margin-bottom: 10px;
+  margin-right: 10px;
+  width: calc(100% - 10px);
+}
 
 #video-upload-wrapper {
   display: flex;
@@ -81,6 +102,7 @@ h1 {
 
 #video-editor-wrapper {
   /* outline: 1px solid var(--color); */
+  margin-right: 10px;
   background: var(--color-bg-1);
   border-radius: var(--br);
   display: flex;
@@ -118,6 +140,17 @@ h1 {
   align-items: center;
   justify-content: end;
   background-size: cover;
+  text-align: center;
+  font-family: sans-serif-font, sans-serif;
+  color: var(--color-bg);
+  font-size: 0.75em;
+}
+
+.page-button:first-child {
+  justify-content: space-between;
+  outline: 1px solid var(--color-bg);
+  outline-offset: -1px;
+  padding-top: 5px;
 }
 
 /* .page-button:hover {
@@ -137,6 +170,7 @@ h1 {
   padding: 2px;
   border-radius: var(--br);
   z-index: 2;
+  color: var(--color);
 }
 
 .page-button > canvas {
@@ -178,10 +212,11 @@ h1 {
   position: relative;
   border-top: none;
   border: 1px solid var(--color);
-  height: 35px;
+  height: 50px;
   z-index: 2;
   background: var(--color-bg);
-  padding-bottom: 10px;
+  margin-bottom: 1px;
+  border-bottom: none;
   flex-shrink: 0;
   width: max-content;
   cursor: grab;
@@ -198,17 +233,19 @@ body.resizing, body.resizing * {
 }
 
 #audio-canvas {
-  height: 25px;
+  height: 100%;
 }
 
 #editor-buttons {
   display: flex;
   gap: 10px;
-  padding-top: 10px;
+  padding: 10px 0;
+  padding-right: 10px;
   background: var(--color-bg);
   position: sticky;
   left: 0;
   z-index: 2;
+  margin-right: -10px;
 }
 
 #editor-buttons button {
@@ -282,16 +319,21 @@ body.resizing, body.resizing * {
 #caret {
   position: absolute;
   width: 2px;
-  height: 100%;
+  height: calc(100% + 2px);
   background: var(--color-accent);
   z-index: 1;
+  transition: all 0.1s linear;
+}
+
+body.grabbing #caret {
+  transition: none !important;
 }
 
 #timestamp {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  top: -68px;
+  top: -85px;
   color: var(--color-bg);
   background: var(--color);
   border-radius: var(--br) var(--br) 0 0;
@@ -323,6 +365,7 @@ body.resizing, body.resizing * {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 10px;
 }
 
 #quick-tip {
