@@ -368,7 +368,6 @@ id("upload-video-files").onclick = async () => {
   for (let i = 0; i < waveform.length; i++) {
     let x = i
     let y = audioCanvas.height / 2 - (waveform[i] * ((id("timeline").getBoundingClientRect().height - 10) / waveformMax))
-    console.log(waveformMax, id("timeline").getBoundingClientRect().height / waveformMax)
 
     if (i == 0) {
       ctx.moveTo(x, y)
@@ -408,6 +407,7 @@ id("render").onclick = async () => {
   createToast("Rendering…")
   id("video-editor-wrapper").style.display = "none"
   id("video-loading").style.display = ""
+  id("frame-progress").style.display = ""
 
   let canvas = document.createElement("canvas")
   canvas.width = globalViewport.width
@@ -488,7 +488,10 @@ id("render").onclick = async () => {
     videoFrame.close()
 
     await encoder.flush()
+    id("frame-progress").style.setProperty("--percent", ((frame / totalFrames) * 100) * (totalFrames / frameImages.length) + "%")
   }
+
+  console.log(frame, totalFrames)
 
   let audioData = []
 
@@ -527,6 +530,8 @@ id("render").onclick = async () => {
     audioFrame.close()
   }
 
+  id("frame-progress").style.setProperty("--percent", "100%")
+
   await audioEncoder.flush()
   await encoder.flush()
 
@@ -537,6 +542,7 @@ id("render").onclick = async () => {
   })
 
   id("video-loading").style.display = "none"
+  id("frame-progress").style.display = "none"
   id("another-video").style.display = ""
 
   createToast("Video Finished Rendering")
