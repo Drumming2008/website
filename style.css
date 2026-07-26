@@ -72,6 +72,10 @@ h1 {
     white-space: nowrap;
 }
 
+#logo ::after {
+    display: none;
+}
+
 #logo.hidden {
     transform: translateY(calc(-1 * (60px - 25%)));
 }
@@ -138,9 +142,41 @@ a {
     border-radius: 1px;
 }
 
+a {
+    display: inline-flex;
+    align-items: start;
+    gap: 5px;
+    text-decoration-color: transparent;
+    position: relative;
+}
+
+a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 100%;
+    transition: inset 0.2s ease, height 0.2s ease;
+    bottom: 0;
+    height: 2px;
+    background: currentColor;
+    border-radius: 2px;
+}
+
+a:is(:hover, :focus-visible)::after {
+    right: 0;
+}
+
+a:active::after {
+    height: 1px;
+}
+
 a:not(header a):focus-visible {
     outline: 2px solid currentColor;
     outline-offset: 2px;
+}
+
+a:not(header a) {
+    height: 1.35em;
 }
 
 nav a, #inverted-nav a {
@@ -172,6 +208,7 @@ nav a::after {
     opacity: 0;
     transition: opacity 0.2s linear;
     border-radius: var(--br);
+    height: unset;
 }
 
 nav a.selected::after {
@@ -891,6 +928,10 @@ summary::marker {
     color: var(--color-accent);
 }
 
+.details-content li > div > a:is(:hover, :focus-visible) {
+    text-decoration-thickness: 2px;
+}
+
 .details-content li > div > div {
     display: inline;
 }
@@ -993,35 +1034,6 @@ footer.hidden {
     gap: 15px;
     width: min-content;
     font-family: sans-serif-font, sans-serif;
-}
-
-#links > a, #tools-link {
-    display: flex;
-    align-items: start;
-    gap: 5px;
-    text-decoration-color: transparent;
-    position: relative;
-}
-
-#links > a::after, #tools-link::after {
-    content: "";
-    position: absolute;
-    left: 50%;
-    right: 50%;
-    transition: inset 0.2s ease, height 0.2s ease;
-    bottom: 0;
-    height: 2px;
-    background: currentColor;
-    border-radius: 2px;
-}
-
-#links > a:is(:hover, :focus-visible)::after, #tools-link:is(:hover, :focus-visible)::after {
-    left: 0;
-    right: 0;
-}
-
-#links > a:active::after, #tools-link:active::after {
-    height: 1px;
 }
 
 #youtube-link {

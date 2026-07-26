@@ -115,7 +115,8 @@ let musicData = [
         year: 2025,
         cat: "choral",
         subcat: "satb",
-        desc: "“The Lonely Bird” is a piece based on the poem “Twilight” by Pulitzer Prize-winning American poet Sara Teasdale. It symbolizes the feeling of loneliness through the falling spring rain and the repetitious calling of a lonely bird. Through my music, I tried to show the duality of the intense emotion behind the heart’s calling through changing tonality, but also the stagnation of loneliness in the falling rain by staying within a confined tonal space."
+        desc: "“The Lonely Bird” is a piece based on the poem “Twilight” by Pulitzer Prize-winning American poet Sara Teasdale. It symbolizes the feeling of loneliness through the falling spring rain and the repetitious calling of a lonely bird. Through my music, I tried to show the duality of the intense emotion behind the heart’s calling through changing tonality, but also the stagnation of loneliness in the falling rain by staying within a confined tonal space.",
+        score: "The Lonely Bird - Full Score_watermarked"
     },
     {
         title: "Ave Maria",
@@ -137,7 +138,8 @@ let musicData = [
         instr: "SATB Choir, divisi",
         year: 2026,
         cat: "choral",
-        subcat: "satb"
+        subcat: "satb",
+        score: "Human Nature Feels - Full Score_watermarked"
     },
     {
         title: "The Lonely Bird",
@@ -146,7 +148,8 @@ let musicData = [
         year: 2025,
         cat: "choral",
         subcat: "ttbb",
-        desc: "“The Lonely Bird” is a piece based on the poem “Twilight” by Pulitzer Prize-winning American poet Sara Teasdale. It symbolizes the feeling of loneliness through the falling spring rain and the repetitious calling of a lonely bird. Through my music, I tried to show the duality of the intense emotion behind the heart’s calling through changing tonality, but also the stagnation of loneliness in the falling rain by staying within a confined tonal space."
+        desc: "“The Lonely Bird” is a piece based on the poem “Twilight” by Pulitzer Prize-winning American poet Sara Teasdale. It symbolizes the feeling of loneliness through the falling spring rain and the repetitious calling of a lonely bird. Through my music, I tried to show the duality of the intense emotion behind the heart’s calling through changing tonality, but also the stagnation of loneliness in the falling rain by staying within a confined tonal space.",
+        score: "The Lonely Bird TTBB - Full Score_watermarked"
     },
     {
         title: "Reggae for My Baby",

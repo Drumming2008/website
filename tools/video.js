@@ -329,6 +329,8 @@ id("upload-video-files").onclick = async () => {
 
   updateTimestemp()
 
+  let waveformMax = 0
+
   for (let i = 0; i < samples; i++) {
     let start = Math.floor(i * channelData.length / samples)
     let end = Math.floor((i + 1) * channelData.length / samples)
@@ -339,7 +341,11 @@ id("upload-video-files").onclick = async () => {
       sum += Math.abs(channelData[j])
     }
 
-    waveform.push(sum / (end - start))
+    let val = sum / (end - start)
+
+    if (val > waveformMax) waveformMax = val
+
+    waveform.push(val)
   }
 
   let audioCanvas = id("audio-canvas")
@@ -361,7 +367,8 @@ id("upload-video-files").onclick = async () => {
 
   for (let i = 0; i < waveform.length; i++) {
     let x = i
-    let y = audioCanvas.height / 2 - waveform[i] * 100
+    let y = audioCanvas.height / 2 - (waveform[i] * ((id("timeline").getBoundingClientRect().height - 10) / waveformMax))
+    console.log(waveformMax, id("timeline").getBoundingClientRect().height / waveformMax)
 
     if (i == 0) {
       ctx.moveTo(x, y)
