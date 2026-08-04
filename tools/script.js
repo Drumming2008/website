@@ -185,10 +185,6 @@ function resetFieldsets() {
     })  
   }
 
-  function getFieldsetValue(fieldset) {
-    return fieldset.querySelector("input:checked").value
-  }
-
   for (let i of document.querySelectorAll("#side-by-side input")) {
     i.oninput = () => {
       if (i.value == "disabled") {
@@ -199,6 +195,10 @@ function resetFieldsets() {
       }
     }
   }
+}
+
+function getFieldsetValue(fieldset) {
+  return fieldset.querySelector("input:checked").value
 }
 
 resetFieldsets()
