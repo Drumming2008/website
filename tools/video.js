@@ -1,6 +1,6 @@
 import { Muxer, ArrayBufferTarget } from "./mp4-muxer.mjs"
 // import { mediaInfoFactory } from "./mediainfo.js"
-let mi = await MediaInfo.mediaInfoFactory()
+// let mi = await MediaInfo.mediaInfoFactory()
 
 id("video-upload-pdf").onclick = () => {
   id("video-pdf-input").click()
@@ -311,7 +311,7 @@ id("upload-video-files").onclick = async () => {
 
   document.addEventListener("keydown", e => {
     if (document.activeElement && (document.activeElement.nodeName == "TEXTAREA" || document.activeElement.nodeName == "INPUT")) return
-    
+
     if (e.code == "Space") {
       e.preventDefault()
       if (playing) {
