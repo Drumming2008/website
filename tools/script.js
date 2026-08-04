@@ -394,6 +394,7 @@ id("check-harp-glissandos").onclick = () => {
 
   let glissandos = getHarpGlissandos(lines)
   let output = id("harp-output")
+  output.innerHTML = ""
   let index = 1
   output.innerHTML = `${glissandos.length} Options<br>`
   for (let i of glissandos) {
