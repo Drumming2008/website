@@ -546,6 +546,15 @@ fieldset input:focus-visible {
   padding: 5px 0;
 }
 
+#harp-output > p:first-of-type {
+  margin-top: 5px;
+}
+
+#harp-output > p:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
 #harp-output span {
   white-space: pre;
   text-align: center;
