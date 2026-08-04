@@ -1,4 +1,6 @@
 import { Muxer, ArrayBufferTarget } from "./mp4-muxer.mjs"
+// import { mediaInfoFactory } from "./mediainfo.js"
+// let mi = await MediaInfo.mediaInfoFactory()
 
 id("video-upload-pdf").onclick = () => {
   id("video-pdf-input").click()
@@ -16,7 +18,7 @@ id("video-video-input").oninput = () => {
   id("video-upload-video-output").innerText = id("video-video-input").files[0].name
 }
 
-let audioDuration, stepSize = 10, samples, globalViewport, audioContext, source, audioBuffer
+let audioDuration, stepSize = 10, samples, globalViewport, audioContext, source, audioBuffer, isVideo, videoURL = null
 
 function xToTime(pos) {
   return ((pos / (samples * devicePixelRatio)) * audioDuration) / stepSize
@@ -103,7 +105,6 @@ function addNewSlide(num) {
 
   document.addEventListener("mousemove", e => {
     if (mouseDown) {
-      console.log(offset)
       let pos = (e.clientX - wrapper.getBoundingClientRect().left) + (resizeBar.getBoundingClientRect().width - offset)
       if (pos <= 10) return
       wrapper.style.width = pos + "px"
@@ -114,6 +115,38 @@ function addNewSlide(num) {
   return newCanvas
 }
 
+// function extractFramesFromVideo(src, callback) {
+//   var video = document.createElement("video")
+//   video.src = src;
+
+//   video.addEventListener("loadeddata", function() {
+//     let canvas = document.createElement("canvas")
+//     let ctx = canvas.getContext("2d")
+//     canvas.setAttribute("width", video.videoWidth)
+//     canvas.setAttribute("height", video.videoHeight)
+
+//     let frames = []
+//     let fps = 1 // Frames per seconds to
+//     let interval = 1 / fps // Frame interval
+//     let maxDuration = 10 // 10 seconds max duration
+//     let currentTime = 0 // Start at 0
+
+//     while (currentTime < maxDuration) {
+//       video.currentTime = currentTime 
+//       ctx.drawImage(video, 0, 0, video.videoWidth, video.videoHeight)
+//       var base64ImageData = canvas.toDataURL()
+//       frames.push(base64ImageData)
+
+//       currentTime += interval
+
+//       if (currentTime >= maxDuration) {
+//         console.log(frames)
+//         callback(frames)
+//       }
+//     }
+//   })
+// }
+
 id("upload-video-files").onclick = async () => {
   if (!id("video-video-input").files.length || !id("video-pdf-input").files.length) {
     alert("Please choose both an audio/video file and a PDF!")
@@ -123,8 +156,40 @@ id("upload-video-files").onclick = async () => {
   id("video-editor-wrapper").style.display = ""
   id("video-upload-wrapper").style.display = "none"
 
+  setTimeout(() => {
+    resetFieldsets()
+  })
+
   let pdfFile = id("video-pdf-input").files[0]
   let audioFile = id("video-video-input").files[0]
+
+  isVideo = audioFile.type.startsWith("video/")
+
+  if (!isVideo) {
+    id("side-by-side").disabled = true
+  } else {
+    // console.log("FrameRate", audioFile.FrameRate)
+
+    const mediaInfo = await mi({ format: "object" })
+
+    // 2. Analyze your file (using an HTML file input block or chunk reader)
+    // 'file' can be a standard Browser File object from <input type="file">
+    const result = await mediaInfo.analyzeData(() => audioFile.size, (size, offset) => {
+      return new Uint8Array(audioFile.slice(offset, offset + size).arrayBuffer())
+    })
+
+    // 3. Find the Video track and extract FrameRate
+    const videoTrack = result.media.track.find((track) => track["@type"] === "Video")
+
+    if (videoTrack && videoTrack.FrameRate) {
+      const fps = parseFloat(videoTrack.FrameRate)
+      console.log(`Video FPS: ${fps}`)
+    } else {
+      console.log("Could not find frame rate information.")
+    }
+    
+    videoURL = URL.createObjectURL(audioFile)
+  }
 
   pdfjsLib.GlobalWorkerOptions.workerSrc = "/pdf.worker.mjs"
 
@@ -140,7 +205,6 @@ id("upload-video-files").onclick = async () => {
     let canvas = document.createElement("canvas")
     let ctx = canvas.getContext("2d")
 
-    console.log(globalViewport, viewport)
     if (pageNum == 1 || viewport.width > globalViewport.width || viewport.height > globalViewport.height) globalViewport = viewport
 
     canvas.width = viewport.width
@@ -235,7 +299,6 @@ id("upload-video-files").onclick = async () => {
     source = audioContext.createBufferSource()
     source.buffer = audioBuffer
     source.connect(audioContext.destination)
-    console.log(playPos / stepSize)
     source.start(0, playPos / stepSize)
   }
 
@@ -383,6 +446,10 @@ id("upload-video-files").onclick = async () => {
 }
 
 id("render").onclick = async () => {
+  for (let i of id("video-editor-wrapper").querySelectorAll("button, input")) {
+    i.disabled = true
+  }
+
   let slides = []
   for (let i of [...document.querySelectorAll(".timeline-wrapper")]) {
     let rect = i.getBoundingClientRect(), editTimelineRect = id("edit-timeline").getBoundingClientRect()
@@ -392,6 +459,14 @@ id("render").onclick = async () => {
       number: parseInt(i.querySelector(".timeline-number").innerText),
       image: i.querySelector("canvas").toDataURL("image/png")
     })
+  }
+  
+  if (getFieldsetValue(id("aspect-ratio")) != "page") {
+    let x = parseInt(getFieldsetValue(id("aspect-ratio")).split(":")[0])
+    let y = parseInt(getFieldsetValue(id("aspect-ratio")).split(":")[1])
+
+    globalViewport.width = Math.round(globalViewport.height * (x / y))
+    if (globalViewport.width % 2 != 0) globalViewport.width++
   }
 
   let frameImages = [], fps = 60, totalFrames = Math.ceil(audioDuration * fps)
@@ -405,7 +480,6 @@ id("render").onclick = async () => {
     frameImages[frame] = img
   }
   createToast("Rendering…")
-  id("video-editor-wrapper").style.display = "none"
   id("video-loading").style.display = ""
   id("frame-progress").style.display = ""
 
@@ -414,6 +488,40 @@ id("render").onclick = async () => {
   canvas.height = globalViewport.height
 
   let ctx = canvas.getContext("2d")
+
+  let frame = 0, video, videoDimensions = {}
+
+  if (isVideo) {
+    video = document.createElement("video")
+    video.src = videoURL
+    video.currentTime = 0
+
+    function waitForVideoData(video) {
+      if (video.readyState >= 2) {
+        return Promise.resolve()
+      }
+      return new Promise((resolve) => {
+        video.addEventListener("loadeddata", () => {
+          resolve()
+        }, { once: true })
+      })
+    }
+
+    await waitForVideoData(video)
+  }
+
+  if (getFieldsetValue(id("side-by-side")) != "disabled") {
+    // y * (x / y) = x
+    videoDimensions.height = canvas.height
+    videoDimensions.width = canvas.height * (video.videoWidth / video.videoHeight)
+    console.log(video.videoWidth, video.videoHeight, videoDimensions, videoDimensions.width / videoDimensions.height, video.videoWidth / video.videoHeight)
+    console.log("canvas", canvas.width)
+    canvas.width += videoDimensions.width
+    console.log("globalViewport", globalViewport.width)
+    globalViewport.width = canvas.width
+    console.log("canvas changed", canvas.width)
+    console.log("globalViewport changed", globalViewport.width)
+  }
 
   let muxer = new Muxer({
     target: new ArrayBufferTarget(),
@@ -463,19 +571,58 @@ id("render").onclick = async () => {
     bitrate: 128000
   })
 
-  let frame = 0
-
   for (; frame < frameImages.length; frame++) {
+    console.log(canvas.width)
     ctx.clearRect(0, 0, canvas.width, canvas.height)
 
     if (frameImages[frame]) {
-      ctx.drawImage(
-        frameImages[frame],
-        0,
-        0,
-        canvas.width,
-        canvas.height
-      )
+      if (getFieldsetValue(id("side-by-side")) == "disabled") {
+        ctx.drawImage(
+          frameImages[frame],
+          (canvas.width - frameImages[frame].width) / 2,
+          0,
+          canvas.height * (frameImages[frame].width / frameImages[frame].height),
+          canvas.height
+        )
+      } else {
+        if (getFieldsetValue(id("side-by-side")) == "left") {
+          ctx.drawImage(
+            frameImages[frame],
+            0,
+            0,
+            canvas.height * (frameImages[frame].width / frameImages[frame].height),
+            canvas.height
+          )
+        }
+
+        if (getFieldsetValue(id("side-by-side")) == "right") {
+          ctx.drawImage(
+            frameImages[frame],
+            canvas.width - frameImages[frame].width,
+            0,
+            canvas.height * (frameImages[frame].width / frameImages[frame].height),
+            canvas.height
+          )
+
+          ctx.drawImage(
+            video,
+            0,
+            0,
+            videoDimensions.width,
+            videoDimensions.height
+          )
+
+          let x = 0
+          while (x < canvas.width / 100) {
+            if (x % 2 == 0) ctx.fillStyle = "red"
+            else ctx.fillStyle = "lime"
+            ctx.fillRect(x * 100, 0, 100, 20)
+            x++
+          }
+        }
+
+        video.currentTime += 1 / fps
+      }
     }
 
     let videoFrame = new VideoFrame(canvas, {
@@ -490,8 +637,6 @@ id("render").onclick = async () => {
     await encoder.flush()
     id("frame-progress").style.setProperty("--percent", ((frame / totalFrames) * 100) * (totalFrames / frameImages.length) + "%")
   }
-
-  console.log(frame, totalFrames)
 
   let audioData = []
 
@@ -544,6 +689,10 @@ id("render").onclick = async () => {
   id("video-loading").style.display = "none"
   id("frame-progress").style.display = "none"
   id("another-video").style.display = ""
+
+  for (let i of id("video-editor-wrapper").querySelectorAll("button, input")) {
+    i.disabled = false
+  }
 
   createToast("Video Finished Rendering")
 

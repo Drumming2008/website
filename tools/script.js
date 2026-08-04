@@ -2,7 +2,7 @@ function createToast(text) {
   let toast = document.createElement("div")
   toast.classList.add("toast")
   toast.classList.add("hidden")
-  toast.innerText = text
+  toast.innerHTML = text
   document.body.append(toast)
   setTimeout(() => {
     toast.classList.remove("hidden")
@@ -158,4 +158,250 @@ id("png-pdf-download").onclick = async () => {
 
 id("png-pdf-download-hd").onclick = async () => {
   downloadPNG(true)
+}
+
+function resetFieldsets() {
+  for (let i of document.querySelectorAll("fieldset")) {
+    let selector = i.querySelector(".radio-selector")
+    
+    function moveSelector() {
+      let rect = i.getBoundingClientRect()
+      let checked = i.querySelector("input:checked"), checkedRect = checked.getBoundingClientRect()
+      selector.style.left = checkedRect.left - rect.left + "px"
+      selector.style.height = checkedRect.height + "px"
+      selector.style.width = checkedRect.width + "px"
+    }
+
+    moveSelector()
+
+    for (let j of i.querySelectorAll("input")) {
+      j.onclick = () => {
+        moveSelector()
+      }
+    }
+
+    addEventListener("resize", () => {
+      moveSelector()
+    })  
+  }
+
+  function getFieldsetValue(fieldset) {
+    return fieldset.querySelector("input:checked").value
+  }
+
+  for (let i of document.querySelectorAll("#side-by-side input")) {
+    i.oninput = () => {
+      if (i.value == "disabled") {
+        id("aspect-ratio").disabled = false
+      } else {
+        id("aspect-ratio-page").click()
+        id("aspect-ratio").disabled = true
+      }
+    }
+  }
+}
+
+resetFieldsets()
+
+let noteData = {
+  "A": {
+    enharmonics: [],
+    noteVariants: ["Ab", "A", "A#"]
+  },
+  "Bb": {
+    enharmonics: [
+      "A#"
+    ],
+    noteVariants: ["B", "Bb", "B#"]
+  },
+  "A#": {
+    enharmonics: [
+      "Bb"
+    ],
+    noteVariants: ["Ab", "A", "A#"]
+  },
+  "B": {
+    enharmonics: [
+      "Cb"
+    ],
+    noteVariants: ["Bb", "B", "B#"]
+  },
+  "Cb": {
+    enharmonics: [
+      "B"
+    ],
+    noteVariants: ["C", "Cb", "C#"]
+  },
+  "C": {
+    enharmonics: [
+      "B#"
+    ],
+    noteVariants: ["Cb", "C", "C#"]
+  },
+  "B#": {
+    enharmonics: [
+      "C"
+    ],
+    noteVariants: ["Bb", "B", "B#"]
+  },
+  "Db": {
+    enharmonics: [
+      "C#"
+    ],
+    noteVariants: ["D", "Db", "D#"]
+  },
+  "C#": {
+    enharmonics: [
+      "Db"
+    ],
+    noteVariants: ["Cb", "C", "C#"]
+  },
+  "D": {
+    enharmonics: [],
+    noteVariants: ["Db", "D", "D#"]
+  },
+  "Eb": {
+    enharmonics: [
+      "D#"
+    ],
+    noteVariants: ["E", "Eb", "E#"]
+  },
+  "D#": {
+    enharmonics: [
+      "Eb"
+    ],
+    noteVariants: ["Db", "D", "D#"]
+  },
+  "E": {
+    enharmonics: [
+      "Fb"
+    ],
+    noteVariants: ["Eb", "E", "E#"]
+  },
+  "Fb": {
+    enharmonics: [
+      "E"
+    ],
+    noteVariants: ["F", "Fb", "F#"]
+  },
+  "F": {
+    enharmonics: [
+      "E#"
+    ],
+    noteVariants: ["Fb", "F", "F#"]
+  },
+  "E#": {
+    enharmonics: [
+      "F"
+    ],
+    noteVariants: ["Eb", "E", "E#"]
+  },
+  "Gb": {
+    enharmonics: [
+      "F#"
+    ],
+    noteVariants: ["G", "Gb", "G#"]
+  },
+  "F#": {
+    enharmonics: [
+      "Gb"
+    ],
+    noteVariants: ["Fb", "F", "F#"]
+  },
+  "G": {
+    enharmonics: [],
+    noteVariants: ["Gb", "G", "G#"]
+  },
+  "Ab": {
+    enharmonics: [
+      "G#"
+    ],
+    noteVariants: ["A", "Ab", "A#"]
+  },
+  "G#": {
+    enharmonics: [
+      "Ab"
+    ],
+    noteVariants: ["Gb", "G", "G#"]
+  }
+}
+
+function getHarpGlissandos(inputNotes) {
+  let strings = ["C", "D", "E", "F", "G", "A", "B"]
+  let results = []
+
+  let allowedNotes = []
+
+  for (let note of inputNotes) {
+    allowedNotes.push(note)
+    allowedNotes.push(...noteData[note].enharmonics)
+  }
+
+  allowedNotes = [...new Set(allowedNotes)]
+
+  function search(index, tuning) {
+    if (index == strings.length) {
+      let valid = inputNotes.every(input => {
+        return tuning.some(note => {
+          return note == input || noteData[input].enharmonics.includes(note)
+        })
+      })
+
+      if (valid) {
+        results.push([...tuning])
+      }
+
+      return
+    }
+
+    let stringNote = strings[index]
+
+    // Find all possible spellings for this string
+    let variants = Object.keys(noteData).filter(note => {
+      return note[0] == stringNote
+    })
+
+    for (let variant of variants) {
+      if (allowedNotes.includes(variant)) {
+        tuning.push(variant)
+        search(index + 1, tuning)
+        tuning.pop()
+      }
+    }
+  }
+
+  search(0, [])
+
+  return results
+}
+
+let harpPedals = [
+  "D", "C", "B", "E", "F", "G", "A"
+]
+
+id("check-harp-glissandos").onclick = () => {
+  let value = id("harp-notes").value
+  let lines = value.split("\n")
+  let chars = "ABCDEFGb#"
+  for (let line of lines) {
+    for (let char of line.split("")) {
+      if (!chars.includes(char)) {
+        createToast("<b>Illegal characters!</b><br>You can only use A, B, C, D, E, F, G, #, or b!")
+        return
+      }
+    }
+  }
+
+  let glissandos = getHarpGlissandos(lines)
+  let output = id("harp-output")
+  output.innerHTML = `${glissandos.length} Options<br>`
+  for (let i of glissandos) {
+    let option = i.sort((a, b) => {
+      return harpPedals.indexOf(a.split("")[0]) - harpPedals.indexOf(b.split("")[0])
+    })
+    output.innerHTML += "<p></p>"
+    for (let j of option) {
+      output.lastChild.innerHTML += `<span>${j.replace("#", "♯").replace("b", "♭  ")} </span>`
+    }
+  }
 }

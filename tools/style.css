@@ -29,8 +29,8 @@ h1 {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  border: 1px solid var(--color);
-  /* max-width: 700px; */
+  /* border: 1px solid var(--color); */
+  background: var(--color-bg-1);
   margin: 25px auto;
   color: var(--color);
 }
@@ -60,7 +60,7 @@ h1 {
   padding-bottom: 0;
 }
 
-#score-video-card .row {
+#score-video-card .row:not(fieldset .row) {
   margin-right: 10px;
 }
 
@@ -74,6 +74,19 @@ h1 {
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+
+.input-wrapper.textarea {
+  margin-top: 10px;
+}
+
+.textarea-resizer {
+  background: var(--color-bg-1);
+  outline-color: var(--color-bg-1);
+}
+
+.input-wrapper > label::after {
+  background: var(--color-bg-1);
 }
 
 #upload-output, #video-upload-video-output, #video-upload-pdf-output, #png-pdf-output {
@@ -101,7 +114,6 @@ h1 {
 }
 
 #video-editor-wrapper {
-  /* outline: 1px solid var(--color); */
   margin-right: 10px;
   background: var(--color-bg-1);
   border-radius: var(--br);
@@ -109,6 +121,8 @@ h1 {
   overflow: hidden;
   background: var(--color);
   flex-direction: column;
+
+  /* display: flex !important; */
 }
 
 #panel-2 {
@@ -128,7 +142,6 @@ h1 {
 
 .page-button {
   position: relative;
-  border-radius: var(--br);
   overflow: hidden;
   height: 100%;
   aspect-ratio: 8.5 / 11;
@@ -168,9 +181,9 @@ h1 {
   font-family: sans-serif-font, sans-serif;
   background: white;
   padding: 2px;
-  border-radius: var(--br);
   z-index: 2;
   color: var(--color);
+  border-radius: var(--br);
 }
 
 .page-button > canvas {
@@ -184,7 +197,7 @@ h1 {
   position: relative;
   z-index: 1;
   width: 100%;
-  border-radius: var(--br);
+  border-radius: 0;
 }
 
 .page-button > button:not(:hover, :active) {
@@ -238,10 +251,11 @@ body.resizing, body.resizing * {
 
 #editor-buttons {
   display: flex;
+  flex-direction: column;
   gap: 10px;
   padding: 10px 0;
   padding-right: 10px;
-  background: var(--color-bg);
+  background: var(--color-bg-1);
   position: sticky;
   left: 0;
   z-index: 2;
@@ -252,6 +266,16 @@ body.resizing, body.resizing * {
   flex-shrink: 0;
 }
 
+#editor-buttons > .row {
+  width: 100%;
+  align-items: end;
+}
+
+#editor-buttons > .row:not(:last-child) {
+  border-bottom: 1px solid var(--color);
+  padding-bottom: 10px;
+}
+
 .timeline-wrapper {
   width: 100px;
   height: 100%;
@@ -260,7 +284,8 @@ body.resizing, body.resizing * {
   border: 1px solid var(--color);
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: end;
+  padding-right: 20px;
   position: relative;
   flex-shrink: 0;
   background-size: auto 100%;
@@ -408,4 +433,106 @@ body.grabbing #caret {
   border-radius: var(--br);
   width: var(--percent);
   background: var(--color-accent);
+}
+
+#render-row {
+  flex-wrap: wrap;
+}
+
+fieldset {
+  display: flex;
+  gap: 10px;
+  position: relative;
+  flex-wrap: wrap;
+  padding: 10px;
+  border-radius: var(--br);
+  border: 1px solid var(--color);
+  width: max-content;
+  flex-grow: 1;
+}
+
+fieldset > span {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 5px;
+}
+
+fieldset > .row {
+  width: 100%;
+}
+
+fieldset > .row > div {
+  min-width: max-content;
+  flex-basis: 100%;
+}
+
+.radio-selector {
+  position: absolute;
+  bottom: 10px;
+  background: var(--color-accent);
+  transition: all 0.4s var(--bounce);
+  border-radius: var(--br);
+  transform: translateX(-1px);
+}
+
+.radio-button-wrapper span {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+fieldset label {
+  display: flex;
+  /* gap: 5px; */
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  transition: color 0.1s linear, background 0.1s linear;
+  border-radius: var(--br);
+  height: 40px;
+}
+
+fieldset label:has(:checked) {
+  color: var(--color-bg);
+}
+
+fieldset label:hover:not(:has(:checked)) {
+  background: var(--color-bg-1);
+}
+
+fieldset label:active:not(:has(:checked)) {
+  background: var(--color-bg-2);
+}
+
+fieldset input {
+  appearance: none;
+  position: absolute;
+  inset: 0;
+  cursor: pointer;
+  border-radius: var(--br);
+  transition: outline-offset 0.15s ease;
+}
+
+fieldset input:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+[disabled], label:has([disabled]) {
+  opacity: 0.75;
+  filter: grayscale(0.5);
+  pointer-events: none;
+}
+
+#harp-notes {
+  height: 185px;
+  resize: none;
+}
+
+#harp-notes + .textarea-resizer {
+  display: none;
 }
