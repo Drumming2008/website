@@ -394,14 +394,17 @@ id("check-harp-glissandos").onclick = () => {
 
   let glissandos = getHarpGlissandos(lines)
   let output = id("harp-output")
+  let index = 1
   output.innerHTML = `${glissandos.length} Options<br>`
   for (let i of glissandos) {
     let option = i.sort((a, b) => {
       return harpPedals.indexOf(a.split("")[0]) - harpPedals.indexOf(b.split("")[0])
     })
-    output.innerHTML += "<p></p>"
+    output.innerHTML += `<p><span>${index}.</span></p>`
+    index++
     for (let j of option) {
-      output.lastChild.innerHTML += `<span>${j.replace("#", "♯").replace("b", "♭  ")} </span>`
+      if (j.length == 1) j += " "
+      output.lastChild.innerHTML += `<span>${j.replace("#", "♯").replace("b", "♭  ")}</span>`
     }
   }
 }
