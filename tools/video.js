@@ -1,6 +1,9 @@
 import { Muxer, ArrayBufferTarget } from "./mp4-muxer.mjs"
-// import { mediaInfoFactory } from "./mediainfo.js"
-// let mi = await MediaInfo.mediaInfoFactory()
+
+const { FFmpeg } = window.FFmpegWASM
+
+const ffmpeg = new FFmpeg()
+
 
 id("video-upload-pdf").onclick = () => {
   id("video-pdf-input").click()
@@ -170,23 +173,38 @@ id("upload-video-files").onclick = async () => {
   } else {
     // console.log("FrameRate", audioFile.FrameRate)
 
-    const mediaInfo = await mi({ format: "object" })
+    // await ffmpeg.load()
+    // let data = new Uint8Array(await audioFile.arrayBuffer())
+    // ffmpeg.FS("writeFile", audioFile.name, data)
+    
+    // // Run FFmpeg to extract stream information
+    // await console.log(ffmpeg.run("-i", audioFile.name))
 
-    // 2. Analyze your file (using an HTML file input block or chunk reader)
-    // 'file' can be a standard Browser File object from <input type="file">
-    const result = await mediaInfo.analyzeData(() => audioFile.size, (size, offset) => {
-      return new Uint8Array(audioFile.slice(offset, offset + size).arrayBuffer())
-    })
+    // const mediainfo = await mediaInfoFactory()
+    // const result = mediainfo.analyzeData(audioFile)
+    // mediainfo.close()
+
+    // analyzeFile(audioFile)
+
+    // const mediainfo = await mediaInfoFactory()
+
+    // // 2. Analyze your file (using an HTML file input block or chunk reader)
+    // // 'file' can be a standard Browser File object from <input type="file">
+    // const result = await mediaInfo.analyzeData(() => audioFile.size, (size, offset) => {
+    //   return new Uint8Array(audioFile.slice(offset, offset + size).arrayBuffer())
+    // })
+
+    // mediainfo.close()
 
     // 3. Find the Video track and extract FrameRate
-    const videoTrack = result.media.track.find((track) => track["@type"] === "Video")
+    // const videoTrack = result.media.track.find((track) => track["@type"] === "Video")
 
-    if (videoTrack && videoTrack.FrameRate) {
-      const fps = parseFloat(videoTrack.FrameRate)
-      console.log(`Video FPS: ${fps}`)
-    } else {
-      console.log("Could not find frame rate information.")
-    }
+    // if (videoTrack && videoTrack.FrameRate) {
+    //   const videoFPS = parseFloat(videoTrack.FrameRate)
+    //   console.log(`Video FPS: ${videoFPS}`)
+    // } else {
+    //   console.log("Could not find frame rate information.")
+    // }
     
     videoURL = URL.createObjectURL(audioFile)
   }
