@@ -16,7 +16,24 @@
       Musical Tools
     </h1>
     <div class="card" id="score-video-card">
-      <h2>Score Video Editor</h2>
+      <h2 id="score-video-header">
+        Score Video Editor
+        <button class="icon-button" id="score-video-info">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"><path d="M140,180a12,12,0,1,1-12-12A12,12,0,0,1,140,180ZM128,72c-22.06,0-40,16.15-40,36v4a8,8,0,0,0,16,0v-4c0-11,10.77-20,24-20s24,9,24,20-10.77,20-24,20a8,8,0,0,0-8,8v8a8,8,0,0,0,16,0v-.72c18.24-3.35,32-17.9,32-35.28C168,88.15,150.06,72,128,72Zm104,56A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"></path></svg>
+        </button>
+      </h2>
+      <div id="video-info">
+        <h3>About the Score Video Editor</h3>
+        <p>
+          Upload one PDF file and one video or audio file. You can then add pages from your PDF to the timeline. Either click <span>Add Slides in Order</span> to add every page from your PDF in order, or manually add pages (in the case that your score has repeated sections between pages). You can drag out the end of a page to change the length it shows for, but also by double-clicking the bar you can snap the end of a page to the playhead.
+        </p>
+        <p>
+          Before exporting your video, there are a few options to choose from. Firstly, you can choose if you'd like to only show the score and audio, or display a performance video alongside your score. Secondly, you can decide to change the aspect ratio of the exported video. This will add blank, black space to the sides of your score to create the necesary width. This option can be useful for videos on platforms such as YouTube, which will often treat small, vertical page sizes as shorts instead of normal videos. Finally, click <span>Export</span> and your video will render.
+        </p>
+        <p>
+          Feel free to report any bugs by emailing <a href="mailto:finn.reese@gmail.com" style="color: var(--color-accent);">finn.reese@gmail.com</a>.
+        </p>
+      </div>
       <div id="video-upload-wrapper">
         <div class="row">
           <input type="file" id="video-pdf-input" accept="application/pdf" style="display: none;">

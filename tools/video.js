@@ -118,38 +118,6 @@ function addNewSlide(num) {
   return newCanvas
 }
 
-// function extractFramesFromVideo(src, callback) {
-//   var video = document.createElement("video")
-//   video.src = src;
-
-//   video.addEventListener("loadeddata", function() {
-//     let canvas = document.createElement("canvas")
-//     let ctx = canvas.getContext("2d")
-//     canvas.setAttribute("width", video.videoWidth)
-//     canvas.setAttribute("height", video.videoHeight)
-
-//     let frames = []
-//     let fps = 1 // Frames per seconds to
-//     let interval = 1 / fps // Frame interval
-//     let maxDuration = 10 // 10 seconds max duration
-//     let currentTime = 0 // Start at 0
-
-//     while (currentTime < maxDuration) {
-//       video.currentTime = currentTime 
-//       ctx.drawImage(video, 0, 0, video.videoWidth, video.videoHeight)
-//       var base64ImageData = canvas.toDataURL()
-//       frames.push(base64ImageData)
-
-//       currentTime += interval
-
-//       if (currentTime >= maxDuration) {
-//         console.log(frames)
-//         callback(frames)
-//       }
-//     }
-//   })
-// }
-
 id("upload-video-files").onclick = async () => {
   if (!id("video-video-input").files.length || !id("video-pdf-input").files.length) {
     alert("Please choose both an audio/video file and a PDF!")
@@ -171,41 +139,6 @@ id("upload-video-files").onclick = async () => {
   if (!isVideo) {
     id("side-by-side").disabled = true
   } else {
-    // console.log("FrameRate", audioFile.FrameRate)
-
-    // await ffmpeg.load()
-    // let data = new Uint8Array(await audioFile.arrayBuffer())
-    // ffmpeg.FS("writeFile", audioFile.name, data)
-    
-    // // Run FFmpeg to extract stream information
-    // await console.log(ffmpeg.run("-i", audioFile.name))
-
-    // const mediainfo = await mediaInfoFactory()
-    // const result = mediainfo.analyzeData(audioFile)
-    // mediainfo.close()
-
-    // analyzeFile(audioFile)
-
-    // const mediainfo = await mediaInfoFactory()
-
-    // // 2. Analyze your file (using an HTML file input block or chunk reader)
-    // // 'file' can be a standard Browser File object from <input type="file">
-    // const result = await mediaInfo.analyzeData(() => audioFile.size, (size, offset) => {
-    //   return new Uint8Array(audioFile.slice(offset, offset + size).arrayBuffer())
-    // })
-
-    // mediainfo.close()
-
-    // 3. Find the Video track and extract FrameRate
-    // const videoTrack = result.media.track.find((track) => track["@type"] === "Video")
-
-    // if (videoTrack && videoTrack.FrameRate) {
-    //   const videoFPS = parseFloat(videoTrack.FrameRate)
-    //   console.log(`Video FPS: ${videoFPS}`)
-    // } else {
-    //   console.log("Could not find frame rate information.")
-    // }
-    
     videoURL = URL.createObjectURL(audioFile)
   }
 
@@ -237,13 +170,7 @@ id("upload-video-files").onclick = async () => {
     button.innerHTML = `<div>${pageNum}</div>`
     button.style.backgroundImage = `url(${canvas.toDataURL()})`
     button.classList.add("page-button")
-    // button.append(canvas)
     id("panel-1").append(button)
-
-    // let look = document.createElement("button")
-    // look.classList.add("icon-button")
-    // look.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path></svg>'
-    // button.append(look)
 
     let add = document.createElement("button")
     add.classList.add("add")
@@ -536,12 +463,32 @@ id("render").onclick = async () => {
     videoDimensions.width = canvas.height * (video.videoWidth / video.videoHeight)
     console.log(video.videoWidth, video.videoHeight, videoDimensions, videoDimensions.width / videoDimensions.height, video.videoWidth / video.videoHeight)
     console.log("canvas", canvas.width)
-    canvas.width += videoDimensions.width
+
+    canvas.width = parseFloat(canvas.width) + videoDimensions.width
+    canvas.width = Math.floor(parseFloat(canvas.width))
+    canvas.height = parseFloat(canvas.height) + videoDimensions.height
+    canvas.height = Math.floor(parseFloat(canvas.height))
+    if (canvas.width % 2 != 0) canvas.width = parseInt(canvas.width) + 1
+    if (canvas.height % 2 != 0) canvas.height = parseInt(canvas.height) + 1
+
+    globalViewport.width = Math.floor(globalViewport.width)
+    globalViewport.height = Math.floor(globalViewport.height)
+
+    if (globalViewport.width % 2 != 0) globalViewport.width++
+    if (globalViewport.height % 2 != 0) globalViewport.height++
+
     console.log("globalViewport", globalViewport.width)
     globalViewport.width = canvas.width
     console.log("canvas changed", canvas.width)
     console.log("globalViewport changed", globalViewport.width)
   }
+
+  ctx.scale(0.5, 0.5)
+  canvas.width = Math.floor(parseInt(canvas.width) / 2)
+  canvas.height = Math.floor(parseInt(canvas.height) / 2)
+
+  if (canvas.width % 2 != 0) canvas.width = parseInt(canvas.width) + 1
+  if (canvas.height % 2 != 0) canvas.height = parseInt(canvas.height) + 1
 
   let muxer = new Muxer({
     target: new ArrayBufferTarget(),
@@ -599,10 +546,10 @@ id("render").onclick = async () => {
       if (getFieldsetValue(id("side-by-side")) == "disabled") {
         ctx.drawImage(
           frameImages[frame],
-          (canvas.width - frameImages[frame].width) / 2,
+          ((canvas.width * 2) - frameImages[frame].width) / 2,
           0,
-          canvas.height * (frameImages[frame].width / frameImages[frame].height),
-          canvas.height
+          (canvas.height * 2) * (frameImages[frame].width / frameImages[frame].height),
+          canvas.height * 2
         )
       } else {
         if (getFieldsetValue(id("side-by-side")) == "left") {
@@ -652,9 +599,9 @@ id("render").onclick = async () => {
 
     encoder.encode(videoFrame)
 
+    await encoder.flush()
     videoFrame.close()
 
-    await encoder.flush()
     id("frame-progress").style.setProperty("--percent", ((frame / totalFrames) * 100) * (totalFrames / frameImages.length) + "%")
   }
 

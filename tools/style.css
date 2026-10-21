@@ -33,6 +33,7 @@ h1 {
   background: var(--color-bg-1);
   margin: 25px auto;
   color: var(--color);
+  border-radius: calc(var(--br) * 2);
 }
 
 .card:first-of-type {
@@ -58,10 +59,62 @@ h1 {
 #score-video-card {
   padding-right: 0;
   padding-bottom: 0;
+  position: relative;
 }
 
 #score-video-card .row:not(fieldset .row) {
   margin-right: 10px;
+}
+
+#score-video-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+#score-video-info {
+  position: relative;
+  z-index: 4;
+  margin-right: 10px;
+  --hover: var(--color-bg-2);
+  --active: var(--color-bg-3);
+}
+
+#score-video-info.open {
+  --hover: var(--color-bg-1);
+  --active: var(--color-bg-2);
+}
+
+#video-info {
+  position: absolute;
+  right: 0;
+  top: 0;
+  background: var(--color-bg);
+  z-index: 3;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+  border-radius: var(--br);
+  display: none;
+  outline: 1px solid var(--color);
+  width: min(100%, var(--max-text-width));
+}
+
+#video-info > h3 {
+  height: 40px;
+  display: flex;
+  align-items: center;
+}
+
+#video-info.open {
+  display: flex;
+}
+
+#video-info > p > span {
+  padding: 5px 10px;
+  background: var(--color);
+  color: var(--color-bg);
+  font-size: 0.75em;
+  border-radius: var(--br);
 }
 
 #upload-video-files, #another-video {
@@ -164,15 +217,8 @@ h1 {
   outline: 1px solid var(--color-bg);
   outline-offset: -1px;
   padding-top: 5px;
+  background: black;
 }
-
-/* .page-button:hover {
-  transform: scale(0.95);
-}
-
-.page-button:active {
-  transform: scale(0.9);
-} */
 
 .page-button > div {
   position: absolute;
@@ -209,6 +255,11 @@ h1 {
   display: flex;
   flex-direction: column;
   overflow-x: auto;
+}
+
+#play, #pause, #restart {
+  --hover: var(--color-bg-2);
+  --active: var(--color-bg-3);
 }
 
 #edit-timeline {
@@ -540,6 +591,10 @@ fieldset input:focus-visible {
 
 #harp-notes + .textarea-resizer {
   display: none;
+}
+
+#harp-output:empty {
+  margin-top: -10px;
 }
 
 #harp-output > p {

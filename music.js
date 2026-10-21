@@ -72,6 +72,14 @@ function sortListAlphabetically(list) {
   list.append(fragment)
 }
 
+function formatTime(time) {
+  let timeString = time.toString()
+  if (timeString.includes(".5")) {
+    return `${timeString.split(".5")[0]}′30″,`
+  }
+  return `${time}′,`
+}
+
 for (let i of Object.values(musicData)) {
   let piece = document.createElement("li")
 
@@ -89,7 +97,15 @@ for (let i of Object.values(musicData)) {
   }
 
   let titleInfo = document.createElement("div")
-  titleInfo.innerHTML = `<span>${i.composer ? " by " + i.composer : ""}</span><span> ${i.instr == "Lead Sheet" ? "" : "for "}${i.instr.replace("divisi", "<i>divisi</i>")}<span class="comma">,</span></span><span class="year"> ${i.year}</span>`
+  titleInfo.innerHTML = `
+    <span>${i.composer ? " by " + i.composer : ""}</span>
+    <span>
+       ${i.instr == "Lead Sheet" ? "" : "for "}
+      ${i.instr.replace("divisi", "<i>(divisi)</i>")}<span class="comma">,</span>
+    </span>
+    <span class="time">${i.time ? formatTime(i.time) : ""}</span>
+    <span class="year"> ${i.year}</span>
+  `
   title.append(titleInfo)
 
   titleLink.onclick = e => {
@@ -124,43 +140,44 @@ for (let i of document.querySelectorAll("#search-content a")) {
 }
 
 function search() {
-  if (!id("search-music").value.trim() && !id("filters").value) {
-    id("music-content").style.display = ""
-    id("search-content").style.display = ""
-    return
-  }
 
-  id("music-content").style.display = "none"
-  id("search-content").style.display = "flex"
+  // if (!id("search-music").value.trim() && !id("filters").value) {
+  //   id("music-content").style.display = ""
+  //   id("search-content").style.display = ""
+  //   return
+  // }
 
-  let index = 0
-  for (let i of document.querySelectorAll("#search-content a")) {
-    i.parentElement.parentElement.style.display = "none"
-    i.parentElement.parentElement.parentElement.parentElement.classList.add("hidden")
-    i.closest(".details-content").classList.add("hidden")
-  }
+  // id("music-content").style.display = "none"
+  // id("search-content").style.display = "flex"
 
-  let numResults = 0
-  for (let i of document.querySelectorAll("#search-content a")) {
-    let value = 0
-    if (i.innerText.toLowerCase().includes(id("search-music").value.toLowerCase()) || !id("search-music").value.trim()) {
-      value++
-    }
-    if (i.parentElement.querySelector("div").lastChild.innerText.trim() == id("filters").value || !id("filters").value) {
-      value++
-    }
+  // let index = 0
+  // for (let i of document.querySelectorAll("#search-content a")) {
+  //   i.parentElement.parentElement.style.display = "none"
+  //   i.parentElement.parentElement.parentElement.parentElement.classList.add("hidden")
+  //   i.closest(".details-content").classList.add("hidden")
+  // }
 
-    if (value == 2) {
-      i.parentElement.parentElement.style.display = ""
-      i.parentElement.parentElement.style.setProperty("--delay", index)
-      index++
-      i.parentElement.parentElement.parentElement.parentElement.classList.remove("hidden")
-      i.closest(".details-content").classList.remove("hidden")
-      numResults++
-    }
-  }
+  // let numResults = 0
+  // for (let i of document.querySelectorAll("#search-content a")) {
+  //   let value = 0
+  //   if (i.innerText.toLowerCase().includes(id("search-music").value.toLowerCase()) || !id("search-music").value.trim()) {
+  //     value++
+  //   }
+  //   if (i.parentElement.querySelector("div") && i.parentElement.querySelector("div").lastChild.innerText.trim() == id("filters").value || !id("filters").value) {
+  //     value++
+  //   }
 
-  id("search-num").innerHTML = `${numResults} r<span>esult${numResults == 1 ? "" : "s"}</span>`
+  //   if (value == 2) {
+  //     i.parentElement.parentElement.style.display = ""
+  //     i.parentElement.parentElement.style.setProperty("--delay", index)
+  //     index++
+  //     i.parentElement.parentElement.parentElement.parentElement.classList.remove("hidden")
+  //     i.closest(".details-content").classList.remove("hidden")
+  //     numResults++
+  //   }
+  // }
+
+  // id("search-num").innerHTML = `${numResults} r<span>esult${numResults == 1 ? "" : "s"}</span>`
 }
 
 id("search-music").oninput = () => {

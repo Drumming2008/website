@@ -1,5 +1,9 @@
 let musicCategories = [
     {
+        name: "Large Ensemble",
+        id: "large"
+    },
+    {
         name: "Chamber/Small Ensemble",
         id: "chamber"
     },
@@ -93,7 +97,8 @@ let musicData = [
     },
     {
         title: "For the Beauty of the Earth",
-        instr: "TTBB Choir, divisi",
+        instr: "TTBB Choir divisi",
+        time: 4,
         year: 2025,
         cat: "choral",
         subcat: "ttbb",
@@ -103,7 +108,8 @@ let musicData = [
     },
     {
         title: "For the Beauty of the Earth",
-        instr: "SSAA Choir, divisi",
+        instr: "SSAA Choir divisi",
+        time: 4,
         year: 2025,
         cat: "choral",
         subcat: "ssaa",
@@ -120,7 +126,8 @@ let musicData = [
     },
     {
         title: "Ave Maria",
-        instr: "SATB Choir, divisi",
+        instr: "SATB Choir divisi",
+        time: 3.5,
         year: 2026,
         cat: "choral",
         subcat: "satb",
@@ -128,14 +135,14 @@ let musicData = [
     },
     {
         title: "Rain Music",
-        instr: "SATB Choir, divisi",
+        instr: "SATB Choir divisi",
         year: 2024,
         cat: "choral",
         subcat: "satb"
     },
     {
         title: "Human Nature Feels",
-        instr: "SATB Choir, divisi",
+        instr: "SATB Choir divisi",
         year: 2026,
         cat: "choral",
         subcat: "satb",
@@ -169,6 +176,13 @@ let musicData = [
         subcat: "arrangements",
         composer: "David Rudder",
         score: "The Ministry of Rhythm Finished - Full Score_watermarked"
+    },
+    {
+        title: "Orchestral Storm",
+        instr: "Orchestra",
+        time: 3,
+        year: 2026,
+        cat: "large"
     }
 ]
 

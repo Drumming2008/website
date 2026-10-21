@@ -18,17 +18,17 @@ let navBreakpoint = 700
 
 let pageInfo = {
   home: {
-    text: "About",
+    text: "Home",
     url: "",
     id: "home"
+  },
+  about: {
+    text: "About",
+    url: "about"
   },
   music: {
     text: "Music",
     url: "music"
-  },
-  recordings: {
-    text: "Recordings",
-    url: "recordings"
   },
   contact: {
     text: "Contact",
@@ -65,7 +65,7 @@ for (let [k, v] of Object.entries(pageInfo)) {
 
   a.href = "/" + v.url
 
-  a.id = "tab-" + v.url
+  a.id = "tab-" + (v.id ? v.id : v.url)
 
   a.onmouseenter = a.onfocus = () => {
     if (isTouchDevice()) return
@@ -154,6 +154,8 @@ let tabMoveTimeout
 function moveToTab(tab, onClick = false, pageLoad = false) {
   id("piece-header").classList.remove("shown")
   id("logo").classList.remove("hidden")
+
+  document.body.dataset.currentTab = tab
 
   if (tabMoveTimeout) {
     clearTimeout(tabMoveTimeout)
@@ -252,6 +254,7 @@ function moveToTab(tab, onClick = false, pageLoad = false) {
         “${data.title}” (${data.year})
       </h2>
       <span class="piece-instr">${data.instr.replace("divisi", "<i>divisi</i>")}</span>
+      <div class="piece-row"></div>
     `
 
     id("piece").scrollTop = 0
@@ -259,9 +262,8 @@ function moveToTab(tab, onClick = false, pageLoad = false) {
     id("piece-header-text").innerText = `“${data.title}”`
 
     if (data.video) {
-      // let player = new Plyr("")
-      console.log("data.videoID", data.videoID)
-      id("piece").innerHTML += `
+      // console.log("data.videoID", data.videoID)
+      document.querySelector("#piece > .piece-row").innerHTML += `
       <div class="video-wrapper">
         <div class="plyr__video-embed" id="video-${data.videoID}">
           ${data.video}
@@ -270,8 +272,10 @@ function moveToTab(tab, onClick = false, pageLoad = false) {
 
     }
 
+    // id("piece").innerHTML += "</div>"
+
     if (data.desc) {
-      id("piece").innerHTML += `
+      document.querySelector("#piece > .piece-row").innerHTML += `
         <div class="piece-desc">
           <h3 class="piece-header">Program Note</h3>
           <p>
@@ -292,9 +296,9 @@ function moveToTab(tab, onClick = false, pageLoad = false) {
         // Custom controls layout
         controls: [
           "play", 
-          "progress", 
-          "duration",
+          "progress",
           "current-time", 
+          "duration",
           "mute", 
           "volume",
           "fullscreen"
@@ -415,6 +419,20 @@ id("clear-search").onclick = () => {
   search()
 }
 
-id("see-music").onclick = () => {
+// id("see-music").onclick = () => {
+//   moveToTab("music")
+// }
+
+id("home-action-music").onclick = () => {
   moveToTab("music")
+}
+
+id("home-action-about").onclick = () => {
+  moveToTab("about")
+}
+
+onmousemove = e => {
+  if (e.target.nodeName == "A") {
+    e.target.style.setProperty("--transform-time", `${Math.min((e.target.getBoundingClientRect().width / 50) * 0.2, 0.4)}s`)
+  }
 }

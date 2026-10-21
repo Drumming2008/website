@@ -12,7 +12,17 @@
     --max-text-width: 65ch;
 
     --bounce: linear(0, 0.008 1.1%, 0.029 2.2%, 0.118 4.8%, 0.621 14.5%, 0.821 19.2%, 0.895 21.5%, 0.956 23.9%, 1.003 26.4%, 1.036 29%, 1.061 32.6%, 1.067 36.7%, 1.015 54.2%, 1 62.4%, 1);
+    --ease: linear(0, 0.008 1.1%, 0.029 2.2%, 0.118 4.8%, 0.621 14.5%, 0.821 19.2%, 0.895 21.5%, 0.956 23.9%, 1 26.4%, 1 29%, 1 32.6%, 1 36.7%, 1 54.2%, 1 62.4%, 1);
 }
+
+/* :root {
+    --color: #fffefb;
+    --color-accent: #3e6bc6;
+    --color-bg: #141516;
+    --color-bg-1: #1e1f20;
+    --color-bg-2: #292a2c;
+    --color-bg-3: #343538;
+} */
 
 /* @media (prefers-color-scheme: dark) {
     :root {
@@ -117,7 +127,57 @@ header {
     justify-content: space-between;
     padding: 0 50px;
     background: var(--color-bg-1);
+    z-index: 11;
+    transition: background 0.4s linear;
+    backdrop-filter: brightness(1.25);
+}
+
+[data-current-tab="home"] > header {
+    background: transparent;
+}
+
+#home {
+    top: 0;
+}
+
+#home-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    object-position: center;
+}
+
+#home-actions {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     z-index: 10;
+    display: flex;
+    gap: 50px;
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 0 50px;
+}
+
+#home-actions > button {
+    flex-shrink: 0;
+    font-size: 1.25em;
+    height: 50px;
+    padding: 10px;
+    width: 175px;
+}
+
+#home-actions > button > a {
+    pointer-events: none;
+}
+
+#home-actions > button > a::after {
+    display: none;
 }
 
 nav, #inverted-nav {
@@ -154,16 +214,19 @@ a::after {
     content: "";
     position: absolute;
     left: 0;
-    right: 100%;
-    transition: inset 0.2s ease, height 0.2s ease;
+    right: 0;
+    transition: transform var(--transform-time, 0.2s) ease, height 0.2s ease;
     bottom: 0;
     height: 2px;
     background: currentColor;
     border-radius: 2px;
+    transform: scaleX(0);
+    transform-origin: right;
 }
 
 a:is(:hover, :focus-visible)::after {
-    right: 0;
+    transform: scaleX(1);
+    transform-origin: left;
 }
 
 a:active::after {
@@ -206,9 +269,13 @@ nav a::after {
     background: var(--color-bg-2);
     z-index: -1;
     opacity: 0;
-    transition: opacity 0.2s linear;
+    transition: opacity 0.2s linear, background 0.4s linear;
     border-radius: var(--br);
     height: unset;
+}
+
+[data-current-tab="home"] nav a::after {
+    background: rgba(255, 255, 255, 0.2);
 }
 
 nav a.selected::after {
@@ -260,6 +327,8 @@ section {
 
 #music {
     padding-top: 80px;
+    overflow: auto;
+    max-height: calc(100vh - 60px);
 }
 
 #piece {
@@ -447,6 +516,12 @@ textarea {
     gap: 15px;
     --clip-path: inset(0 0 0 0);
 }
+
+/* TEMPORARY */
+#music-controls * {
+    display: none;
+}
+/* ********* */
 
 #music-controls.hidden {
     transform: translateY(-100%);
@@ -764,9 +839,9 @@ option:checked:focus-visible {
     padding: 5px 10px;
     width: 100%;
     transition: outline-offset 0.15s ease;
-    background: var(--color);
+    background: var(--color-accent);
     color: var(--color-bg);
-    outline: 3px solid var(--color);
+    outline: 3px solid var(--color-accent);
     outline-offset: -3px;
     border-radius: var(--br);
     height: 40px;
@@ -774,6 +849,7 @@ option:checked:focus-visible {
     align-items: center;
     justify-content: center;
     gap: 10px;
+    font-family: sans-serif-font, sans-serif;
 }
 
 #submit {
@@ -1114,8 +1190,17 @@ footer.hidden {
     border-radius: var(--br);
 }
 
+.piece-row {
+    display: flex;
+    gap: 25px;
+}
+
+.piece-row > * {
+    flex-basis: 50%;
+}
+
 .piece-desc {
-    margin: 0 auto;
+    /* margin: 0 auto; */
     margin-top: 25px;
     text-align: justify;
     max-width: var(--max-text-width);
@@ -1164,6 +1249,10 @@ footer.hidden {
     justify-content: start;
 }
 
+[data-current-tab="home"].hamburger nav {
+    border-top-left-radius: calc(var(--br) + 15px);
+}
+
 .hamburger nav {
     background: var(--color-bg-1);
     position: absolute;
@@ -1172,7 +1261,7 @@ footer.hidden {
     width: 50%;
     height: calc(100vh - 55px);
     clip-path: inset(0 0 0 0);
-    transition: clip-path 0.3s ease-out, right 0.3s ease-out;
+    transition: clip-path 0.3s ease-out, right 0.3s ease-out, border-radius 0.2s ease;
     outline: 5px solid var(--color-bg-1);
     outline-offset: -5px;
 }
@@ -1201,6 +1290,10 @@ footer.hidden {
     right: 17.5px;
     --hover: var(--color-bg-2);
     --active: var(--color-bg-3);
+}
+
+[data-current-tab="home"] #hamburger-button {
+    backdrop-filter: blur(5px);
 }
 
 @media (max-width: 550px) {
@@ -1241,45 +1334,15 @@ footer.hidden {
 }
 
 #bio {
-    /* temporary */
-    filter: blur(10px);
-    pointer-events: none;
-    /*  */
-
     text-align: justify;
     max-width: var(--max-text-width);
     margin: 0 auto;
 }
 
-#under-construction {
-    position: absolute;
-    left: 50%;
-    top: 50px;
-    transform: translateX(-50%);
-    z-index: 2;
-    background: var(--color-bg);
-    border-radius: calc(var(--br) + 25px);
-    padding: 25px;
-}
-
-#see-music {
-    display: flex;
-    margin: 10px auto;
-    margin-bottom: 0;
-    cursor: pointer;
-    padding: 10px;
-    border-radius: var(--br);
-    background: var(--color);
-    color: var(--color-bg);
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-    font-size: 0.875rem;
-}
-
 #portrait {
     float: right;
     aspect-ratio: 8.5 / 11;
+    object-fit: cover;
     width: 250px;
     border: 1px solid var(--color);
     background: var(--color-bg-1);

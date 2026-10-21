@@ -409,3 +409,8 @@ id("check-harp-glissandos").onclick = () => {
     }
   }
 }
+
+id("score-video-info").onclick = () => {
+  id("score-video-info").classList.toggle("open")
+  id("video-info").classList.toggle("open")
+}
