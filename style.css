@@ -326,7 +326,7 @@ section {
 }
 
 #music {
-    padding-top: 80px;
+    padding-top: 0;
     overflow: auto;
     max-height: calc(100vh - 60px);
 }
@@ -504,12 +504,13 @@ textarea {
     outline-offset: 2px;
 } */
 
-#music-controls {
-    height: 70px;
+#music-search {
+    height: 75px;
     flex-shrink: 0;
-    padding: 20px 50px;
-    position: fixed;
-    top: 60px;
+    padding: 20px 1px;
+    margin-bottom: 5px;
+    position: sticky;
+    top: 0;
     left: 0;
     right: 0;
     z-index: 9;
@@ -521,31 +522,23 @@ textarea {
     --clip-path: inset(0 0 0 0);
 }
 
-/* TEMPORARY */
-#music-controls * {
-    display: none;
-}
-/* ********* */
-
-#music-controls.hidden {
+#music-search.hidden {
     transform: translateY(-100%);
     clip-path: inset(100% 0 0 0);
 }
 
-#music::before {
+/* #music::before {
     content: "";
     position: sticky;
     display: block;
     flex-shrink: 0;
     top: -10px;
     height: var(--br);
-    /* background: var(--color); */
     left: 50px;
     right: 50px;
     opacity: 0;
     border: 1px solid var(--color);
     border-bottom: none;
-    /* border-radius: var(--br) var(--br) 0 0; */
     clip-path: var(--clip-path);
     transition: margin 0.15s ease
 }
@@ -562,7 +555,7 @@ textarea {
 
 #music.bordered::before {
     opacity: 1;
-}
+} */
 
 #search-music {
     height: 40px;
@@ -573,18 +566,18 @@ textarea {
     padding-right: 40px;
 }
 
-#music-controls > .input-wrapper {
+#music-search > .input-wrapper {
     width: unset;
     flex-grow: 1;
     height: 40px;
     margin: 0;
 }
 
-#music-controls:has(input:placeholder-shown) > .input-wrapper > .icon-button {
+#music-search:has(input:placeholder-shown) > .input-wrapper > .icon-button {
     display: none;
 }
 
-#music-controls > .input-wrapper > .icon-button {
+#music-search > .input-wrapper > .icon-button {
     position: absolute;
     right: 5px;
     top: 50%;
@@ -618,7 +611,7 @@ textarea {
     transform: translateY(-50%);
 }
 
-#music-controls > .input-wrapper > label > svg {
+#music-search > .input-wrapper > label > svg {
     width: 1em;
     height: 1em;
 }
@@ -771,6 +764,10 @@ selectedcontent > * {
     animation: change-select-text 0.4s var(--bounce) forwards;
 }
 
+selectedcontent > span > span {
+    display: none;
+}
+
 select:open::picker(select) {
     /* this stopped working for some reason… */
  /* animation: select-appear 0.4s var(--bounce); */
@@ -778,12 +775,23 @@ select:open::picker(select) {
     clip-path: inset(0 0 0 0);
 }
 
-::checkmark {
+::picker-icon {
     display: none;
 }
 
-::picker-icon {
-    display: none;
+select > hr {
+    height: 1px;
+    background: var(--color);
+}
+
+select > span {
+    display: block;
+    width: 100%;
+    text-align: left;
+    font-size: 0.875em;
+    padding: 5px 10px;
+    cursor: default;
+    border-top: 1px solid var(--color);
 }
 
 option {
@@ -798,6 +806,19 @@ option {
     position: relative;
     max-width: 118px;
     width: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: start;
+}
+
+
+::checkmark {
+    content: "";
+    mask-image: url("/images/check_mark.png");
+    mask-size: 100%;
+    background: currentColor;
+    height: 1.25em;
+    width: 1.25em;
 }
 
 option:last-child {
@@ -811,6 +832,7 @@ option > span {
 option:checked {
     color: var(--color-bg);
     background: var(--color-accent);
+    justify-content: space-between;
 }
 
 option:not(:checked):hover {
@@ -828,10 +850,6 @@ option:focus-visible {
 option:checked:focus-visible {
     outline: 2px solid var(--color-bg);
 }
-
-/* #music-controls > .input-wrapper > label::after {
-    background-color: var(--color-bg-1);
-} */
 
 ::-webkit-search-cancel-button {
     display: none;
@@ -1014,15 +1032,15 @@ summary::marker {
     width: 0.5ch;
 } */
 
-.details-content li > div > a {
+#search-content div {
+    font-family: sans-serif-font, sans-serif;
+}
+
+.details-content li > div > a, #search-content div a {
     color: var(--color-accent);
 }
 
-.details-content li > div > a:is(:hover, :focus-visible) {
-    text-decoration-thickness: 2px;
-}
-
-.details-content li > div > div {
+.details-content li > div > div, #search-content div > div {
     display: inline;
 }
 
@@ -1304,10 +1322,6 @@ footer.hidden {
     section {
         padding: 25px;
         padding-bottom: 100px;
-    }
-
-    #music-controls {
-        padding: 20px 25px;
     }
 
     #music::before {

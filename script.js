@@ -162,17 +162,17 @@ function moveToTab(tab, onClick = false, pageLoad = false) {
     document.querySelector(".low-z")?.classList.remove("low-z")
   }
 
-  if (tab == "music") {
-    id("music-controls").style.display = ""
-    setTimeout(() => {
-      id("music-controls").classList.remove("hidden")
-    })
-  } else {
-    id("music-controls").classList.add("hidden")
-    setTimeout(() => {
-      id("music-controls").style.display = "none"
-    }, 500)
-  }
+  // if (tab == "music") {
+  //   id("music-controls").style.display = ""
+  //   setTimeout(() => {
+  //     id("music-controls").classList.remove("hidden")
+  //   })
+  // } else {
+  //   id("music-controls").classList.add("hidden")
+  //   setTimeout(() => {
+  //     id("music-controls").style.display = "none"
+  //   }, 500)
+  // }
 
   for (let i of document.querySelectorAll("nav > a")) {
     i.tabIndex = ""
@@ -214,7 +214,6 @@ function moveToTab(tab, onClick = false, pageLoad = false) {
   if (!getPieceId() || onClick) {
     if (!pageLoad) pageInfo[tab].elem.style.animation = ""
     document.querySelector("footer").style.display = ""
-    id("music-controls").style.display = ""
     setTimeout(() => {
       document.querySelector("footer").classList.remove("hidden")
     })

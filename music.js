@@ -57,8 +57,8 @@ for (let i of musicCategories) {
   musicCategoryElements[i.id] = content
 }
 
-function sortListAlphabetically(list) {
-  let items = Array.from(list.querySelectorAll("li"))
+function sortListAlphabetically(list, elem = "li") {
+  let items = Array.from(list.querySelectorAll(elem))
   items.sort((a, b) =>
     a.textContent.trim().localeCompare(b.textContent.trim(), undefined, {
       sensitivity: "base"
@@ -99,7 +99,7 @@ for (let i of Object.values(musicData)) {
   let titleInfo = document.createElement("div")
   titleInfo.innerHTML = `
     <span>${i.composer ? " by " + i.composer : ""}</span>
-    <span>
+    <span class="instr">
        ${i.instr == "Lead Sheet" ? "" : "for "}
       ${i.instr.replace("divisi", "<i>(divisi)</i>")}<span class="comma">,</span>
     </span>
@@ -127,9 +127,13 @@ for (let i of document.querySelectorAll(".sub-category")) {
   sortListAlphabetically(i)
 }
 
-for (let i of document.querySelectorAll(".details-content")) {
-  id("search-content").append(i.cloneNode(true))
+for (let i of document.querySelectorAll(".details-content a")) {
+  let clone = i.parentElement.cloneNode(true)
+  clone.classList.add("search-content-item")
+  id("search-content").append(clone)
 }
+
+sortListAlphabetically(id("search-content"), ".search-content-item")
 
 for (let i of document.querySelectorAll("#search-content a")) {
   i.onclick = e => {
@@ -140,12 +144,27 @@ for (let i of document.querySelectorAll("#search-content a")) {
 }
 
 function search() {
+  if (!id("search-music").value.trim() && !id("filters").value) {
+    id("music").classList.remove("search")
+    id("search-content").style.display = "none"
+    id("music-content").style.display = ""
+    return
+  } else {
+    id("music").classList.add("search")
+    id("search-content").style.display = "flex"
+    id("music-content").style.display = "none"
 
-  // if (!id("search-music").value.trim() && !id("filters").value) {
-  //   id("music-content").style.display = ""
-  //   id("search-content").style.display = ""
-  //   return
-  // }
+    for (let i of document.querySelectorAll("#search-content > div > a")) {
+      i.parentElement.style.display = ""
+      if (!i.innerText.toLowerCase().includes(id("search-music").value.toLowerCase())) {
+        i.parentElement.style.display = "none"
+      }
+
+      if (id("filters").value != "" && !i.parentElement.querySelector(`.${id("filters").value.split(":")[0]}`).innerText.includes(id("filters").value.split(":")[1])) {
+        i.parentElement.style.display = "none"
+      }
+    }
+  }
 
   // id("music-content").style.display = "none"
   // id("search-content").style.display = "flex"
