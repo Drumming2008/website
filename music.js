@@ -143,16 +143,48 @@ for (let i of document.querySelectorAll("#search-content a")) {
   }
 }
 
+id("no-filter-option").selected = true
+
+let filterChange = true
+
+id("no-filter-option").onclick = e => {
+  e.preventDefault()
+  // filterChange = false
+  for (let i of document.querySelectorAll("#filters > option")) {
+    i.selected = false
+  }
+  id("no-filter-option").selected = true
+}
+
 function search() {
+  // if (id("filters").value == "" && document.querySelectorAll("#filters option:checked").length > 1) {
+  //   id("no-filter-option").selected = true
+  //   for (let i of document.querySelectorAll("filters > option")) {
+  //     i.selected = false
+  //   }
+  // } else if (id("filters").value == "" && document.querySelectorAll("#filters option:checked").length  1) {
+  //   id("no-filter-option").selected = false
+  // }
+
+  id("no-filter-option").selected = false
+
   if (!id("search-music").value.trim() && !id("filters").value) {
     id("music").classList.remove("search")
     id("search-content").style.display = "none"
     id("music-content").style.display = ""
+    id("no-filter-option").selected = true
     return
   } else {
     id("music").classList.add("search")
     id("search-content").style.display = "flex"
     id("music-content").style.display = "none"
+
+    let values = {}
+    for (let i of document.querySelectorAll("#filters option:checked")) {
+      if (!values[i.value.split(":")[0]]) values[i.value.split(":")[0]] = []
+
+      values[i.value.split(":")[0]].push(i.value.split(":")[1])
+    }
 
     for (let i of document.querySelectorAll("#search-content > div > a")) {
       i.parentElement.style.display = ""
@@ -160,8 +192,16 @@ function search() {
         i.parentElement.style.display = "none"
       }
 
-      if (id("filters").value != "" && !i.parentElement.querySelector(`.${id("filters").value.split(":")[0]}`).innerText.includes(id("filters").value.split(":")[1])) {
-        i.parentElement.style.display = "none"
+      if ([...Object.keys(values)].length > 0) {
+        for (let [k, v] of Object.entries(values)) {
+          let includes = false
+          for (let vv of v) {
+            if (i.parentElement.querySelector(`.${k}`).innerText.includes(vv)) {
+              includes = true 
+            }
+          }
+          if (!includes) i.parentElement.style.display = "none"
+        }
       }
     }
   }
@@ -204,7 +244,7 @@ id("search-music").oninput = () => {
 }
 
 id("filters").onchange = () => {
-  search()
+  if (filterChange) search()
 }
 
 id("music").onscroll = () => {
@@ -227,3 +267,20 @@ id("music").onscroll = () => {
     }
   }
 }
+
+id("filters-button").onclick = () => {
+  let height = 0
+  for (let i of id("filters").children) {
+    height += i.getBoundingClientRect().height
+  }
+  id("filters").style.height = height + 1 + "px"
+  id("filters").classList.toggle("closed")
+  id("filters-button").classList.toggle("closed")
+}
+
+document.addEventListener("click", e => {
+  if (e.target != id("filters-button") && !id("filters-button").contains(e.target) && e.target != id("filter") && !id("filters").contains(e.target)) {
+    id("filters").classList.add("closed")
+  id("filters-button").classList.add("closed")
+  }
+})

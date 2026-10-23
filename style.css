@@ -508,6 +508,7 @@ textarea {
     height: 75px;
     flex-shrink: 0;
     padding: 20px 1px;
+    padding-right: 0;
     margin-bottom: 5px;
     position: sticky;
     top: 0;
@@ -515,7 +516,7 @@ textarea {
     right: 0;
     z-index: 9;
     transition: transform 0.5s ease-out, clip-path 0.5s ease-out;
-    clip-path: inset(0 0 0 0);
+    /* clip-path: inset(0 0 0 0); */
     background: var(--color-bg);
     display: flex;
     gap: 15px;
@@ -680,181 +681,6 @@ textarea {
     font-weight: 550;
 }
 
-/* for browsers that don't support the fancy select */
-select {
-    appearance: none;
-    font-size: inherit;
-    text-align: center;
-    font-family: sans-serif-font, sans-serif;
-    border-radius: var(--br);
-}
-
-select:hover {
-    background: var(--color-bg-1);
-}
-
-select:active {
-    background: var(--color-bg-2);
-}
-
-/* for the fancy select */
-select {
-    appearance: base-select;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border: 1px solid var(--color);
-    margin: -1px;
-    height: 42px;
-    padding: 0 10px;
-    gap: 5px;
-    width: 120px;
-    cursor: pointer;
-    outline-offset: -3px;
-    transition: background 0.1s linear, outline-offset 0.2s ease, border-radius 0.1s 0.075s ease;
-}
-
-select:open {
-    border-bottom: none;
-    height: 41px;
-    border-radius: var(--br) var(--br) 0 0;
-    transition: background 0.1s linear, outline-offset 0.2s ease;
-}
-
-select:focus-visible {
-    outline: 2px solid var(--color-accent);
-    outline-offset: -1px;
-}
-
-::picker(select) {
-    appearance: base-select;
-    border: none;
-    /* width: 100%; */
-    background: red;
-    background: var(--color-bg);
-    border: 1px solid var(--color);
-    border-top: 0;
-    clip-path: inset(0 0 100% 0);
-    transition: display 0.2s allow-discrete, overlay 0.2s allow-discrete, outline-offset 0.2s ease, clip-path 0.4s var(--bounce);
-    border-radius: 0 0 var(--br) var(--br);
-}
-
-@keyframes select-appear {
-    from {
-        clip-path: inset(0 0 100% 0);
-    }
-
-    to {
-        clip-path: inset(0 0 0 0);
-    }
-}
-
-@keyframes change-select-text {
-    from {
-        transform: translateY(40px);
-    }
-
-    to {
-        transform: translateY(0);
-    }
-}
-
-selectedcontent > * {
-    display: block;
-    animation: change-select-text 0.4s var(--bounce) forwards;
-}
-
-selectedcontent > span > span {
-    display: none;
-}
-
-select:open::picker(select) {
-    /* this stopped working for some reason… */
- /* animation: select-appear 0.4s var(--bounce); */
-    animation: select-appear 0.1s cubic-bezier(.62,.16,.48,.89);
-    clip-path: inset(0 0 0 0);
-}
-
-::picker-icon {
-    display: none;
-}
-
-select > hr {
-    height: 1px;
-    background: var(--color);
-}
-
-select > span {
-    display: block;
-    width: 100%;
-    text-align: left;
-    font-size: 0.875em;
-    padding: 5px 10px;
-    cursor: default;
-    border-top: 1px solid var(--color);
-}
-
-option {
-    background: transparent;
-    outline: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    transition: background 0.1s linear, outline-offset 0.2s ease;
-    outline-offset: -2px;
-    color: var(--color);
-    height: 40px;
-    position: relative;
-    max-width: 118px;
-    width: 100%;
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: start;
-}
-
-
-::checkmark {
-    content: "";
-    mask-image: url("/images/check_mark.png");
-    mask-size: 100%;
-    background: currentColor;
-    height: 1.25em;
-    width: 1.25em;
-}
-
-option:last-child {
-    border-radius: 0 0 calc(var(--br) - 1px) calc(var(--br) - 1px);
-}
-
-option > span {
-    display: block;
-}
-
-option:checked {
-    color: var(--color-bg);
-    background: var(--color-accent);
-    justify-content: space-between;
-}
-
-option:not(:checked):hover {
-    background: var(--color-bg-1);
-}
-
-option:not(:checked):active {
-    background: var(--color-bg-2);
-}
-
-option:focus-visible {
-    outline: 2px solid var(--color-accent);
-}
-
-option:checked:focus-visible {
-    outline: 2px solid var(--color-bg);
-}
-
-::-webkit-search-cancel-button {
-    display: none;
-}
-
 #submit, .normal-button {
     font-size: inherit;
     cursor: pointer;
@@ -886,7 +712,7 @@ option:checked:focus-visible {
     outline-offset: -2px;
 }
 
-#submit:focus-visible, .normal-button:focus-visible {
+#submit:focus-visible, .normal-button:focus-visible, #filters-button:focus-visible {
     transition: outline-offset 0.2s ease;
     /* background: var(--color-accent); */
     outline-color: var(--color-accent);

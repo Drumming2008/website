@@ -7,6 +7,7 @@
         <title>Finn Reese</title>
         <link rel="stylesheet" href="/plyr.css">
         <link rel="stylesheet" href="/style.css">
+        <link rel="stylesheet" href="/select.css">
         <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
         <base target="_parent">
     </head>
@@ -55,24 +56,29 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"></path></svg>
                     </button>
                 </div>
-                <select id="filters">
-                    <button>
-                        <selectedcontent></selectedcontent>
+                <div id="filters-wrapper">
+                    <button id="filters-button" class="closed">
+                        <span>Filters</span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"><path d="M64,105V40a8,8,0,0,0-16,0v65a32,32,0,0,0,0,62v49a8,8,0,0,0,16,0V167a32,32,0,0,0,0-62Zm-8,47a16,16,0,1,1,16-16A16,16,0,0,1,56,152Zm80-95V40a8,8,0,0,0-16,0V57a32,32,0,0,0,0,62v97a8,8,0,0,0,16,0V119a32,32,0,0,0,0-62Zm-8,47a16,16,0,1,1,16-16A16,16,0,0,1,128,104Zm104,64a32.06,32.06,0,0,0-24-31V40a8,8,0,0,0-16,0v97a32,32,0,0,0,0,62v17a8,8,0,0,0,16,0V199A32.06,32.06,0,0,0,232,168Zm-32,16a16,16,0,1,1,16-16A16,16,0,0,1,200,184Z"></path></svg>
                     </button>
-                    <hr>
-                    <option value=""><span><span>No </span>Filter</span></option>
-                    <span>By year</span>
-                    <option value="year:2023"><span>2023</span></option>
-                    <option value="year:2024"><span>2024</span></option>
-                    <option value="year:2025"><span>2025</span></option>
-                    <option value="year:2026"><span>2026</span></option>
-                    <option value="year:2027"><span>2027</span></option>
-                    <span>Choir</span>
-                    <option value="instr:SSAA"><span>SSAA</span></option>
-                    <option value="instr:SATB"><span>SATB</span></option>
-                    <option value="instr:TTBB"><span>TTBB</span></option>
-                </select>
+                    <select id="filters" multiple class="closed">
+                        <!-- <button>
+                            <selectedcontent></selectedcontent>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"><path d="M64,105V40a8,8,0,0,0-16,0v65a32,32,0,0,0,0,62v49a8,8,0,0,0,16,0V167a32,32,0,0,0,0-62Zm-8,47a16,16,0,1,1,16-16A16,16,0,0,1,56,152Zm80-95V40a8,8,0,0,0-16,0V57a32,32,0,0,0,0,62v97a8,8,0,0,0,16,0V119a32,32,0,0,0,0-62Zm-8,47a16,16,0,1,1,16-16A16,16,0,0,1,128,104Zm104,64a32.06,32.06,0,0,0-24-31V40a8,8,0,0,0-16,0v97a32,32,0,0,0,0,62v17a8,8,0,0,0,16,0V199A32.06,32.06,0,0,0,232,168Zm-32,16a16,16,0,1,1,16-16A16,16,0,0,1,200,184Z"></path></svg>
+                        </button> -->
+                        <option value="" id="no-filter-option"><span><span>No </span>Filter</span></option>
+                        <span>By year</span>
+                        <option value="year:2023"><span>2023</span></option>
+                        <option value="year:2024"><span>2024</span></option>
+                        <option value="year:2025"><span>2025</span></option>
+                        <option value="year:2026"><span>2026</span></option>
+                        <option value="year:2027"><span>2027</span></option>
+                        <span>Choir</span>
+                        <option value="instr:SSAA"><span>SSAA</span></option>
+                        <option value="instr:SATB"><span>SATB</span></option>
+                        <option value="instr:TTBB"><span>TTBB</span></option>
+                    </select>
+                </div>
             </div>
             <div id="search-content">
                 <div id="search-num"></div>

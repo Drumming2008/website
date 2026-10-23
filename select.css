@@ -1,0 +1,212 @@
+#filters-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+#filters-button {
+    font-size: 1em;
+    font-family: sans-serif-font, sans-serif;
+    border: 1px solid var(--color);
+    height: 40px;
+    width: 120px;
+    border-radius: var(--br);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 10;
+    cursor: pointer;
+    transition: background 0.2s linear, outline-offset 0.15s ease, border-radius 0.2s ease;
+    outline-offset: -3px;
+    outline: 3px solid transparent;
+    border-radius: var(--br) var(--br) 0 0;
+}
+
+#filters-button.closed {
+    border-radius: var(--br);
+}
+
+#filters-button:hover {
+    background: var(--color-bg-1);
+}
+
+#filters-button:active {
+    background: var(--color-bg-1);
+}
+
+/* for browsers that don't support the fancy select */
+select {
+    appearance: none;
+    font-size: inherit;
+    text-align: center;
+    font-family: sans-serif-font, sans-serif;
+    border-radius: 0 0 var(--br) var(--br);
+    border: 1px solid var(--color);
+    border-top: none;
+    width: 120px;
+    flex-shrink: 0;
+}
+
+/* for the fancy select */
+select {
+    appearance: base-select;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    height: 42px;
+    cursor: pointer;
+    outline-offset: -3px;
+    transition: background 0.1s linear, outline-offset 0.2s ease, border-radius 0.1s 0.075s ease, clip-path 0.6s var(--bounce);
+    height: 450px;
+    background: var(--color-bg);
+    clip-path: inset(0 0 0 0);
+}
+
+select.closed:not(:focus-within) {
+    clip-path: inset(0 0 100% 0);
+}
+
+/* select:open {
+    border-bottom: none;
+    height: 41px;
+    border-radius: var(--br) var(--br) 0 0;
+    transition: background 0.1s linear, outline-offset 0.2s ease;
+}
+
+select:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: -1px;
+}
+
+::picker(select) {
+    appearance: base-select;
+    border: none;
+    background: red;
+    background: var(--color-bg);
+    border: 1px solid var(--color);
+    border-top: 0;
+    clip-path: inset(0 0 100% 0);
+    transition: display 0.2s allow-discrete, overlay 0.2s allow-discrete, outline-offset 0.2s ease, clip-path 0.4s var(--bounce);
+    border-radius: 0 0 var(--br) var(--br);
+}
+
+@keyframes select-appear {
+    from {
+        clip-path: inset(0 0 100% 0);
+    }
+
+    to {
+        clip-path: inset(0 0 0 0);
+    }
+}
+
+@keyframes change-select-text {
+    from {
+        transform: translateY(40px);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+
+selectedcontent > * {
+    display: block;
+    animation: change-select-text 0.4s var(--bounce) forwards;
+}
+
+selectedcontent > span > span {
+    display: none;
+}
+
+select:open::picker(select) {
+    animation: select-appear 0.1s cubic-bezier(.62,.16,.48,.89);
+    clip-path: inset(0 0 0 0);
+}
+
+::picker-icon {
+    display: none;
+}
+
+*/
+
+select > hr {
+    height: 1px;
+    background: var(--color);
+}
+
+select > span {
+    display: block;
+    width: 100%;
+    text-align: left;
+    font-size: 0.875em;
+    padding: 5px 10px;
+    cursor: default;
+    border-top: 1px solid var(--color);
+} 
+
+option {
+    background: transparent;
+    outline: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background 0.1s linear, outline-offset 0.2s ease;
+    outline-offset: -2px;
+    color: var(--color);
+    flex-shrink: 0;
+    height: 40px;
+    position: relative;
+    max-width: 118px;
+    width: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: start;
+    align-items: center;
+}
+
+
+::checkmark {
+    content: "";
+    mask-image: url("/images/check_mark.png");
+    mask-size: 100%;
+    background: currentColor;
+    height: 1.25em;
+    width: 1.25em;
+    margin-left: auto;
+}
+
+option:last-child {
+    border-radius: 0 0 calc(var(--br) - 1px) calc(var(--br) - 1px);
+}
+
+option > span {
+    display: block;
+}
+
+option:checked {
+    color: var(--color-bg);
+    background: var(--color-accent);
+    /* justify-content: space-between; */
+}
+
+option:not(:checked):hover {
+    background: var(--color-bg-1);
+}
+
+option:not(:checked):active {
+    background: var(--color-bg-2);
+}
+
+option:focus-visible {
+    outline: 2px solid var(--color-accent);
+}
+
+option:checked:focus-visible {
+    outline: 2px solid var(--color-bg);
+}
+
+::-webkit-search-cancel-button {
+    display: none;
+}
